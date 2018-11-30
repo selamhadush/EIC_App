@@ -1,0 +1,47 @@
+<!--<mat-card class="tabs-container">-->
+
+<!--<mat-card-content>-->
+
+<!---->
+<!--</mat-card-content>-->
+<!--</mat-card>-->
+<!--<app-page-header title="address" icon="dashboard"></app-page-header>-->
+
+<mat-tab-group style="width: 655px;margin-top: 20px;margin-left: 50px" >
+  <mat-tab label="Region">
+    <ng-template matTabContent="">
+      <div>
+        <app-list-region></app-list-region>
+      </div>
+    </ng-template>
+    <div>
+    </div>
+  </mat-tab>
+  <mat-tab label="Zone">
+    <ng-template matTabContent="">
+      <div class="tabs-container">
+        <app-list-zone></app-list-zone>
+      </div>
+    </ng-template>
+    <div>
+    </div>
+  </mat-tab>
+  <mat-tab label="Woredas">
+    <ng-template matTabContent="">
+      <div>
+        <app-list-woreda></app-list-woreda>
+      </div>
+    </ng-template>
+    <div>
+    </div>
+  </mat-tab>
+  <mat-tab label="Kebele">
+    <ng-template matTabContent="">
+      <div class="tabs-container">
+        <app-list-kebele></app-list-kebele>
+      </div>
+    </ng-template>
+    <div>
+    </div>
+  </mat-tab>
+</mat-tab-group>

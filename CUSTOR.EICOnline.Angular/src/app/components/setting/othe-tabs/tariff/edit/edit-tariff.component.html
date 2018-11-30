@@ -1,0 +1,98 @@
+<div class="containerX">
+
+  <mat-card>
+    <mat-progress-bar *ngIf="loadingIndicator" mode="query"></mat-progress-bar>
+<!--    <div style="align-items: center">
+      <mat-card-header>
+        <mat-card-title style="font-family: Calibri;font-size: 16px"> Edit Tariff</mat-card-title>
+    </mat-card-header>
+</div>-->
+<br />
+<mat-card-content>
+  <form #form="ngForm" [formGroup]="tariffForm" novalidate (ngSubmit)="onSubmit()" fxLayout="column"
+        style="font-family: Calibri;font-size: 14px"
+        autocomplete="off">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2em" class="row">
+      <mat-form-field  fxFlex="100px">
+        <mat-label>Account Code:</mat-label>
+        <input matInput formControlName="cAccCode" required maxlength="4" />
+        <mat-error *ngIf="AccCode.hasError('required')">
+          Please enter accCode
+        </mat-error>
+        <mat-error *ngIf="AccCode.hasError('pattern')">
+          Only numeric charcters are allowed!
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field  fxFlex="130px">
+        <mat-label>Tariff name:</mat-label>
+        <input matInput formControlName="cName" required />
+        <mat-error *ngIf="Name.hasError('required')">
+          Please enter tariff name amharic
+        </mat-error>
+        <mat-error *ngIf="Name.hasError('pattern')">
+          Only amharic alphabetic charcters are allowed!
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field  fxFlex="130px">
+        <mat-label>Tariff Name English:</mat-label>
+        <input matInput formControlName="cNameEnglish" />
+        <mat-error *ngIf="NameEnglish.hasError('required')">
+          Please enter tariff name english
+        </mat-error>
+        <mat-error *ngIf="NameEnglish.hasError('pattern')">
+          Only alphabetic charcters are allowed!
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field  fxFlex="80px">
+        <mat-label fxFlex="100px">Fee:</mat-label>
+        <input matInput formControlName="cFee" maxlength="4" />
+        <mat-error *ngIf="Fee.hasError('required')">
+          Please enter tariff fee
+        </mat-error>
+        <mat-error *ngIf="Fee.hasError('pattern')">
+          Only numeric charcters are allowed!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <br>
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2em" class="row">
+      <mat-form-field  fxFlex="100px">
+        <mat-label fxFlex="100px">Incremental Fee:</mat-label>
+        <input matInput fxFlex="100px" formControlName="cIncrementalFee" maxlength="4" />
+      </mat-form-field>
+      <mat-form-field  fxFlex="130px">
+        <mat-label>Quantity:</mat-label>
+        <mat-select formControlName="cQuantity" [compareWith]="compareIds" required>
+          <option value="0">--Select--</option>
+          <mat-option *ngFor="let quantity of quantitys" [value]="quantity.Id">
+            <span>{{quantity.DescriptionEnglish}}</span>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field  fxFlex="130px">
+        <mat-label>Tariff Mode:</mat-label>
+        <mat-select formControlName="cTariffModeId" [compareWith]="compareIds" required>
+          <mat-option *ngFor="let tariffMOde of tariffModes" [value]="tariffMOde.Id">
+            <span>{{tariffMOde.DescriptionEnglish}}</span>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div fxFlex.gt-sm="0 1 calc(50% - 0.5em)">
+        <mat-checkbox formControlName="cIsActive">
+          Is Active?
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="separator" style="width: 500px"></div>
+    <div mat-dialog-actions style="align-items: left" fxLayoutGap=".5em">
+      <button [disabled]="form.invalid" mat-raised-button type="submit" color="primary">
+        Save
+      </button>
+      <button mat-raised-button (click)="onBack()" color="warn" type="button">
+        Cancel
+      </button>
+    </div>
+  </form>
+</mat-card-content>
+</mat-card>
+</div>

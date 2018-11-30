@@ -1,0 +1,194 @@
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.c-container {
+  background-color: white !important;
+  border: 1px solid #c4cbcc;
+  padding: 5px;
+  color: #000000 !important;
+  font-family: Nyala !important;
+  font-size: 15px !important;
+  font-weight: normal !important;
+  font-style: normal !important;
+  //margin-right: 170px;
+  //width: 200mm !important;
+}
+
+header {
+  //padding: 10px 0;
+  margin-bottom: 5px;
+}
+
+.logo-image {
+  width: 128px !important;
+}
+
+#logo {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#logo img {
+  width: 90px;
+}
+
+#project {
+  float: left;
+}
+
+#Title1 {
+  text-align: Center;
+}
+
+#project span {
+  color: #5D6975;
+  text-align: right;
+  width: 52px;
+  margin-right: 10px;
+  display: inline-block;
+  font-size: 0.8em;
+}
+
+#sub-header span {
+  color: #5D6975;
+  text-align: right;
+  width: 52px;
+  margin-right: 10px;
+  display: inline-block;
+  font-size: 0.8em;
+}
+
+#sub-header {
+  float: right;
+  width: 282px;
+  padding-right: 20px !important;
+}
+
+#sub-header > span {
+}
+
+#sub-header > table > tbody > tr > td {
+  text-align: left !important;
+}
+
+#sub-header > table > tbody > tr > td.dta-head {
+  border-bottom: 1px solid black !important;
+}
+
+table > tbody > tr > td.a-header {
+  color: #000000 !important;
+  font-family: Nyala !important;
+  font-size: 13px !important;
+  font-weight: normal !important;
+  font-style: normal !important;
+}
+
+.certificate-title {
+  font-size: 23px;
+  padding: 1px 4px;
+  font-size: 26px;
+  font-weight: bold;
+  font-family: monospace;
+}
+
+.c-subtitle {
+}
+
+#TIN {
+  font-weight: bold !important;
+}
+
+#company {
+  float: right;
+  text-align: right;
+}
+
+#project div,
+#company div {
+  white-space: nowrap;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-bottom: 20px;
+}
+
+table tr:nth-child(2n-1) td {
+  background: white;
+}
+
+table tr > td.t-header, .caption {
+  text-align: left !important;
+  //color: #222d32;
+  //font-weight: bold;
+  //font-size: 14px;
+  text-transform: capitalize !important;
+
+  font-family: Nyala !important;
+  font-size: 15px !important;
+  font-weight: bold !important;
+  font-style: normal !important;
+}
+
+table tr > td.data {
+  border-bottom: 1px solid #ccc !important;
+}
+
+//.data {
+//  border: 1px solid #c4cbcc;
+//}
+
+table th,
+table td {
+  text-align: center;
+}
+
+table .service,
+table .desc {
+  text-align: left;
+}
+
+table td.unit,
+table td.qty,
+table td.total {
+  font-size: 1.2em;
+}
+
+table td, table th {
+  border: none !important;
+  padding: 2px;
+}
+
+#notices {
+  padding: 0px 20px !important;
+}
+
+#investmentCapital .value {
+  width: 250px;
+}
+
+#investmentCapitalEn .value {
+  width: 200px;
+}
+
+#basic .value {
+  width: 250px;
+}
+
+#basicEn .value {
+  width: 150px;
+}
+
+nobr {
+  white-space: nowrap;
+}
+
+table {
+  border: none !important;
+  border-spacing: 0px !important;
+}

@@ -1,0 +1,42 @@
+<div class="container" style="margin: auto; width: 1000px">
+  <br>
+  <h2>Information on Services Offered (የምንሰጣቸው አገልግሎቶች)</h2>
+  <mat-divider></mat-divider>
+  <div fxLayout="column" fxLayoutAlign="left" style="margin-top:10px; margin-bottom: 0px">
+    <div class="services" fxLayout="row wrap" fxLayoutAlign="left">
+      <div class="customerService" *ngFor="let customerService of customerServices">
+
+        <div class="mat-elevation-z8 service-content" fxLayout="column">
+
+          <!-- <div class="content" fxLayout="column" fxLayoutAlign="center center" fxFlex> -->
+          <div class="content" fxLayout="column" fxLayoutAlign="left left" fxFlex>
+            <!-- <div fxLayout="row" fxLayoutAlign="start center"> -->
+            <div>
+              <div class="h1">
+                <button (click)="goServiceDetail(customerService.NameEnglish,customerService.ServiceId)" mat-button
+                        color="primary" class="nav-link" matRipple
+
+                        routerLinkActive="active">
+                  <mat-icon class="nav-link-icon" [ngStyle]="{'color':'accent'}">label</mat-icon>
+                  <span style="color:gray">{{customerService.NameEnglish | filterPipe:35}}</span>
+                </button>
+              </div>
+              <!-- <div class="h1">
+                <button mat-button class="nav-link" matRipple [routerLink]="'/requirement/' + customerService.ServiceId"
+                        routerLinkActive="active">
+                  <mat-icon class="nav-link-icon" [ngStyle]="{'color':'primary', 'font-weight': 'bold'}">label
+                  </mat-icon>
+                  <span>{{customerService.Name | filterPipe:35}}</span>
+                </button>
+              </div> -->
+            </div>
+            <!-- </div> -->
+          </div>
+        </div>
+
+        <!-- <div class="no-services" *ngIf="customerServices.length === 0">
+            No services found!
+        </div> -->
+      </div>
+    </div>
+  </div>

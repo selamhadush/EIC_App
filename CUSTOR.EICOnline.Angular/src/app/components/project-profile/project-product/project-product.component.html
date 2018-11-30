@@ -1,0 +1,233 @@
+<mat-card class="margin-2" style="box-shadow: none;border: 1px solid #dddddd">
+  <mat-card-subtitle class="sub-title">
+    <!--<mat-icon class="mat-18">add</mat-icon>-->
+    Add New Product or Services
+    <mat-divider></mat-divider>
+  </mat-card-subtitle>
+
+  <form [formGroup]="productForm" novalidate>
+    <mat-card-content>
+
+      <div style="margin-bottom: 40px;" *ngIf="ServiceId=='1234'" fxLayout="row" fxLayoutAlign="start center"
+           fxLayoutGap="2em">
+        <div class="block" fxFlex="" style="margin-left: 20px">
+          <mat-form-field>
+            <mat-label>Quarter</mat-label>
+            <mat-select formControlName="Quarter" required>
+              <mat-option *ngFor="let row of Quarter" [value]="row.Id">
+                <span>{{row.DescriptionEnglish}}</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+        <div class="block" fxFlex>
+          <mat-form-field>
+            <input placeholder="Registration Year* :"
+                   matInput
+                   formControlName="RegistrationYear"
+                   [matDatepicker]="RegistrationYear">
+            <mat-datepicker-toggle matSuffix [for]="RegistrationYear"></mat-datepicker-toggle>
+            <mat-datepicker #RegistrationYear></mat-datepicker>
+            <mat-error align="start" *ngIf="formErrors.RegistrationYear" class="form__error">
+              {{ formErrors.RegistrationYear }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <!--<div class="block" fxFlex="">-->
+        <!---->
+        <!--<mat-form-field>-->
+        <!--<input #OSF type="number" formControlName="CapitalRegistrationDatetime" matInput-->
+        <!--placeholder="Capital Registration Datetime * :">-->
+        <!---->
+        <!--</mat-form-field>-->
+        <!--</div>-->
+        <div class="block" fxFlex="">
+
+          <mat-form-field>
+            <mat-select [disabled]="true" formControlName="ProjectStatus" required>
+              <option value="0">--Select--</option>
+              <label>Project Status</label>
+              <mat-option *ngFor="let status of projectStatus" [value]="status.Id">
+                <span>{{status.DescriptionEnglish}}</span>
+              </mat-option>
+            </mat-select>
+
+          </mat-form-field>
+        </div>
+      </div>
+      <mat-card-subtitle class="sub-title">
+        Detail
+        <mat-divider></mat-divider>
+      </mat-card-subtitle>
+
+      <div fxLayout.xs="row wrap"
+           fxLayoutAlign.xs="start center"
+           fxLayoutGap="2em">
+        <div class="block" fxLayoutGap="2em">
+          <mat-form-field [fxFlex]="18">
+            <mat-label>Product Name</mat-label>
+            <input type="text" matInput
+                   formControlName="ProductName">
+            <mat-error align="start" *ngIf="formErrors.ProductName">{{ formErrors.ProductName }}</mat-error>
+          </mat-form-field>
+          <mat-form-field [fxFlex]="12">
+            <mat-label>Product Quantity * :</mat-label>
+            <input type="number" matInput
+                   formControlName="ProductQty">
+            <mat-error align="start" *ngIf="formErrors.ProductQty">{{ formErrors.ProductQty }}</mat-error>
+
+          </mat-form-field>
+          <mat-form-field [fxFlex]="12">
+            <mat-label>Product Unit * :</mat-label>
+
+
+            <mat-select formControlName="ProductUnit" required>
+              <option value="0">--Select--</option>
+              <mat-option *ngFor="let unit of unitTypes" [value]="unit.Id">
+                <span>{{unit.DescriptionEnglish}}</span>
+              </mat-option>
+            </mat-select>
+            <mat-error align="start" *ngIf="formErrors.ProductUnit">{{ formErrors.ProductUnit }}</mat-error>
+          </mat-form-field>
+          <mat-form-field [fxFlex]="12">
+            <mat-label>Product Value * :</mat-label>
+            <input type="number" matInput
+                   formControlName="ProductValue">
+            <mat-error align="start" *ngIf="formErrors.ProductValue">{{ formErrors.ProductValue }}
+            </mat-error>
+          </mat-form-field>
+          <span formGroupName="sharePercent">
+           <mat-form-field [fxFlex]="13">
+             <mat-label>Domestic Market Share * :</mat-label>
+             <input #DMS type="number" matInput
+                    formControlName="DomesticMarketShare" [errorStateMatcher]="confirmValidParentMatcher">
+             <mat-error align="start" *ngIf="formErrors.DomesticMarketShare">{{ formErrors.DomesticMarketShare }}
+             </mat-error>
+             <mat-error>
+                {{errors.ExportMarketShare}}
+            </mat-error>
+           </mat-form-field>
+           <mat-form-field [fxFlex]="13">
+             <mat-label>Export Market Share * :</mat-label>
+             <input #EMS type="number" matInput
+                    formControlName="ExportMarketShare" [errorStateMatcher]="confirmValidParentMatcher">
+                <mat-error>
+                {{errors.ExportMarketShare}}
+            </mat-error>
+           </mat-form-field>
+         </span>
+
+        </div>
+
+        <div class="block" fxFlex="10%">
+          <button [disabled]="!productForm.valid" class="custom-button" (click)="onSubmit()">
+            <mat-icon color="accent" class="mat-18">done</mat-icon>
+            {{editMode ? 'Save' : 'Add'}}
+          </button>
+         
+        </div>
+      </div>
+    </mat-card-content>
+  </form>
+</mat-card>
+<mat-card class="margin-2 padding-0" *ngIf="productData.length>0">
+  <mat-card-header>
+    <mat-card-subtitle class="sub-title">List of product
+      <!--<mat-divider></mat-divider>-->
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="spinner-container" *ngIf="loading ">
+      <mat-progress-bar mode="query"></mat-progress-bar>
+    </div>
+    <mat-table #table [dataSource]="dataSource">
+      <ng-container style="width: 10px !important;" matColumnDef="No">
+        <mat-header-cell style="width: 10px !important;" *matHeaderCellDef>No</mat-header-cell>
+        <mat-cell style="width: 10px !important;" *matCellDef="let productData;let i=index;">{{i+1}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="ProductName">
+        <mat-header-cell *matHeaderCellDef>Product Name</mat-header-cell>
+        <mat-cell *matCellDef="let productData"> {{productData.ProductName }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="ProductQty">
+        <mat-header-cell *matHeaderCellDef>Project Description</mat-header-cell>
+        <mat-cell *matCellDef="let productData"> {{productData.ProductQty }}</mat-cell>
+      </ng-container>
+
+      <!--<ng-container matColumnDef="ProductUnit">-->
+      <!--<mat-header-cell *matHeaderCellDef> Product Unit</mat-header-cell>-->
+      <!--<mat-cell *matCellDef="let productData"> {{productData.ProductUnit }}</mat-cell>-->
+      <!--</ng-container>-->
+
+      <ng-container matColumnDef="ProductValue">
+        <mat-header-cell *matHeaderCellDef>Product Value</mat-header-cell>
+        <mat-cell *matCellDef="let productData">{{productData.ProductValue }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="DomesticMarketShare">
+        <mat-header-cell *matHeaderCellDef>Domestic Market Share</mat-header-cell>
+        <mat-cell *matCellDef="let productData">
+          {{productData.DomesticMarketShare}}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="ExportMarketShare">
+        <mat-header-cell *matHeaderCellDef>Export Market Share</mat-header-cell>
+        <mat-cell *matCellDef="let productData">
+          {{productData.ExportMarketShare}}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Remark">
+        <mat-header-cell *matHeaderCellDef>Remark</mat-header-cell>
+        <mat-cell *matCellDef="let productData">
+          {{productData.Remark}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Action">
+        <mat-header-cell fxFlex="15" *matHeaderCellDef>Action</mat-header-cell>
+        <mat-cell fxFlex="15" *matCellDef="let productData;let i=index;">
+          <div>
+            <a class="pointer" mat-min-fab matTooltip="Click here to edit the product"
+               (click)="onEditProduct(i)">
+              <mat-icon color="primary" class="mat-18">edit</mat-icon>
+              Edit
+            </a>
+            <a class="pointer" mat--mini-fab color="warn" matTooltip="Click here to delete the product"
+               (click)="deleteProduct(i,productData.ProjectOutputId)">
+              <mat-icon color="warn">delete</mat-icon>
+              Delete
+            </a>
+          </div>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns">
+      </mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+  </mat-card-content>
+  <div align="center">
+    <div style="padding: 20px" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2em">
+
+      <div fxFlex="15">
+
+        <!--<button class="custom-button" (click)="next()" color="warn" type="button">-->
+        <!--Back-->
+        <!--</button>-->
+      </div>
+      <div style="text-align: center" fxFlex="67" fxFlexAlign="center">
+
+      </div>
+      <div fxFlex="15">
+
+        <!--<button class="custom-button" (click)="next()" color="warn" type="button">-->
+        <!--Next-->
+        <!--</button>-->
+      </div>
+
+    </div>
+  </div>
+</mat-card>
+

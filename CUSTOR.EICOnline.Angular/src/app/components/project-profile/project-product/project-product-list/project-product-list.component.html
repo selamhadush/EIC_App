@@ -1,0 +1,38 @@
+<table style="height: 320px;display: block;overflow: auto;" class="scrollbar table full-width">
+  <thead>
+  <th>No</th>
+  <th>Product Name</th>
+  <th>Product Qty</th>
+  <th>Product Unit</th>
+  <th>Product Value</th>
+  <th>Domestic Market Share</th>
+  <th>Export Market Share</th>
+
+  <th>Remark</th>
+
+  </thead>
+  <tbody style="overflow: auto;">
+  <tr class="planned">
+    <td></td>
+    <td>{{plannedProductList?.ProductName}}</td>
+    <td>{{plannedProductList?.ProductQty}}</td>
+    <td>{{plannedProductList?.ProductUnit}}</td>
+    <td>{{plannedProductList?.ProductValue}}</td>
+    <td>{{plannedProductList?.DomesticMarketShare}}</td>
+    <td>{{plannedProductList?.ExportMarketShare}}</td>
+    <td>{{plannedProductList?.Remark}}</td>
+
+  </tr>
+  <tr *ngFor="let product of productList;let i=index;">
+    <td>{{i+1}}</td>
+    <td>{{product.ProductName}}</td>
+    <td>{{product.ProductQty}}</td>
+    <td>{{product.ProductUnit}}</td>
+    <td>{{product.ProductValue}}</td>
+    <td>{{product.DomesticMarketShare}}</td>
+    <td>{{product.ExportMarketShare}}</td>
+    <td>{{product.Remark}}</td>
+
+  </tr>
+  </tbody>
+</table>

@@ -1,0 +1,37 @@
+<div class="page-content" fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
+  <div>
+    <mat-toolbar color="primary">
+      <mat-toolbar-row>
+        <span style="margin-top:9px; margin-right: 5px"><mat-icon>lock_open</mat-icon></span>
+        <span>Login to eInvest</span>
+        <span class="toolbar-spacer"></span>
+        <div class="header-actions">
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-card class="mat-elevation-z6">
+      <mat-card-header>
+        <!-- <mat-card-title>{{'mainMenu.Login' | translate}}</mat-card-title> -->
+      </mat-card-header>
+      <mat-card-content>
+        <app-login-control [isModal]="false"></app-login-control>
+      </mat-card-content>
+      <div>
+        <div style="text-align: center">
+          <button mat-raised-button color="primary" [disabled]="loginControl.isLoading"
+                  (click)="loginControl.login()">
+            <mat-spinner *ngIf="loginControl.isLoading" [diameter]="24"></mat-spinner>
+            {{'mainMenu.Login' | translate | uppercase}}
+          </button>
+        </div>
+      </div>
+      <mat-card-actions style="margin: 10px;font-size: 13px">
+        <div style="text-align: center" class="m-t-10 row txt-c"><p><span translate="">Did you forget your </span>
+          <a ui-sref="confirmEmail" translate="" routerLink="/manage-password/0">password</a>?
+        </p>
+          <span>Not created your account yet? <a routerLink="/register">Register</a></span>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

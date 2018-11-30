@@ -1,0 +1,44 @@
+/* div {
+  display: flex;
+} */
+
+mat-card {
+  max-width: 500px;
+  margin: 10px auto;
+  text-align: center;
+}
+mat-checkbox {
+  max-width: 500px;
+  margin: 2em auto;
+  text-align: left;
+}
+.mat-radio-button {
+  display: inline-flex;
+  flex-direction: row;
+}
+/*.mat-radio-group {
+  margin: 15px;
+}
+
+.mat-radio-group {
+  margin: 15px 0;
+}*/
+/*mat-form-field  {
+  max-width: 100px;
+  margin-right: 5px;
+  font-size: 16px;
+}*/
+.row
+{
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.customer-radio-group {
+  display: inherit;
+  flex-direction: row;
+}
+
+.customer-radio-button {
+  margin: 5px;
+}

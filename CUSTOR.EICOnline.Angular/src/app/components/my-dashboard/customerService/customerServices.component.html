@@ -1,0 +1,47 @@
+<app-page-header title="Service" icon="view_list"></app-page-header>
+
+<mat-card fxFlex="50">
+
+  <mat-card-content>
+    <div>
+      <div style="border-bottom: 1px solid #f2f3f3;
+" class=" mat-accent-bg p-24" fxLayout="column" fxLayoutAlign="space-between">
+        <div style="background-color: #fafafa;">
+          <div class="sub-title"><h4> Choose Service</h4></div>
+          <!--<mat-divider></mat-divider>-->
+        </div>
+      </div>
+      <div class="service-list" class="" fxLayout="column">
+        <a mat-button class="service" *ngFor="let customerService of customerServices;let i=index"
+           (click)="startService(customerService.ServiceId,customerService.NameEnglish)"
+           matRipple>
+          <div fxLayout="row" fxLayoutAlign="start center">
+
+            <div class="image-wrapper" fxFlex="0 1 auto" fxLayoutAlign="center center">
+              <!-- <img [src]=""  class="image" alt="{{customerService.serviceNameEnglish}}" /> -->
+              <div class="side-blt">{{i+1}}</div>
+            </div>
+
+            <div fxLayout="row" fxFlex>
+
+              <div class="" fxFlex fxLayout="column" fxLayoutAlign="center start">
+                <div class=" service-name ">
+                  {{customerService.NameEnglish | filterPipe: 35}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+      <!--<mat-divider></mat-divider>-->
+      <div style="margin-top: 5px;padding-top: 5px;padding-bottom:5px;border-top:  1px solid #fafafa" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="2em">
+        <button color="primary" mat-raised-button="" a mat-button
+                (click)="close()">Back
+        </button>
+
+
+      </div>
+    </div>
+  </mat-card-content>
+
+</mat-card>

@@ -1,0 +1,21 @@
+header {
+  margin: 1em;
+  color: cadetblue;
+  border-bottom: 1px solid #f2f3f3;
+}
+
+header .mat-icon {
+  width: 24px;
+  height: 24px;
+  font-size: 16px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: 8px;
+}
+
+header h3 {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  vertical-align: middle;
+}

@@ -1,0 +1,50 @@
+<div class="width-600 kebele-container margin-3">
+
+  <div class="mat-elevation-z8">
+    <mat-progress-bar *ngIf="loadingIndicator" mode="query"></mat-progress-bar>
+    <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="Id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="100px">No</mat-header-cell>
+        <mat-cell *matCellDef="let row" fxFlex="100px"> --</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Description">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="150px">Description</mat-header-cell>
+        <mat-cell *matCellDef="let row" fxFlex="150px"> {{row.Description}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="DescriptionEnglish">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="150px">Description English</mat-header-cell>
+        <mat-cell *matCellDef="let row" fxFlex="150px"> {{row.DescriptionEnglish}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef fxFlex="100px">
+          <button mat-button color="primary" (click)="editKebele()">
+            <mat-icon class="mat-button-icon">add</mat-icon>
+            {{'common.commands.Add' | translate}}
+          </button>
+        </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef fxFlex="100px">
+        </mat-header-cell>
+        <mat-cell *matCellDef="let kebeles" fxFlex="100px">
+          <button mat-icon-button (click)="editKebele(kebeles)" type="button">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="confirmDelete(kebeles)" type="button">
+            <mat-icon color="warn">delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+
+    <mat-paginator
+
+      #paginator
+      [pageSize]="7"
+      [pageSizeOptions]="[5,7, 10, 20]">
+    </mat-paginator>
+  </div>
+</div>

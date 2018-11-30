@@ -1,0 +1,14 @@
+mat-form-field {
+  width: 130px !important;
+}
+
+mat-header-row {
+  background-color: white;
+  border-top: 1px solid #f1f1f1;
+  border-bottom: 1px solid #f1f1f1 !important;
+}
+
+.mat-card-header {
+  min-height: 30px;
+  background-color: #fafafa;
+}

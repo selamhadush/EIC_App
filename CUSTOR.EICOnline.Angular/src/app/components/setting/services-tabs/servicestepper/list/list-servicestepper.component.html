@@ -1,0 +1,67 @@
+<div style="width:800px" class="margin-3">
+  <!--<mat-toolbar color="primary">-->
+    <!--<mat-toolbar-row>-->
+      <!--<span>Service Step List</span>-->
+      <!--<span class="toolbar-spacer"></span>-->
+      <!--<div class="header-actions">-->
+        <!--<button mat-icon-button>-->
+          <!--<mat-icon>search</mat-icon>-->
+        <!--</button>-->
+        <!--<mat-form-field>-->
+          <!--<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">-->
+        <!--</mat-form-field>-->
+        <!--<button mat-icon-button [routerLink]="['/servicesteppers/edit/', 0]">-->
+          <!--<mat-icon class="mat-button-icon">add</mat-icon>-->
+          <!--Add-->
+        <!--</button>-->
+        <!--<button mat-icon-button>-->
+          <!--<mat-icon>more_vertical</mat-icon>-->
+        <!--</button>-->
+      <!--</div>-->
+    <!--</mat-toolbar-row>-->
+  <!--</mat-toolbar>-->
+  <div class="mat-elevation-z8">
+    <mat-progress-bar *ngIf="loadingIndicator" mode="query"></mat-progress-bar>
+    <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="ServiceName">
+        <mat-header-cell *matHeaderCellDef flex="250px">Service Name</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.Service.DisplayNameEnglish}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.Name}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="NameEnglish">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Description English</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.NameEnglish}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="IsActive">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="50px">IsActive</mat-header-cell>
+        <mat-cell *matCellDef="let row" fxFlex="50px"> {{row.IsActive}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef fxFlex="100px">
+          <button  mat-button color="primary"  (click)="editServiceStep()">
+            <mat-icon class="mat-button-icon">add</mat-icon>{{'common.commands.Add' | translate}}
+          </button>
+        </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef fxFlex="100px">
+        </mat-header-cell>
+        <mat-cell *matCellDef="let servicestepper" fxFlex="100px">
+          <button mat-icon-button (click)="editServiceStep(servicestepper)" type="button">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="confirmDelete(servicestepper)" type="button">
+            <mat-icon color="warn">delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+
+    <mat-paginator pageSize="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+</div>

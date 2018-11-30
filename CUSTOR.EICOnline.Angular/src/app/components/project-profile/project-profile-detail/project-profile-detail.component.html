@@ -1,0 +1,246 @@
+<mat-card style="margin-top: 20px;">
+  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0">
+    <div class="block" fxFlex="20">
+      <app-page-header title="projectDetail" icon="view_list"></app-page-header>
+
+    </div>
+    <div id="title1" class="block" fxFlex="70">
+
+      <span class="page-title">Investor: {{investorName}}</span>
+      <span class="slideBorder">/</span>
+      <span class="page-title">Project : {{projectDetail?.ProjectName}}</span>
+      &nbsp;&nbsp;
+      <span class="page-title">
+        Project Stage:
+        <span style="color: #08b34d;">
+          {{projectStageItem.DescriptionEnglish}}
+        </span>
+      </span>
+
+      &nbsp;&nbsp;
+      <span class="page-title">Project Status: <span
+        style="color: #08b34d;">{{projectStatusItem.DescriptionEnglish}}</span></span>
+
+    </div>
+  </div>
+  <mat-card-content style="margin-bottom: 30px;">
+    <div style="margin-bottom: 40px;" fxLayout="margin-10 row wrap">
+      <div class="project_table_wdg mat-elevation-z6">
+
+        <ul>
+          <li>Address</li>
+          <!--<li></li>-->
+          <li><span class="header">Specific Area Name :</span> {{addressList?.SpecificAreaName}}</li>
+          <li><span class="header">Kebele :</span>{{addressList?.Kebele.DescriptionEnglish}}</li>
+          <li><span class="header">Woreda :</span>{{addressList?.Woreda.DescriptionEnglish}}</li>
+          <li><span class="header">Zone :</span>{{addressList?.Zone.DescriptionEnglish}}</li>
+          <li><span class="header">RegionId :</span>{{addressList?.Region.DescriptionEnglish}}
+          </li>
+          <li><span class="header">Remark :</span>{{addressList?.Remark}}</li>
+
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <!--<li>-->
+          <!--<a (click)="editProject(0,projectDetail.ProjectId)" mat-min-fab matTooltip="Edit Project">-->
+          <!--<mat-icon color="primary" class="mat-18">edit</mat-icon>-->
+          <!--</a>-->
+          <!--<a mat&#45;&#45;mini-fab (click)="onDelete('address',1)" color="accent" matTooltip="Delete Project">-->
+          <!--<mat-icon color="accent">delete</mat-icon>-->
+          <!--</a>-->
+          <!--</li>-->
+        </ul>
+
+        <ul>
+          <li>Utility</li>
+          <li><span class="header">Electric Power :</span>{{projectRequirement?.ElectricPower}}</li>
+          <li><span class="header">Land Agricultural :</span>{{projectRequirement?.LandAgricultural}}</li>
+          <li><span class="header">Land Industrial :</span>{{projectRequirement?.LandIndustrial}}</li>
+          <li><span class="header">Land Service :</span>{{projectRequirement?.LandService}}</li>
+          <li><span class="header">Other Utility :</span>{{projectRequirement?.OtherUtility}}</li>
+          <li><span class="header">Water :</span>{{projectRequirement?.Water}}</li>
+          <li><span class="header">Remark :</span>{{projectRequirement?.Remark}}</li>
+
+          <li></li>
+          <li></li>
+
+          <!--<li>-->
+          <!--<a (click)="editProject(1,projectDetail.ProjectId)" mat-min-fab matTooltip="Edit Project">-->
+          <!--<mat-icon color="primary" class="mat-18">edit</mat-icon>-->
+          <!--</a>-->
+          <!--<a mat&#45;&#45;mini-fab (click)="onDelete('Utility',projectRequirement?.ProjectRequirementId)"-->
+          <!--color="accent" matTooltip="Delete Project">-->
+          <!--<mat-icon color="accent">delete</mat-icon>-->
+          <!--</a>-->
+          <!--</li>-->
+        </ul>
+
+        <ul>
+          <li>Cost</li>
+          <li><span class="header">Building Cost :</span>{{projectCost?.BuildingCost}}</li>
+          <li><span class="header">Initial Working Capital Cost :</span>{{projectCost?.InitialWorkingCapitalCost}}</li>
+          <li><span class="header">Land Cost :</span>{{projectCost?.LandCost}}</li>
+          <li><span class="header">Machinery Cost :</span>{{projectCost?.MachineryCost}}</li>
+          <li><span class="header">Office Equipment Cost :</span>{{projectCost?.OfficeEquipmentCost}}</li>
+          <li><span class="header">Transport Cost :</span>{{projectCost?.TransportCost}}</li>
+          <li><span class="header">Equity Finance : </span>{{projectCost?.EquityFinance}}</li>
+          <li><span class="header">Loan Finance :</span>{{projectCost?.LoanFinance}}</li>
+          <!--<li>{{projectCost.OtherSourceFinance}}</li>-->
+          <!--<li>{{projectCost.OtherSourceDescription}}</li>-->
+
+          <!--<li>-->
+          <!--&lt;!&ndash;<a mat-min-fab (click)="editProject(2,projectDetail.ProjectId)" matTooltip="Edit Project">&ndash;&gt;-->
+          <!--&lt;!&ndash;<mat-icon color="primary" class="mat-18">edit</mat-icon>&ndash;&gt;-->
+          <!--&lt;!&ndash;</a>&ndash;&gt;-->
+          <!--&lt;!&ndash;<a (click)="onDelete('cost',projectCost?.ProjectCostId)" color="accent" matTooltip="Delete Project">&ndash;&gt;-->
+          <!--&lt;!&ndash;<mat-icon color="accent">delete</mat-icon>&ndash;&gt;-->
+          <!--&lt;!&ndash;</a>&ndash;&gt;-->
+          <!--</li>-->
+        </ul>
+
+        <ul>
+          <li>Employment</li>
+          <li><span class="header">Permanent Female :</span>{{projectEmployement?.PermanentFemale}}</li>
+          <li><span class="header">Permanent Male :</span>{{projectEmployement?.PermanentMale}}</li>
+          <li><span class="header">Permanent Foreign Female :</span>{{projectEmployement?.PermanentForeignFemale}}</li>
+          <li><span class="header">Permanent Female :</span>{{projectEmployement?.PermanentFemale}}</li>
+          <li><span class="header">Temporary Female :</span>{{projectEmployement?.TemporaryFemale}}</li>
+          <li><span class="header">Temporary Male :</span>{{projectEmployement?.TemporaryMale}}</li>
+          <li><span class="header">Temporary Foreign Female :</span>{{projectEmployement?.TemporaryForeignFemale}}</li>
+          <li><span class="header">Temporary Foreign Male :</span>{{projectEmployement?.TemporaryForeignMale}}</li>
+
+
+        </ul>
+
+
+      </div>
+    </div>
+    <label class="sub-label">Project Output/Services</label>
+    <div class="margin-10" fxFlex="87%" fxLayout="row wrap" fxLayoutGap="3em">
+
+      <div class="block" fxFlex="">
+        <table class="full-width mat-elevation-z3">
+          <!--<caption class="caption">Project Output/Services</caption>-->
+          <thead>
+          <th>No</th>
+          <th>Product Name</th>
+          <th>Product Qty</th>
+          <th>Product Value</th>
+          <!--<th>Product Unit</th>-->
+          <th>Export Market Share</th>
+          <th>Domestic Market Share</th>
+          <th>Remark</th>
+
+          </thead>
+          <tbody>
+          <tr *ngFor="let output of projectOutput;let i=index;">
+            <td>{{i+1}}</td>
+            <td>{{output.ProductName}}</td>
+            <td>{{output.ProductQty}}</td>
+            <td>{{output.ProductValue}}</td>
+            <!--<td>{{output.ProductUnit}}</td>-->
+            <td>{{output.ExportMarketShare}} %</td>
+            <td>{{output.DomesticMarketShare}} %</td>
+            <td>{{output.Remark}}</td>
+
+
+            <!--<td>-->
+            <!--<a mat-min-fab (click)="editProject(4,projectDetail.ProjectId)" matTooltip="Edit Project">-->
+            <!--<mat-icon color="primary" class="mat-18">edit</mat-icon>-->
+            <!--</a>-->
+            <!--<a mat&#45;&#45;mini-fab (click)="onDelete('nationalityComposition',output.ProjectOutputId)"-->
+            <!--color="accent"-->
+            <!--matTooltip="Delete Project">-->
+            <!--<mat-icon color="accent">delete</mat-icon>-->
+            <!--</a>-->
+            <!--</td>-->
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div style="margin-top: 50px !important;"
+         fxFlex="87%"
+         fxLayout="row wrap"
+         fxLayoutGap="3em">
+      <div class="block" fxFlex="">
+        <label class="sub-label">Project Raw Material Input</label>
+      </div>
+      <div class="block" fxFlex="">
+        <label class="sub-label">Project Nationality composition</label>
+      </div>
+    </div>
+    <div
+      class=" mat-elevation-z2"
+      fxFlex="87%"
+      fxLayout="row wrap"
+      fxLayoutGap="3em">
+      <div class="block" fxFlex="">
+
+        <table class="full-width ">
+          <thead>
+          <th>No</th>
+          <th>Raw Material Type</th>
+          <th>Is Foreign</th>
+          <th>Remark</th>
+          </thead>
+          <tbody>
+          <tr *ngFor="let input of projectInputs;let i=index;">
+            <td>{{i+1}}</td>
+            <td>{{input.RawMaterialType}}</td>
+            <td>{{input.IsForeign? 'yes':'no'}}</td>
+            <td>{{input.Remark}}</td>
+            <!--<td>-->
+            <!--<a mat-min-fab (click)="editProject(1,projectDetail.ProjectId)" matTooltip="Edit Project">-->
+            <!--<mat-icon color="primary" class="mat-18">edit</mat-icon>-->
+            <!--</a>-->
+            <!--<a mat&#45;&#45;mini-fab (click)="onDelete('Input',input.ProjectInputId)" color="accent"-->
+            <!--matTooltip="Delete Project">-->
+            <!--<mat-icon color="accent">delete</mat-icon>-->
+            <!--</a></td>-->
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="block" fxFlex="">
+
+        <table class="full-width">
+          <thead>
+          <th>No</th>
+          <th>Nationality</th>
+          <th>Qty</th>
+          <th>SharePercent</th>
+          <th>Description</th>
+          </thead>
+          <tbody>
+          <tr *ngFor="let share of projectShare;let i=index;">
+            <td>{{i+1}}</td>
+            <td>{{share.Nationality}}</td>
+            <td>{{share.Qty}}</td>
+            <td>{{share.SharePercent}}</td>
+            <td>{{share.Description}}</td>
+            <!--<td>-->
+            <!--<a mat-min-fab (click)="editProject(4,projectDetail.ProjectId)" matTooltip="Edit Project">-->
+            <!--<mat-icon color="primary" class="mat-18">edit</mat-icon>-->
+            <!--</a>-->
+            <!--<a mat&#45;&#45;mini-fab (click)="onDelete('nationalityComposition',share.ProjectNationalityCompositionId)"-->
+            <!--color="accent"-->
+            <!--matTooltip="Delete Project">-->
+            <!--<mat-icon color="accent">delete</mat-icon>-->
+            <!--</a></td>-->
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-divider></mat-divider>
+  <mat-card-actions>
+    <button color="primary" mat-raised-button="" (click)="back()">
+      <mat-icon class="mat-18">arrow_back</mat-icon>
+      Back
+    </button>
+  </mat-card-actions>
+</mat-card>

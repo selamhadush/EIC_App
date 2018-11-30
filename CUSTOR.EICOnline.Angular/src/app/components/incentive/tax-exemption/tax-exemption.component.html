@@ -1,0 +1,104 @@
+<mat-card class="margin-2" style="box-shadow: none;border: 1px solid #dddddd" xmlns="http://www.w3.org/1999/html">
+
+  <form #form="ngForm" [formGroup]="taxexemptionForm" novalidate>
+    <mat-card-content>
+      <div fxLayout.xs="row wrap" fxLayoutAlign.xs="start center" fxLayoutGap="2em">
+        <div class="block" fxLayoutGap="2em">
+          <mat-form-field fxFlex="40">
+            <mat-label>{{'taxexemption.RevenueBranch' | translate}}</mat-label>
+            <mat-select formControlName="RevenueBranch" style="font-family: Calibri" type="text"
+                        (selectionChange)="setSelectedText($event.value)"
+                        [compareWith]="compareIds" required>
+              <option value="0">--Select--</option>
+              <mat-option *ngFor="let revenuebranch of Lookups"
+                          [value]="revenuebranch.LookupId">
+                <span> {{revenuebranch.Amharic}}</span>
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="RevenueBranch.hasError('required')">
+              {{'common.validation.Required' | translate}}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input placeholder="Request Date * :" required
+                   formControlName="RequestDate"
+                   matInput
+                   [matDatepicker]="RequestDate">
+            <mat-datepicker-toggle matSuffix [for]="RequestDate"></mat-datepicker-toggle>
+            <mat-datepicker #RequestDate>
+            </mat-datepicker>
+          </mat-form-field>
+          <mat-form-field [fxFlex]="20">
+           <mat-label>{{'taxexemption.ExemptionYear' | translate}}</mat-label>
+            <input type="text" matInput required
+                   formControlName="ExemptionYearRequested">
+            <mat-error *ngIf="ExemptionYearRequested.hasError('pattern')">
+              Only neumbric charcters are allowed!
+            </mat-error>
+            <mat-error *ngIf="!ExemptionYearRequested.hasError('maxlength')">
+              Maximum charcters length is 1!
+            </mat-error>
+          </mat-form-field>
+
+          <button [disabled]="form.invalid" class="custom-button" (click)="onSubmit()">
+            <mat-icon color="accent" class="mat-18">done</mat-icon>
+            {{editMode ? 'Save' : 'Add'}}
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+
+  </form>
+</mat-card>
+<!--*ngIf="tax-exemptionModels.length>0"-->
+<mat-card class="margin-2 padding-0">
+  <!--<mat-card-header>-->
+  <!--<mat-card-subtitle class="sub-title">List of Tax Exemption-->
+  <!--</mat-card-subtitle>-->
+  <!--</mat-card-header>-->
+  <mat-card-content>
+    <div class="spinner-container" *ngIf="loading ">
+      <mat-progress-bar mode="query"></mat-progress-bar>
+    </div>
+    <mat-table #table [dataSource]="dataSource">
+      <ng-container matColumnDef="RevenueBranch">
+        <mat-header-cell *matHeaderCellDef fxFlex="30">Revenue Branch</mat-header-cell>
+        <mat-cell *matCellDef="let TaxExemptionModels" fxFlex="30"> {{TaxExemptionModels.RevenueBranchDescription }}
+          <!--| letterlookupPipe : 1-->
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="RequestDate">
+        <mat-header-cell *matHeaderCellDef fxFlex="20">Request Date</mat-header-cell>
+        <mat-cell *matCellDef="let TaxExemptionModels" fxFlex="20"> {{TaxExemptionModels.RequestDate |  date:'MM/dd/yyyy'}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="ExemptionYearRequested">
+        <mat-header-cell *matHeaderCellDef fxFlex="8"> Exemption Year</mat-header-cell>
+        <mat-cell *matCellDef="let TaxExemptionModels" fxFlex="8"> {{TaxExemptionModels.ExemptionYearRequested }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Action">
+        <mat-header-cell fxFlex="18" *matHeaderCellDef>Action</mat-header-cell>
+        <mat-cell fxFlex="18" *matCellDef="let TaxExemptionModels;let i=index;">
+          <div>
+            <a class="pointer" mat-min-fab matTooltip="Click here to edit the tax exemption"
+               (click)="onEditTaxExemption(i)">
+              <mat-icon color="primary" class="mat-18">edit</mat-icon>
+              Edit
+            </a>
+            <a class="pointer" mat--mini-fab color="warn" matTooltip="Click here to delete the tax exemption"
+               (click)="deleteTaxExemption(i,TaxExemptionModels.TaxExemptionID)">
+              <mat-icon color="warn">delete</mat-icon>
+              Delete
+            </a>
+          </div>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns">
+      </mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+  </mat-card-content>
+</mat-card>
+
+

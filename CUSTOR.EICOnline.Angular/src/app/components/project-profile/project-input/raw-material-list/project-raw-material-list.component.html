@@ -1,0 +1,34 @@
+<table style="height: 320px;display: block;overflow: auto;" class="scrollbar table full-width">
+  <thead>
+  <th>No</th>
+  <th>Raw Material Type</th>
+  <th>IsForeign</th>
+
+  <th>Remark</th>
+
+  </thead>
+  <tbody style="overflow: auto;">
+  <tr class="planned">
+    <td></td>
+    <td>{{plannedRawMaterialList?.RawMaterialType}}</td>
+
+    <td>
+      <span *ngIf="plannedRawMaterialList?.IsForeign===true">Foreign</span>
+      <span *ngIf="plannedRawMaterialList?.IsForeign===false">Local</span>
+    </td>
+
+    <td>{{plannedRawMaterialList?.Remark}}</td>
+
+  </tr>
+  <tr *ngFor="let raw of rawMaterialList;let i=index;">
+    <td>{{i+1}}</td>
+    <td>{{raw.RawMaterialType}}</td>
+
+    <td> <span *ngIf="raw?.IsForeign===true">Foreign</span>
+      <span *ngIf="raw?.IsForeign===false">Local</span></td>
+
+    <td>{{raw.Remark}}</td>
+
+  </tr>
+  </tbody>
+</table>

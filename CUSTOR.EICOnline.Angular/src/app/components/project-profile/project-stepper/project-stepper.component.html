@@ -1,0 +1,227 @@
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0">
+  <div class="block" fxFlex="">
+    <app-page-header title="new" icon=""></app-page-header>
+
+  </div>
+  <div id="title1" class="block" fxFlex="50">
+    <span class="page-title">{{title}}</span>
+    <span class="slideBorder">/</span>
+    <span class="page-title">{{investorName}}</span>
+    <span class="slideBorder">/</span>
+    <span class="page-title">{{projectName}}</span>
+
+
+  </div>
+</div>
+
+<mat-tab-group #stepper>
+
+  <mat-tab [disabled]="ServiceId==='1234'" label="Service Info">
+    <ng-template matTabContent>
+      <!--<a [routerLink]="['/service-info/0']"></a>-->
+      <app-service-info></app-service-info>
+    </ng-template>
+  </mat-tab>
+  <mat-tab [disabled]="nextIndex <1 || ServiceId==='1234'" label="Profile">
+    <ng-template matTabContent>
+      <div fxLayout="row" fxLayoutAlign="center">
+        <div fxFlex="15">
+          <button class="next-button" (click)="back()" type="button">
+            Back
+          </button>
+        </div>
+        <div style="text-align: center" fxFlex="75" fxFlexAlign="center">
+        </div>
+        <div fxFlex="10">
+          <button class="next-button" (click)="next()" color="primary" type="button">
+            Next
+          </button>
+        </div>
+      </div>
+
+      <app-project-profile-form></app-project-profile-form>
+
+    </ng-template>
+  </mat-tab>
+  <mat-tab [disabled]="nextIndex<2 || ServiceId==='1234'" label="Input">
+    <ng-template matTabContent>
+
+      <div fxLayout="row" fxLayoutAlign="center">
+        <div fxFlex="15">
+          <button class="next-button" (click)="back()" type="button">
+            Back
+          </button>
+        </div>
+        <div style="text-align: center" fxFlex="75" fxFlexAlign="center">
+        </div>
+        <div fxFlex="10">
+          <button class="next-button" (click)="next()" color="primary" type="button">
+            Next
+          </button>
+        </div>
+      </div>
+      <app-project-input-output></app-project-input-output>
+    </ng-template>
+  </mat-tab>
+  <mat-tab [disabled]="nextIndex<3|| ServiceId==='1234'" label="Raw Material">
+    <ng-template matTabContent>
+      <div fxLayout="row" fxLayoutAlign="center">
+        <div fxFlex="15">
+          <button class="next-button" (click)="back()" type="button">
+            Back
+          </button>
+        </div>
+        <div style="text-align: center" fxFlex="75" fxFlexAlign="center">
+        </div>
+        <div fxFlex="10">
+          <button class="next-button" (click)="next()" color="primary" type="button">
+            Next
+          </button>
+        </div>
+      </div>
+      <app-raw-material-form></app-raw-material-form>
+    </ng-template>
+  </mat-tab>
+  <mat-tab [disabled]="nextIndex<3" label="Cost">
+    <ng-template matTabContent>
+      <div fxLayout="row" fxLayoutAlign="center">
+        <div fxFlex="15">
+          <button class="next-button" (click)="back()" type="button">
+            Back
+          </button>
+        </div>
+        <div style="text-align: center" fxFlex="75" fxFlexAlign="center">
+        </div>
+        <div fxFlex="10">
+          <button class="next-button" (click)="next()" color="primary" type="button">
+            Next
+          </button>
+        </div>
+      </div>
+      <app-project-cost></app-project-cost>
+    </ng-template>
+  </mat-tab>
+  <mat-tab [disabled]="nextIndex<5 || ServiceId==='1234'" label="Employment">
+    <ng-template matTabContent>
+      <div fxLayout="row" fxLayoutAlign="center">
+        <div fxFlex="15">
+          <button class="next-button" (click)="back()" type="button">
+            Back
+          </button>
+        </div>
+        <div style="text-align: center" fxFlex="75" fxFlexAlign="center">
+        </div>
+        <div fxFlex="10">
+          <button class="next-button" (click)="next()" color="primary" type="button">
+            Next
+          </button>
+        </div>
+      </div>
+      <app-project-employment></app-project-employment>
+    </ng-template>
+  </mat-tab>
+  <mat-tab [disabled]="nextIndex<6 || ServiceId==='1234'" label="Share">
+    <ng-template matTabContent>
+      <div fxLayout="row" fxLayoutAlign="center">
+        <div fxFlex="15">
+          <button class="next-button" (click)="back()" type="button">
+            Back
+          </button>
+        </div>
+        <div style="text-align: center" fxFlex="75" fxFlexAlign="center">
+        </div>
+        <div fxFlex="10">
+          <button class="next-button" (click)="next()" color="primary" type="button">
+            Next
+          </button>
+        </div>
+      </div>
+      <app-project-share></app-project-share>
+    </ng-template>
+  </mat-tab>
+  <mat-tab [disabled]="nextIndex<6 || ServiceId==='1234'" label="Product">
+    <ng-template matTabContent>
+      <div fxLayout="row" fxLayoutAlign="center">
+        <div fxFlex="15">
+          <button class="next-button" (click)="back()" type="button">
+            Back
+          </button>
+        </div>
+        <div style="text-align: center" fxFlex="75" fxFlexAlign="center">
+        </div>
+        <div fxFlex="10">
+          <button class="next-button" (click)="next()" color="primary" type="button">
+            Next
+          </button>
+        </div>
+      </div>
+      <app-project-product></app-project-product>
+    </ng-template>
+  </mat-tab>
+  <mat-tab [disabled]="nextIndex<8 || ServiceId==='1234'" label="Documents">
+    <ng-template matTabContent>
+      <div fxLayout="row" fxLayoutAlign="center">
+        <div fxFlex="15">
+          <button class="next-button" (click)="back()" type="button">
+            Back
+          </button>
+        </div>
+        <div style="text-align: center" fxFlex="75" fxFlexAlign="center">
+        </div>
+        <div fxFlex="10">
+          <button class="next-button" (click)="next()" color="primary" type="button">
+            Next
+          </button>
+        </div>
+      </div>
+      <app-service-prerequisite></app-service-prerequisite>
+    </ng-template>
+  </mat-tab>
+  <mat-tab [disabled]="nextIndex<8|| ServiceId==='1234'" label="Associate">
+    <ng-template matTabContent>
+      <div fxLayout="row" fxLayoutAlign="center">
+        <div fxFlex="15">
+          <button class="next-button" (click)="back()" type="button">
+            Back
+          </button>
+        </div>
+        <div style="text-align: center" fxFlex="75" fxFlexAlign="center">
+        </div>
+        <div fxFlex="10">
+          <button class="next-button" (click)="next()" color="primary" type="button">
+            Next
+          </button>
+        </div>
+      </div>
+      <app-project-associate></app-project-associate>
+    </ng-template>
+  </mat-tab>
+  <mat-tab [disabled]="nextIndex<8|| ServiceId==='1234'" label="Confirmation">
+    <ng-template matTabContent>
+      <div fxLayout="row" fxLayoutAlign="center">
+        <div fxFlex="15">
+          <button class="next-button" (click)="back()" type="button">
+            Back
+          </button>
+        </div>
+      </div>
+      <app-service-confirmation></app-service-confirmation>
+    </ng-template>
+  </mat-tab>
+
+
+</mat-tab-group>
+<!--<div style="margin-bottom: 40px" fxLayout="row" fxLayoutAlign="center">-->
+<!--<div fxFlex="15">-->
+<!--<button class="next-button" (click)="back()" type="button">-->
+<!--Back-->
+<!--</button>-->
+<!--</div>-->
+<!--<div style="text-align: center" fxFlex="75" fxFlexAlign="center">-->
+<!--</div>-->
+<!--<div fxFlex="10">-->
+<!--<button class="next-button" (click)="next()" color="primary" type="button">-->
+<!--Next-->
+<!--</button>-->
+<!--</div>-->
+<!--</div>-->

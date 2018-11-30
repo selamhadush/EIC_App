@@ -1,0 +1,101 @@
+table {
+  color: #333;
+  font-family: Helvetica, Arial, sans-serif;
+  border-collapse: collapse;
+  border: 1px solid #f1f1f1;
+}
+
+tbody > tr > td:first-child {
+  /*background-color: whitesmoke !important;*/
+}
+
+td, th {
+  height: 40px;
+  transition: all 0.3s; /* Simple transition for hover effect */
+}
+
+th {
+  background: #fafafa;
+  font-weight: bold;
+  font-size: 12px;
+
+}
+
+td {
+  background: whitesmoke;
+  text-align: center;
+}
+
+/* Cells in even rows (2,4,6...) are one color */
+tr:nth-child(even) td {
+  background: #FEFEFE;
+}
+
+/* Cells in odd rows (1,3,5...) are another (excludes header cells)  */
+tr:nth-child(odd) td {
+  background: #FEFEFE;
+}
+
+tr td:hover {
+  background: #d8e9f9;
+  color: #FFF;
+}
+
+.caption {
+  color: cadetblue !important;
+  font-weight: bolder;
+  margin: 20px 6px 5px 6px;
+  text-decoration: underline;
+  text-decoration-color: #f1f1f1;
+  text-align: center;
+}
+
+.project_table_wdg {
+  border: 1px solid #f1f1f1;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  float: left;
+  /*margin-top: 25px;*/
+}
+
+.project_table_wdg ul {
+  list-style: none;
+  float: left;
+  width: 209px;
+  margin: 0;
+  border: 1px solid #f1f1f1;
+  padding: 2px;
+  /*text-align: center;*/
+  background-color: #FFF;
+}
+
+.project_table_wdg ul li {
+  border-bottom: 1px dashed #f1f1f1;
+  padding: 8px 0;
+}
+
+.project_table_wdg ul li:first-child {
+  color: cadetblue;
+  font-size: 18px;
+  font-weight: bold;
+  background: whitesmoke;
+}
+
+.project_table_wdg ul li:nth-child(2) {
+  /*background: #FAFAFA;*/
+}
+
+.project_table_wdg ul li:nth-child(3) {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.project_table_wdg ul li:nth-child(n+4) {
+  font-size: 12px;
+}
+
+.project_table_wdg ul li > .header {
+  font-weight: bold;
+  padding-left: 2px !important;
+}

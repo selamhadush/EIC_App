@@ -1,0 +1,393 @@
+<mat-card class="margin-2 simple-card">
+  <mat-card-header>
+    <mat-card-subtitle class="sub-title"></mat-card-subtitle>
+    <button class="custom-button" (click)="generateCertification()">
+      Generate
+      Certificate
+    </button>
+    <button class="custom-button" (click)="addMessage()">
+      Send Message
+    </button>
+  </mat-card-header>
+</mat-card>
+
+<mat-card class="margin-2 margin-top-20" *ngIf="viewCertificate">
+  <mat-card-header>
+    <div fxFlex="70"></div>
+    <div fxFlex="25" style="float: right;">
+      <button class="custom-button " (click)="generatePDF()">Print</button>
+      <!--<button class="custom-button " (click)="Print()">Print</button>-->
+    </div>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-card-title>
+    </mat-card-title>
+    <div id="certificate" class="c-container">
+      <header class="clearfix">
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+          <div class="block" fxFlex="20%">
+            <div id="company" class="clearfix logo-image">
+              <img width="100" src="/assets/logo/EIC.jpg">
+            </div>
+          </div>
+          <div class="block" fxFlex="60%">
+            <div id="logo" class="full-width">
+              <div class="certificate-title">ኢትዮጵያ የኢንቨስትመንት ኮሚሽን</div>
+              <div class="certificate-titlet">ETIOPIAN INVESTMENT COMMISSION</div>
+              <div style="margin-top: 5px" class="c-subtitle">የሃገር ውስጥ ባለሃብት የኢንቨስትመንት ፈቃድ</div>
+              <div class="c-subtitle">INVESTMENT PERMIT FOR DOMESTIC</div>
+            </div>
+          </div>
+          <div class="block" fxFlex="20%">
+            <div class="logo-image" id="project">
+              <img width="100" src="/assets/images/et.png">
+            </div>
+          </div>
+        </div>
+        <div style="float: right;" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+          <div id="sub-header" class="block">
+            <table>
+              <tr>
+                <td class="s-head">
+                  የህትመት ቀን <br>
+                  Date of Print
+                </td>
+                <td class="dta-head">{{date | date}}</td>
+              </tr>
+              <tr>
+                <td class="s-head">
+                  የፍቃድ ቁጥር <br> Permit No.
+                </td>
+                <td class="dta-head">EIC-IP/{{investorDetailList?.Project?.InvestmentPermitNo | number : '4.0-0' }}/10
+                </td>
+
+              </tr>
+              <tr>
+                <td class="s-head">
+                  የቀድሞው ፈቃድ ቁጥር <br> Previous Permit No.
+                </td>
+                <td class="dta-head"></td>
+              </tr>
+              <tr>
+                <td class="s-head">
+                  የግብር ከፋይ መለያ ቁጥር /TIN
+                </td>
+                <td class="dta-head">{{investorDetailList?.Investor.Tin}}</td>
+              </tr>
+              <tr>
+                <td class="s-head">
+                  የንግድ ምዝገባ ቁጥር <br> Registration No.
+                </td>
+                <td class="dta-head">{{investorDetailList?.Investor.RegistrationNumber}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </header>
+
+      <div class="main" style="border-top: 1px solid #c4cbcc;margin-bottom: 10px;">
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+
+          <div id="amharic" class="block" fxFlex="48.5%">
+            <table id="basic" class="full-width">
+              <tbody>
+              <tr>
+                <td class="t-header">1.የግለሰቡ/የድርጅቱ ስም</td>
+                <td class="data value">{{investorDetailList?.Investor.InvestorName}}</td>
+              </tr>
+              <tr>
+                <td class="t-header">2.ዜግነት</td>
+                <td class="data value">{{investorDetailList?.Investor.Nationality | countryPipe : 0}}</td>
+              </tr>
+              <tr>
+                <td class="t-header">3.የንግድ ስም</td>
+                <td class="data value">{{investorDetailList?.Investor.TradeName}}</td>
+              </tr>
+              <tr>
+                <td class="t-header">4.የሥራ አስክያጅ ስም</td>
+                <td class="data value">
+                  {{manager[0].Associate?.FatherName}}
+                  {{manager[0].Associate?.FatherName}}
+                  {{manager[0].Associate?.GrandName}}
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
+            <table class="full-width">
+              <caption class="caption">5.የባለሃብቱ/የድርጅቱ አድራሻ</caption>
+              <tbody>
+              <tr>
+                <td class="a-header">ክልል</td>
+                <td class="data value">{{investorAddressList?.Region.Description}}</td>
+                <td class="a-header">ዞን</td>
+                <td class="data value">{{investorAddressList?.Region.Zones[0].DescriptionEnglish }}</td>
+              </tr>
+              <tr>
+                <td class="a-header">ከተማ</td>
+                <td class="data value">--</td>
+                <td class="a-header">ክፍለ ከተማ</td>
+                <td class="data value">--</td>
+              </tr>
+              <tr>
+                <td class="a-header">ቀበሌ/ወረዳ</td>
+                <td class="data value">
+                  {{investorAddressList?.Region.Zones[0].Woredas[0].Kebeles[0].Description}}
+                  /
+                  {{investorAddressList?.Region.Zones[0].Woredas[0].Description}}
+                </td>
+                <td class="a-header">የቤት ቁጥር</td>
+                <td class="data value">{{investorAddressList?.HouseNo}}</td>
+              </tr>
+              <tr>
+                <td class="a-header">ፖ ሳ ቁፖ ሳ ቁ</td>
+                <td class="data value">{{investorAddressList?.Pobox}}</td>
+                <td class="a-header">ስልክ ቁጥር</td>
+                <td class="data value">{{investorAddressList?.TeleNo}}</td>
+              </tr>
+              <tr>
+                <td class="a-header">ፋክስ</td>
+                <td class="data value">{{investorAddressList?.Fax}}</td>
+                <td class="a-header">ኢ-ሜይል</td>
+                <td class="data value">{{investorAddressList?.Email}}</td>
+              </tr>
+              </tbody>
+            </table>
+
+            <table class="full-width">
+              <caption class="caption">6.የኢንቨስትመንቱ አድራሻ</caption>
+              <tbody>
+              <tr>
+                <td class="a-header">ክልል</td>
+                <td class="data value">{{investmentAddressList?.Region.Description}}</td>
+                <td class="a-header">ዞን</td>
+                <td class="data value">{{investmentAddressList?.Region.Zones[0].Description}}</td>
+              </tr>
+              <tr>
+                <td class="a-header">ከተማ</td>
+                <td class="data value">---</td>
+                <td class="a-header">ክፍለ ከተማ</td>
+                <td class="data value">---</td>
+              </tr>
+              <tr>
+                <td class="a-header">ቀበሌ/ወረዳ</td>
+                <td class="data value">
+                  {{investmentAddressList?.Region.Zones[0].Woredas[0].Kebeles[0].Description}}
+                  /
+                  {{investmentAddressList?.Region.Zones[0].Woredas[0].Description}}
+                </td>
+                <td class="a-header">የቤት ቁጥር</td>
+                <td class="data value">---</td>
+              </tr>
+              </tbody>
+            </table>
+            <table class="full-width">
+              <caption class="caption">7.የኢንቨስትመንት የስራ መስክ</caption>
+              <tbody>
+              <tr>
+                <td class="data value">{{investmentActivity?.Description}}</td>
+              </tr>
+              </tbody>
+            </table>
+
+            <table id="investmentCapital" class="full-width">
+              <tbody>
+              <tr>
+                <td class="t-header">8.የኢንቨስትመንቱ ካፒታል በኢት ብር</td>
+                <td class="data value">{{projectCostTotal}}</td>
+              </tr>
+              <tr>
+                <td class="t-header">9.የኢንቨስትመንቱ ካፒታል (USD)</td>
+                <td class="data value">{{projectCostTotal*27}}</td>
+              </tr>
+              <tr>
+                <td class="t-header">10. የታቀደው የኤክስፖርት በመቶኛ</td>
+                <td class="data value">{{exportMarketShare | percent}}</td>
+              </tr>
+              </tbody>
+            </table>
+
+            <table class="full-width">
+              <tr>
+                <td>በኢንቨስትመንት አዋጅ ቁጥር 769/2004 መሰረት ዛሬ {{date | date}} አዲስ አበባ
+                  ተሰጠ ።
+                </td>
+              </tr>
+            </table>
+
+            <table class="full-width">
+              <tbody>
+              <tr>
+                <td class="t-header">የሃላፊ ስም/Name of Official</td>
+                <td style="width: 300px" class="data value"></td>
+              </tr>
+              <tr>
+                <td class="t-header">ፊርማ/Signature</td>
+                <td style="width: 300px" class="data value"></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="english" class="block" fxFlex="48.5%">
+            <table id="basicEn" class="full-width">
+              <tbody>
+              <tr>
+                <td class="t-header">1. Name Of Investor/Company</td>
+                <td class="data value">{{investorDetailList?.Investor.InvestorNameEng}}</td>
+              </tr>
+              <tr>
+                <td class="t-header">2. Nationality</td>
+                <td class="data value">{{investorDetailList?.Investor.Nationality | countryPipe : 1}}</td>
+              </tr>
+              <tr>
+                <td class="t-header">3. Trade Name</td>
+                <td class="data value">{{investorDetailList?.Investor.TradeName}}</td>
+              </tr>
+              <tr>
+                <td class="t-header">4. Name of General Manager</td>
+                <td class="data value">{{manager[0].Associate?.FatherNameEng}}
+                  {{manager[0].Associate?.FatherNameEng}}
+                  {{manager[0].Associate?.GrandNameEng}}
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
+            <table class="full-width">
+              <caption class="caption">5. Address of Investor/Company</caption>
+              <tbody>
+              <tr>
+                <td class="a-header">Region</td>
+                <td class="data value">{{investorAddressList?.Region.DescriptionEnglish}}</td>
+                <td class="a-header">Zone</td>
+                <td class="data value">{{investorAddressList?.Woreda.Zone.DescriptionEnglish }}</td>
+              </tr>
+              <tr>
+                <td class="a-header">City</td>
+                <td class="data value">--</td>
+                <td class="a-header">Sub City</td>
+                <td class="data value">--</td>
+              </tr>
+
+              <tr>
+                <td class="a-header">Kebele/Woreda</td>
+                <td class="data value">
+                  {{investorAddressList?.Region.Zones[0].Woredas[0].Kebeles[0].DescriptionEnglish}}
+                  /
+                  {{investorAddressList?.Region.Zones[0].Woredas[0].DescriptionEnglish}}
+                </td>
+                <td class="a-header">House No.</td>
+                <td class="data value">{{investorAddressList?.HouseNo}}</td>
+              </tr>
+              <tr>
+                <td class="a-header">P.O.Box</td>
+                <td class="data value">{{investorAddressList?.Pobox}}</td>
+                <td class="a-header">Tel.No</td>
+                <td class="data value">{{investorAddressList?.TeleNo}}</td>
+              </tr>
+              <tr>
+                <td class="a-header">Fax</td>
+                <td class="data value">{{investorAddressList?.Fax}}</td>
+                <td class="a-header">E-mail</td>
+                <td class="data value">{{investorAddressList?.Email}}</td>
+              </tr>
+              </tbody>
+            </table>
+
+            <table class="full-width">
+              <caption class="caption">6. Investment Location</caption>
+              <tbody>
+              <tr>
+                <td class="a-header">Region</td>
+                <td class="data value">{{investmentAddressList?.Region.DescriptionEnglish}}</td>
+                <td class="a-header">Zone</td>
+                <td class="data value">{{investmentAddressList?.Region.Zones[0].DescriptionEnglish}}</td>
+              </tr>
+              <tr>
+                <td class="a-header">City</td>
+                <td class="data value">--</td>
+                <td class="a-header">sub city</td>
+                <td class="data value">--</td>
+              </tr>
+              <tr>
+                <td class="a-header">Kebele/Woreda</td>
+                <td class="data value">
+                  {{investmentAddressList?.Region.Zones[0].Woredas[0].Kebeles[0].DescriptionEnglish}}
+                  /
+                  {{investmentAddressList?.Region.Zones[0].Woredas[0].DescriptionEnglish}}
+                </td>
+                <td class="a-header">House No.</td>
+                <td class="data value">{{investmentAddressList?.HouseNo}}</td>
+              </tr>
+              </tbody>
+            </table>
+
+            <table class="full-width">
+              <caption class="caption">7. Investment Activity</caption>
+              <tbody>
+              <tr>
+                <td class="data value">{{investmentActivity?.DescriptionEnglish}}</td>
+              </tr>
+              </tbody>
+            </table>
+
+            <table id="investmentCapitalEn" class="full-width">
+              <tbody>
+              <tr>
+                <td class="t-header">8. Amount of Investment Capital in ETB</td>
+                <td class="data value">{{projectCostTotal}}</td>
+              </tr>
+              <tr>
+                <td class="t-header">9. Amount of Investment Capital（USD）</td>
+                <td class="data value">{{projectCostTotal*27}}</td>
+              </tr>
+              <tr>
+                <td class="t-header">10. Planned Export in Percent</td>
+                <td class="data value">{{exportMarketShare | percent}}</td>
+              </tr>
+              </tbody>
+            </table>
+
+            <table class="full-width">
+              <tr>
+                <td>This Permit is issued as per the Investment Proclamation
+                  in Addis Ababa this day {{date | date}}
+                </td>
+              </tr>
+            </table>
+
+            <table class="full-width">
+              <tbody>
+              <tr>
+                <td class="t-header">እስከ
+                </td>
+                <td class="data value">{{ date | date}} ታድሷል</td>
+              </tr>
+              <tr>
+                <td class="t-header">Valid Until</td>
+                <td class="data value">{{date | date}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+          <div id="notices">
+            <div>ማሳሰቢያ/Notice:</div>
+            <div>1. ይህ የኢንቨስትመንት ፈቃድ ባለሃብቱ የምርት ውጤቱን ወይም አገልግሎቱን ለገበያ ማቅረብ እስከጀመረበት ጊዜ ድረስ በዓመቱ መታደስ አለበት::<br>
+              This permit shall be renewed annually until the investor commences the marketing of his product or
+              services
+            </div>
+            <div style="margin-top: 10px !important;">
+              2. ኢንቨስተሩ ማምረት ወይም አገልግልግሎት መስጠት ከመጀመሩ በፊት የንግድ ምዝገባ ና ፈቃድ ማውጣት አለበት ::<br>
+              The Investor is required to obtain trade registration and license of the enterprise prior to the
+              commencement of operation .
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

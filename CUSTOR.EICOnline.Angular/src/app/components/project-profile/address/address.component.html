@@ -1,0 +1,134 @@
+<app-page-header title="address" icon="address"></app-page-header>
+
+<form class="margin-2" (ngSubmit)="onSubmit()" [formGroup]="addressForm" novalidate>
+
+  <mat-card class="border">
+    <mat-card-subtitle class="sub-title">
+      Address
+      <mat-divider></mat-divider>
+    </mat-card-subtitle>
+    <mat-card-content>
+
+
+      <div fxLayout="row" fxLayoutAlign="start center" class="content" fxLayout.lt-sm="column" fxLayoutGap="2em">
+
+        <div class="block" fxFlex="">
+
+          <mat-form-field>
+            <mat-label>Region : *</mat-label>
+            <mat-select formControlName="RegionId"
+                        (selectionChange)="filterRegion($event.value)">
+              <mat-option value="0">unknown</mat-option>
+              <mat-option *ngFor="let region of regions" [value]="region.RegionId">
+                {{region.Description}}
+              </mat-option>
+            </mat-select>
+            <mat-error align="start" *ngIf="formErrors.Region">{{ formErrors.Region }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="block" fxFlex="">
+          <mat-form-field>
+            <mat-label>Zone * :</mat-label>
+            <mat-select formControlName="ZoneId" (selectionChange)="filterZone($event.value)">
+              <mat-option value="0">unknown</mat-option>
+              <mat-option *ngFor="let zone of filteredZones" [value]="zone.ZoneId">
+                {{zone.Description}}
+              </mat-option>
+            </mat-select>
+            <mat-error align="start" *ngIf="formErrors.Zone">{{ formErrors.Zone }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="block" fxFlex="">
+          <mat-form-field>
+            <mat-label>Woreda * :</mat-label>
+            <mat-select formControlName="WoredaId" (selectionChange)="getKebeleByWoredaId($event.value)">
+              <mat-option value="0">unknown</mat-option>
+
+              <mat-option *ngFor="let w of filteredWoredas" [value]="w.WoredaId">
+                {{w.Description}}
+              </mat-option>
+            </mat-select>
+            <mat-error align="start" *ngIf="formErrors.Woreda">{{ formErrors.Woreda }}</mat-error>
+          </mat-form-field>
+        </div>
+
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start center" class="content" fxLayout.lt-sm="column" fxLayoutGap="2em">
+        <div class="block" fxFlex="">
+          <mat-form-field>
+            <mat-label>Kebele * :</mat-label>
+            <mat-select formControlName="KebeleId">
+              <mat-option value="0">unknown</mat-option>
+              <mat-option *ngFor="let k of filteredKebeles" [value]="k.KebeleId">
+                {{k.Description}}
+              </mat-option>
+            </mat-select>
+            <mat-error align="start" *ngIf="formErrors.Kebele">{{ formErrors.Kebele }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="block" fxFlex="">
+          <mat-form-field>
+            <mat-label>Specific Area Name * :</mat-label>
+            <input formControlName="SpecificAreaName" matInput type="text">
+            <mat-error align="start" *ngIf="formErrors.SpecificAreaName">{{ formErrors.SpecificAreaName }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="block" fxFlex="">
+          <mat-form-field>
+            <mat-label>Industry park :</mat-label>
+            <input formControlName="SpecificAreaName" matInput type="text">
+            <mat-error align="start" *ngIf="formErrors.SpecificAreaName">{{ formErrors.SpecificAreaName }}</mat-error>
+          </mat-form-field>
+        </div>
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="border" style="margin-top: 20px;">
+
+    <!--<div>documentForm value: {{projectForm.value | json }}</div>-->
+
+  </mat-card>
+  <!--<mat-divider></mat-divider>-->
+  <mat-card class="border" style="     border-top: 0px;;margin-bottom: 40px; ">
+    <mat-card-content>
+      <div fxLayout="row" fxLayoutAlign="center">
+
+        <div fxFlex="15">
+
+          <!--<button class="custom-button" (click)="next()" color="warn" type="button">-->
+          <!--Back-->
+          <!--</button>-->
+        </div>
+        <div style="text-align: center" fxFlex="67" fxFlexAlign="center">
+          <button
+
+            mat-raised-button=""
+            type="submit"
+            color="primary">
+            <mat-icon class="mat-18">done</mat-icon>
+            <span class="agree">{{editMode ? 'update' : 'Save'}}</span>
+
+          </button>
+          <!--<button style="margin-left: 5px" mat-raised-button="" (click)="onClear()" color="warn" type="button">-->
+          <!--<mat-icon class="mat-18">clear_all</mat-icon>-->
+          <!--</button>-->
+
+        </div>
+        <!--<div fxFlex="15">-->
+
+        <!--<button [disabled]="!projectForm.valid" class="custom-button" (click)="next()" color="warn" type="button">-->
+        <!--Next-->
+        <!--</button>-->
+        <!--</div>-->
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+
+</form>
+
+<div *ngIf="loading" class="loadme-circleBounce">
+  <div class="loadme-circleBounce1"></div>
+  <div class="loadme-circleBounce2"></div>
+</div>

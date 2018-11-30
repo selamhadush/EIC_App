@@ -1,0 +1,77 @@
+.grid-container {
+  margin: 10px;
+}
+
+.dashboard-card {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+
+}
+
+.dashboard-card-top {
+  position: absolute;
+  /*top: 15px;*/
+  left: 15px;
+  right: 15px;
+  /*bottom: 15px;*/
+  padding: 0px !important;
+  box-shadow: none !important;
+
+}
+
+.more-button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+.dashboard-card-content {
+  text-align: center;
+}
+
+/*mat-header-row {*/
+/*min-height: 30px !important;*/
+/*}*/
+
+.label {
+  border-radius: 50%;
+  font-size: 9px;
+  font-weight: 500;
+  padding: 3px 8px;
+  text-transform: uppercase;
+}
+
+.primary {
+  background-color: #9d8dca;
+}
+
+.secondary {
+  background-color: #fb9f5e;
+}
+
+.tertiary {
+  background-color: #d13447;
+}
+
+.preImplementation {
+  background-color: #fb9f5e;
+}
+
+.Implementation {
+  background-color: #d13447;
+}
+
+.operation {
+  background-color: #86c90a;
+}
+
+.legend-label-text {
+  font-weight: bold;
+  position: relative;
+  font-size: 12px;
+  padding: 3px 8px;
+  text-transform: capitalize;
+}

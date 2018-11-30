@@ -1,0 +1,172 @@
+<!--<mat-card-subtitle class="sub-title">-->
+<!--Project Raw Material-->
+<!--<mat-divider></mat-divider>-->
+<!--</mat-card-subtitle>-->
+<mat-card class="margin-2">
+  <form [formGroup]="pRawMaterialForm" novalidate>
+    <div style="margin-bottom: 40px;" *ngIf="ServiceId=='1234'" fxLayout="row" fxLayoutAlign="start center"
+         fxLayoutGap="2em">
+      <div class="block" fxFlex="" style="margin-left: 20px">
+        <mat-form-field>
+          <mat-label>Quarter</mat-label>
+          <mat-select formControlName="Quarter" required>
+            <mat-option *ngFor="let row of Quarter" [value]="row.Id">
+              <span>{{row.DescriptionEnglish}}</span>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+      <div class="block" fxFlex>
+        <mat-form-field>
+          <input placeholder="Registration Year* :"
+                 matInput
+                 formControlName="RegistrationYear"
+                 [matDatepicker]="RegistrationYear">
+          <mat-datepicker-toggle matSuffix [for]="RegistrationYear"></mat-datepicker-toggle>
+          <mat-datepicker #RegistrationYear></mat-datepicker>
+          <!--<mat-error align="start" *ngIf="formErrors.RegistrationYear" class="form__error">-->
+            <!--{{ formErrors.RegistrationYear }}-->
+          <!--</mat-error>-->
+        </mat-form-field>
+      </div>
+      <!--<div class="block" fxFlex="">-->
+      <!---->
+      <!--<mat-form-field>-->
+      <!--<input #OSF type="number" formControlName="CapitalRegistrationDatetime" matInput-->
+      <!--placeholder="Capital Registration Datetime * :">-->
+      <!---->
+      <!--</mat-form-field>-->
+      <!--</div>-->
+      <div class="block" fxFlex="">
+
+        <mat-form-field>
+          <mat-select [disabled]="true" formControlName="ProjectStatus" required>
+            <option value="0">--Select--</option>
+            <label>Project Status</label>
+            <mat-option *ngFor="let status of projectStatus" [value]="status.Id">
+              <span>{{status.DescriptionEnglish}}</span>
+            </mat-option>
+          </mat-select>
+
+        </mat-form-field>
+      </div>
+    </div>
+    <mat-card-subtitle class="sub-title">
+      Detail
+      <mat-divider></mat-divider>
+    </mat-card-subtitle>
+
+
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+      <mat-card style="    border: none;box-shadow: none!important;" class="padding-0" fxFlex="90%">
+        <mat-card-content>
+          <div fxLayout="row">
+
+
+            <div fxFlex="" class="block">
+              <mat-form-field>
+                <mat-label>Raw Material Type * :</mat-label>
+                <input id="" type="text" matInput formControlName="RawMaterialType">
+                <mat-error></mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="block" fxFlex="30%">
+
+              <mat-radio-group formControlName="IsForeign" align="center">
+                <mat-radio-button value="false">Local</mat-radio-button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <mat-radio-button value="true">Foreign</mat-radio-button>
+              </mat-radio-group>
+
+
+            </div>
+
+
+            <div class="block" fxFlex="">
+              <mat-form-field class="full-width">
+                      <textarea placeholder="Remark :" formControlName="Remark" matInput rows="2">
+                </textarea>
+              </mat-form-field>
+            </div>
+
+
+            <div fxFlex="15" class="block">
+              <a class="custom-button pointer" color="primary" (click)="onSubmitRawMaterial()">
+                <mat-icon color="primary" class="mat-18">done</mat-icon>
+                <span>Add</span>
+              </a>
+            </div>
+          </div>
+
+        </mat-card-content>
+      </mat-card>
+
+    </div>
+  </form>
+</mat-card>
+
+
+<mat-card class="margin-2 padding-0">
+  <!--<mat-card-header>-->
+  <!--<mat-card-subtitle class="sub-title">-->
+  <!--List of Raw Material-->
+  <!--&lt;!&ndash;<mat-divider></mat-divider>&ndash;&gt;-->
+  <!--</mat-card-subtitle>-->
+  <!--</mat-card-header>-->
+  <mat-card-content *ngIf="projectInputData.length>0">
+    <div class="spinner-container" *ngIf="loading ">
+      <mat-progress-bar mode="query"></mat-progress-bar>
+    </div>
+    <mat-table style="border:1px solid #f1f1f1;"
+               class="full-width" #table [dataSource]="dataSource">
+      <ng-container style="width: 10px !important;" matColumnDef="No">
+        <mat-header-cell style="width: 10px !important;" *matHeaderCellDef>#</mat-header-cell>
+        <mat-cell style="width: 10px !important;" *matCellDef="let projectInputData;let i=index;">
+          {{i+1}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="RawMaterialType">
+        <mat-header-cell *matHeaderCellDef>Raw Material Type</mat-header-cell>
+        <mat-cell *matCellDef="let projectInputData"> {{projectInputData.RawMaterialType}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="IsForeign">
+        <mat-header-cell *matHeaderCellDef>IsForeign</mat-header-cell>
+        <mat-cell *matCellDef="let projectInputData"> {{projectInputData.IsForeign}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Remark">
+        <mat-header-cell *matHeaderCellDef> Remark</mat-header-cell>
+        <mat-cell *matCellDef="let projectInputData"> {{projectInputData.Remark }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Action">
+        <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+        <mat-cell *matCellDef="let projectInputData;let i=index;">
+          <div>
+            <a class="pointer" mat-min-fab matTooltip="Click here to edit the Share"
+               (click)="onEditInput(i,projectInputData.ProjectInputId)">
+              <mat-icon color="primary" class="mat-18">edit</mat-icon>
+              Edit
+            </a>
+            <a class="pointer" mat-min-fab color="warn" matTooltip="Click here to delete the dhare"
+               (click)="deleteInput(i,projectInputData.ProjectInputId)">
+              <mat-icon color="warn">delete</mat-icon>
+              Delete
+            </a>
+          </div>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns">
+      </mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+  </mat-card-content>
+
+</mat-card>

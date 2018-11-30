@@ -1,0 +1,19 @@
+div.mce-edit-area {
+  background: #FFF;
+  filter: none;
+  height: 500px !important;
+}
+
+.mce-edit-area {
+  background: #FFF;
+  filter: none;
+  min-height: 600px;
+}
+
+.mceEditor td.mceIframeContainer iframe {
+  min-height: 550px !important;
+}
+
+.mceEditor table {
+  height: auto !important;
+}

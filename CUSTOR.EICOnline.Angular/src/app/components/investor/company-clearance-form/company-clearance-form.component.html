@@ -1,0 +1,88 @@
+<div class="margin-2 page-content mat-elevation-z2">
+  <mat-progress-bar *ngIf="loadingIndicator" mode="query"></mat-progress-bar>
+  <form #form="ngForm" [formGroup]="companyClearanceForm" novalidate (ngSubmit)="onSubmit()" fxLayout="column"
+        autocomplete="off">
+
+
+    <mat-divider></mat-divider>
+    <div id="divSole" style="margin-top: 40px">
+
+      <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2em" class="row">
+        <div class="block">
+          <mat-form-field>
+            <mat-label>Company Name English Option One</mat-label>
+            <input required matInput="" formControlName="CompanyNameOneEnglish">
+            <mat-error *ngIf="companyNameOneEnglish.hasError('required')">
+              {{'common.validation.Required' | translate}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="block">
+          <mat-form-field>
+            <mat-label>Company Name Amharic Option One</mat-label>
+            <input required matInput="" formControlName="CompanyNameOneAmharic">
+            <mat-error *ngIf="companyNameOneAmharic.hasError('required')">
+              {{'common.validation.Required' | translate}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+      </div>
+      <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2em" class="row">
+        <div class="block">
+          <mat-form-field>
+            <mat-label>Company NameEnglish Option Two</mat-label>
+            <input required matInput="" formControlName="CompanyNameTwoEnglish">
+            <mat-error *ngIf="companyNameTwoEnglish.hasError('required')">
+              {{'common.validation.Required' | translate}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="block">
+          <mat-form-field>
+            <mat-label>Company Name Amharic Option Two</mat-label>
+            <input required matInput="" formControlName="CompanyNameTwoAmharic">
+            <mat-error *ngIf="companyNameTwoAmharic.hasError('required')">
+              {{'common.validation.Required' | translate}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+      </div>
+      <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2em" class="row">
+        <div class="block">
+          <mat-form-field>
+            <mat-label>Company NameEnglish Option Three</mat-label>
+            <input required matInput="" formControlName="CompanyNameThreeEnglish">
+            <mat-error *ngIf="companyNameThreeEnglish.hasError('required')">
+              {{'common.validation.Required' | translate}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="block">
+          <mat-form-field>
+            <mat-label>Company Name Amharic Option Three</mat-label>
+            <input required matInput="" formControlName="CompanyNameThreeAmharic">
+            <mat-error *ngIf="companyNameThreeAmharic.hasError('required')">
+              {{'common.validation.Required' | translate}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+      </div>
+
+
+    </div>
+
+    <mat-divider></mat-divider>
+    <div mat-dialog-actions style="margin: 20px; text-align: center">
+      <button mat-raised-button type="submit" color="primary" style="margin-right: 10px">
+        {{'common.commands.Save' | translate}}
+      </button>
+      <button mat-raised-button (click)="onBack()" color="warn" type="button">
+        {{'common.commands.Cancel' | translate}}
+      </button>
+    </div>
+    <!--<pre>{{companyClearanceForm.value | json}}</pre>-->
+  </form>
+</div>

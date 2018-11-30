@@ -1,0 +1,36 @@
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+
+
+  <mat-list dense>
+    <mat-list-item>
+      <div><span> All Notifications</span></div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item *ngFor="let item of notitficationList" style="border-bottom: 1px solid #cccccc">
+      <table width="100%">
+        <a (click)="show(item.NotitficationId)" class="pointer" style="    text-decoration: none;
+    color: inherit;" routerLink="appointment">
+          <tr>
+            <td style="    width: 281px;" fxFlex="80%">
+              <div style="font-weight: bolder;color: #3c8dbc;text-decoration: underline;">{{item.Subject}}</div>
+              <div>
+                {{item.Message| filterPipe:40}}
+              </div>
+            </td>
+            <td style="width: 18%" fxFlex="15%">
+              <a (click)="show(item.NotitficationId)" class="a-link" routerLink="/appointment">
+                <mat-icon class="mat-18">visibility</mat-icon>
+                Show
+              </a>
+            </td>
+          </tr>
+        </a>
+      </table>
+    </mat-list-item>
+  </mat-list>
+
+</div>
+
+
+
+

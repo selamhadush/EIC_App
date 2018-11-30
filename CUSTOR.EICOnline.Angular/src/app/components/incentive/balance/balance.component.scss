@@ -1,0 +1,15 @@
+mat-header-row {
+  min-height: 42px;
+}
+
+a {
+  cursor: pointer !important;
+}
+
+mat-card {
+  transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1);
+  display: block;
+  position: relative;
+  padding: 0px !important;
+  border-radius: 2px;
+}

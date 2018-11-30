@@ -1,0 +1,56 @@
+.table-bordered > tbody > tr:nth-child(2n+1) > td, .table-bordered > tbody > tr:nth-child(2n+1) > th {
+  background-color: rgb(242, 244, 245) !important;
+  padding: 40px;
+  text-align: center !important;
+}
+
+.table-bordered > tbody > tr:nth-child(2n) > td, .table-bordered > tbody > tr:nth-child(2n) > th {
+  background-color: rgb(247, 248, 250) !important;
+  padding: 40px;
+  text-align: center !important;
+}
+
+.table > tbody > a > tr > td > {
+  text-align: center !important;
+  border: #c4cbcc 1px solid;
+  padding: 40px;
+}
+
+.table {
+  width: 100% !important;
+}
+
+.table > tbody > tr > td:first-child {
+  color: #3c8dbc;
+  background-color: #f9f9f9 !important;
+  border: 1px solid #f4f4f4;
+
+  /*width: 50px !important;*/
+}
+
+.table > thead > tr:first-child {
+  color: #222d32 !important;
+  font-family: "Baskerville Old Face";
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+
+  background-color: #f9f9f9 !important;
+  border: 1px solid #f4f4f4;
+}
+
+mat-header-row {
+  min-height: 42px;
+}
+
+a {
+  cursor: pointer !important;
+}
+
+mat-card {
+  transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1);
+  display: block;
+  position: relative;
+  padding: 0px !important;
+  border-radius: 2px;
+}

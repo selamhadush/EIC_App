@@ -1,0 +1,190 @@
+<mat-card class="margin-2 simple-card">
+  <mat-card-header>
+  </mat-card-header>
+  <mat-card-content id="order">
+    <form [formGroup]="orderForm">
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+        <div class="block" fxFlex="">
+          <mat-form-field>
+            <input formControlName="ReceiptNumber" matInput type="number" placeholder="Receipt Number">
+            <mat-error align="start" *ngIf="formErrors.ReceiptNumber" class="form__error">{{ formErrors.ReceiptNumber }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="block" fxFlex="">
+          <mat-form-field>
+            <input formControlName="CheckNo" matInput type="number" placeholder="Check No">
+            <mat-error align="start" *ngIf="formErrors.CheckNo" class="form__error">{{ formErrors.CheckNo }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="block" fxFlex="">
+          <label>{{TotalAmount}}</label>
+        </div>
+
+        <div class="block" fxFlex="">
+          <button [disabled]="!orderForm.valid" color="primary" mat-raised-button (click)="onSubmit()">Paid</button>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+<mat-card class="margin-2 margin-top-20" *ngIf="paid">
+  <mat-card-header>
+    <button class="margin-10" mat-raised-button="" (click)="generatePDF()" color="primary">Print</button>
+    <!--<button class="margin-10" mat-raised-button="" (click)="Print()" color="primary">Print</button>-->
+  </mat-card-header>
+
+  <mat-card-content class="payment" id="payment">
+
+    <header class="clearfix">
+    </header>
+    <main>
+
+      <table>
+        <thead>
+        <tr>
+          <td class="title-head">ስም</td>
+          <td style="    padding-right: 588px;" colspan="2">{{investorName}}</td>
+          <td class="title-head">የክፍያ ቀን :{{today | date}}</td>
+        </tr>
+        <tr>
+          <td class="title-head">ደረሰኝ ቁጥር</td>
+          <td colspan="3" style="float: left;">{{payment?.ReceiptNumber}}</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th class="title-head">ተ.ቁ</th>
+          <th class="title-head" colspan="2" class="desc">የክፍያ ምክንያት</th>
+          <th class="title-head">የገንዘቡ መጠን</th>
+        </tr>
+
+        <tr *ngFor="let row of serviceTariff;let i=index;">
+          <td class="service">{{i+1}}</td>
+          <td colspan="2" class="desc">{{row?.Tariff.Name}}</td>
+          <td class="qty">{{row?.Tariff.Fee}}</td>
+        </tr>
+        <tr>
+          <td class="service">የቼክ ቁጥር</td>
+          <td class="desc">{{payment?.CheckNo}}</td>
+          <td style="float: right" class="service">ድምር</td>
+          <td class="qty">{{TotalAmount}}</td>
+        </tr>
+        <tr>
+          <td class="service">የገንዘቡ ልክ በፊደል</td>
+
+          <td class="qty" colspan="3">---</td>
+        </tr>
+
+        <tr>
+
+          <td style="border: none !important;background-color: white!important;" class="qty" colspan="4">
+
+            <div style="margin-top: 20px;padding-right: 160px;">{{payment?.CashierUserName}}</div>
+            <div class="service" style="margin-left: 78%;border-top: 1px dotted #c4cbcc;">
+              የገንዘብ ተቀባይ ስምና ፊርማ
+            </div>
+          </td>
+        </tr>
+      </table>
+      <hr class="separator">
+
+      <table>
+        <thead>
+        <tr>
+          <td class="title-head">ስም</td>
+          <td style="    padding-right: 588px;" colspan="2">{{investorName}}</td>
+          <td class="title-head">የክፍያ ቀን :{{today | date}}</td>
+        </tr>
+        <tr>
+          <td class="title-head">ደረሰኝ ቁጥር</td>
+          <td colspan="3" style="float: left;">{{payment?.ReceiptNumber}}</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th class="title-head">ተ.ቁ</th>
+          <th class="title-head" colspan="2" class="desc">የክፍያ ምክንያት</th>
+          <th class="title-head">የገንዘቡ መጠን</th>
+        </tr>
+
+        <tr *ngFor="let row of serviceTariff;let i=index;">
+          <td class="service">{{i+1}}</td>
+          <td colspan="2" class="desc">{{row?.Tariff.Name}}</td>
+          <td class="qty">{{row?.Tariff.Fee}}</td>
+        </tr>
+        <tr>
+          <td class="service">የቼክ ቁጥር</td>
+          <td class="desc">{{payment?.CheckNo}}</td>
+          <td style="float: right" class="service">ድምር</td>
+          <td class="qty">{{payment?.TotalAmount}}</td>
+        </tr>
+        <tr>
+          <td class="service">የገንዘቡ ልክ በፊደል</td>
+
+          <td class="qty" colspan="3">---</td>
+        </tr>
+
+        <tr>
+
+          <td style="border: none !important;background-color: white!important;" class="qty" colspan="4">
+
+            <div style="margin-top: 20px;padding-right: 160px;">{{payment?.CashierUserName}}</div>
+            <div class="service" style="margin-left: 78%;border-top: 1px dotted #c4cbcc;">
+              የገንዘብ ተቀባይ ስምና ፊርማ
+            </div>
+          </td>
+        </tr>
+      </table>
+      <hr class="separator">
+      <table>
+        <thead>
+        <tr>
+          <td class="title-head">ስም</td>
+          <td style="    padding-right: 588px;" colspan="2">{{investorName}}</td>
+          <td class="title-head">የክፍያ ቀን :{{today | date}}</td>
+        </tr>
+        <tr>
+          <td class="title-head">ደረሰኝ ቁጥር</td>
+          <td colspan="3" style="float: left;">{{payment?.ReceiptNumber}}</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th class="title-head">ተ.ቁ</th>
+          <th class="title-head" colspan="2" class="desc">የክፍያ ምክንያት</th>
+          <th class="title-head">የገንዘቡ መጠን</th>
+        </tr>
+
+        <tr *ngFor="let row of serviceTariff;let i=index;">
+          <td class="service">{{i+1}}</td>
+          <td colspan="2" class="desc">{{row?.Tariff.Name}}</td>
+          <td class="qty">{{row?.Tariff.Fee}}</td>
+        </tr>
+        <tr>
+          <td class="service">የቼክ ቁጥር</td>
+          <td class="desc">{{payment?.CheckNo}}</td>
+          <td style="float: right" class="service">ድምር</td>
+          <td class="qty">{{payment?.TotalAmount}}</td>
+        </tr>
+        <tr>
+          <td class="service">የገንዘቡ ልክ በፊደል</td>
+
+          <td class="qty" colspan="3">---</td>
+        </tr>
+
+        <tr>
+
+          <td style="border: none !important;background-color: white!important;" class="qty" colspan="4">
+
+            <div style="margin-top: 20px;padding-right: 160px;">{{payment?.CashierUserName}}</div>
+            <div class="service" style="margin-left: 78%;border-top: 1px dotted #c4cbcc;">
+              የገንዘብ ተቀባይ ስምና ፊርማ
+            </div>
+          </td>
+        </tr>
+      </table>
+    </main>
+  </mat-card-content>
+</mat-card>

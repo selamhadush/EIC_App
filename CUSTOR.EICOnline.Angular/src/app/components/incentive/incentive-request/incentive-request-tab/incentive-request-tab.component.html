@@ -1,0 +1,49 @@
+<app-page-header title="IncentiveRequest" icon="view_list"></app-page-header>
+
+<mat-tab-group>
+  <mat-tab label="Documents">
+    <ng-template matTabContent>
+      <mat-card *ngIf="!isInvestor" class="margin-2 simple-card">
+        <mat-card-header>
+          <mat-card-subtitle class="sub-title"></mat-card-subtitle>
+          <button class="margin-10 certificate-title" mat-raised-button=""
+                  (click)="addMessage()" color="primary">
+            Add Message
+          </button>
+        </mat-card-header>
+      </mat-card>
+      <mat-card *ngIf="isInvestor" style="overflow: hidden;" class="margin-2 padding-0">
+        <mat-card-content>
+          <mat-card-actions align="center">
+            <div fxLayoutGap="3em" align="center">
+              <div style="padding: 20px" fxLayout="row" fxLayoutAlign="center right" fxLayoutGap="2em">
+                <button style="margin-left: 10px" (click)="UpdateServiceApplication()" mat-raised-button=""
+                        class="mr-16"
+                        color="primary">
+                  <mat-icon color="primary">done</mat-icon>
+                  <span>Submit </span>
+                </button>
+              </div>
+            </div>
+          </mat-card-actions>
+        </mat-card-content>
+      </mat-card>
+      <app-service-prerequisite></app-service-prerequisite>
+    </ng-template>
+    <div>
+    </div>
+  </mat-tab>
+  <mat-tab label="Request Form">
+    <ng-template matTabContent="">
+      <app-incentive-request></app-incentive-request>
+    </ng-template>
+    <div>
+    </div>
+  </mat-tab>
+  <mat-tab *ngIf="!isInvestor" label="Letter">
+    <ng-template matTabContent>
+      <app-letter></app-letter>
+    </ng-template>
+  </mat-tab>
+
+</mat-tab-group>

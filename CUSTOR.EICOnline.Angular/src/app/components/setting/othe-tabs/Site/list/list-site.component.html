@@ -1,0 +1,59 @@
+<div style="width:630px;" class="margin-3">
+  <!--<mat-toolbar color="primary">-->
+  <!--<mat-toolbar-row>-->
+  <!--<span>Service Lookup</span>-->
+  <!--&lt;!&ndash; <span class="toolbar-spacer"></span>&ndash;&gt;-->
+  <!--<div class="header-actions" style="width: 100%;">-->
+  <!--<mat-form-field>-->
+  <!--<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">-->
+  <!--</mat-form-field>-->
+  <!--</div>-->
+  <!--</mat-toolbar-row>-->
+  <!--</mat-toolbar>-->
+  <div class="mat-elevation-z8">
+    <mat-progress-bar *ngIf="loadingIndicator" mode="query"></mat-progress-bar>
+    <mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="Id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="60px">Id</mat-header-cell>
+        <mat-cell *matCellDef="let row" fxFlex="60px"> {{row.SiteId}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="180px">Site Name</mat-header-cell>
+        <mat-cell *matCellDef="let row" fxFlex="180px"> {{row.Name}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="NameEnglish">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="180px">Site Name English</mat-header-cell>
+        <mat-cell *matCellDef="let row" fxFlex="180px"> {{row.NameEnglish}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="IsActive">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.IsActive}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef fxFlex="100px">
+          <button mat-button color="primary" (click)="editSite()">
+            <mat-icon class="mat-button-icon">add</mat-icon>
+            {{'common.commands.Add' | translate}}
+          </button>
+        </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef fxFlex="100px">
+        </mat-header-cell>
+        <mat-cell *matCellDef="let sites" fxFlex="100px">
+          <button mat-icon-button (click)="editSite(sites)" type="button">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="confirmDelete(sites)" type="button">
+            <mat-icon color="warn">delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+</div>

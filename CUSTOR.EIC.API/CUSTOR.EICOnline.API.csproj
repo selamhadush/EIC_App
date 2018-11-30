@@ -1,0 +1,85 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <!--<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <IsPackable>false</IsPackable>
+    <SpaRoot>ClientApp\</SpaqRoot>
+    <DefaultItemExcludes>$  (DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>-->
+
+    <!-- Set this to true if you enable server-side prerendering -->
+    <BuildServerSideRenderer>false</BuildServerSideRenderer>
+    <Description>EIC Online Soluton</Description>
+    <Copyright>Copyright © 2018 www.custor.net</Copyright>
+    <PackageProjectUrl>https://www.custor.net/EICOnline</PackageProjectUrl>
+    <Company>CUSTOR</Company>
+    <Version>1.2.0</Version>
+    <StartupObject>EICOnline.API.Program</StartupObject>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\NewFolder2\**" />
+    <Content Remove="Controllers\NewFolder2\**" />
+    <EmbeddedResource Remove="Controllers\NewFolder2\**" />
+    <None Remove="Controllers\NewFolder2\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.2.2" />
+    <PackageReference Include="dotnetcore.npoi" Version="1.2.2-preview-56107813" />
+    <PackageReference Include="EPPlus.Core" Version="1.5.4" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="7.5.0" />
+    <PackageReference Include="IdentityServer4" Version="2.1.2" />
+    <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="2.4.0" />
+    <PackageReference Include="IdentityServer4.AspNetIdentity" Version="2.1.0" />
+    <PackageReference Include="IdentityServer4.EntityFramework" Version="2.1.1" />
+    <PackageReference Include="MailKit" Version="2.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.4" />
+    <PackageReference Include="Serilog.Extensions.Logging.File" Version="1.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="2.5.0" />
+
+    <PackageReference Include="SendGrid" Version="9.10.0" />
+
+    <PackageReference Include="System.Data.Common" Version="4.3.0" />
+
+    <PackageReference Include="System.Data.SqlClient" Version="4.5.1" />
+    <!--newly added-->
+    <!--<PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.5.0" />-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.1" />
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <Compile Remove="Authorization\CustomerController.cs" />
+    <Compile Remove="ProfileService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CUSTOR.EICOnline.DAL\CUSTOR.EICOnline.DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\bl\" />
+    <Folder Include="obj\" />
+    <Folder Include="ViewModels\project\" />
+    <Folder Include="ViewModels\Validations\" />
+    <Folder Include="wwwroot\photo\" />
+    <Folder Include="wwwroot\uploadbom\" />
+    <Folder Include="wwwroot\Upload\" />
+  </ItemGroup>
+
+
+
+
+</Project>

@@ -1,0 +1,49 @@
+<div style="margin-bottom: 20px;">
+  <span class="sub-title">Message</span>
+  <mat-divider></mat-divider>
+</div>
+<div>
+
+  <form [formGroup]="notificationForm">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+      <div class="block  " fxFlex="">
+        <mat-form-field class="demo-full-width">
+          <mat-label>Officer Name:</mat-label>
+          <input formControlName="FromUserId" matInput>
+        </mat-form-field>
+      </div>
+      <div class="block" fxFlex="">
+        <mat-form-field class="demo-full-width">
+          <mat-label>To:</mat-label>
+          <input formControlName="ToUserId" matInput disabled value="{{investorName}}">
+        </mat-form-field>
+      </div>
+    </div>
+    <p>
+      <mat-form-field style="height: 50px;" class="demo-full-width">
+        <mat-label>Message</mat-label>
+        <textarea style="   height: 86px;
+           font-size: 15px;
+             color: #0894a2;"
+                  class="full-width"
+                  formControlName="Message" matInput
+                  row="10">
+
+        </textarea>
+      </mat-form-field>
+    </p>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+      <div class="block" fxFlex="">
+      </div>
+    </div>
+  </form>
+  <mat-divider></mat-divider>
+  <button class="custom-button" (click)="Approve()"
+          color="primary" mat-dialog-close cdkFocusInitial>Approve
+  </button>
+  <button class="custom-button" (click)="InComplete()"
+          color="warn" mat-dialog-close cdkFocusInitial>
+    In Complete
+  </button>
+
+</div>

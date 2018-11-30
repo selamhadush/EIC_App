@@ -1,0 +1,308 @@
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0">
+  <div class="block" fxFlex="">
+    <app-page-header title="search" icon="view_list"></app-page-header>
+
+  </div>
+  <div id="title1" class="block" fxFlex="50">
+    <span class="page-title">{{title}}</span>
+    <span class="slideBorder">/</span>
+    <span class="page-title">{{investorName}}</span>
+    <span class="slideBorder">/</span>
+    <span class="page-title">{{projectName}}</span>
+
+
+  </div>
+</div>
+
+<form *ngIf="investorShow" style="background-color: white;border: 1px solid #cccccc;padding: 8px;border-radius: 6px;"
+      class="margin-2 border"
+      [formGroup]="searchForm"
+      novalidate #costF>
+  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+
+    <mat-form-field fxFlex="16">
+      <mat-label>TIN:</mat-label>
+      <input type="text"
+             matInput=""
+             formControlName="Tin">
+
+    </mat-form-field>
+    <mat-form-field fxFlex="16">
+      <mat-label>Name:</mat-label>
+      <input type="text"
+             matInput=""
+             formControlName="FirstNameEng">
+
+    </mat-form-field>
+    <mat-form-field fxFlex="16">
+      <mat-label>Father Name:</mat-label>
+      <input type="text"
+             matInput=""
+             formControlName="FatherNameEng">
+
+    </mat-form-field>
+    <mat-form-field fxFlex="16">
+      <mat-label>Grand Father Name:</mat-label>
+      <input type="text"
+             matInput=""
+             formControlName="GrandNameEng">
+
+    </mat-form-field>
+
+
+    <button mat-raised-button="" color="primary" (click)="search()">
+      <!--<mat-icon class="mat-18">search</mat-icon>-->
+      <span>Search</span>
+    </button>
+  </div>
+
+</form>
+
+<mat-card id="InvestorList" class="margin-2" *ngIf="investorShow">
+  <mat-card-content>
+    <div fxFlex="100%">
+      <div class="spinner-container" *ngIf="loadingIndicator">
+        <mat-progress-bar mode="query"></mat-progress-bar>
+      </div>
+      <mat-table #table [dataSource]="dataSource">
+        <!--<ng-container matColumnDef="No">-->
+        <!--<mat-header-cell [fxFlex]="6" *matHeaderCellDef>No</mat-header-cell>-->
+        <!--<mat-cell [fxFlex]="6" *matCellDef="let investors;let i=index;">-->
+        <!--{{i+1}}-->
+        <!--</mat-cell>-->
+        <!--</ng-container>-->
+
+        <ng-container matColumnDef="FirstNameEng">
+          <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+          <mat-cell *matCellDef="let investors">
+            {{investors?.InvestorNameEng}}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="FatherNameEng">
+          <mat-header-cell *matHeaderCellDef>የኢንቨስተሩ ስም</mat-header-cell>
+          <mat-cell *matCellDef="let investors">
+            {{investors?.InvestorName}}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="RegistrationNumber">
+          <mat-header-cell *matHeaderCellDef>License No</mat-header-cell>
+          <mat-cell *matCellDef="let investors">
+            {{investors?.RegistrationNumber}}
+          </mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="RegistrationDate">
+          <mat-header-cell *matHeaderCellDef>Registration Date</mat-header-cell>
+          <mat-cell *matCellDef="let investors">
+            {{investors.RegistrationDate | date}}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Tin">
+          <mat-header-cell *matHeaderCellDef>Tin</mat-header-cell>
+          <mat-cell *matCellDef="let investors">
+            {{investors?.Tin}}
+          </mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="Action">
+          <mat-header-cell [fxFlex]="20" *matHeaderCellDef>Action
+            <button *ngIf="canViewTasks" style="margin-left: 50px;" mat-button color="primary" (click)="editInvestor()">
+              <mat-icon class="mat-button-icon">add</mat-icon>
+              {{'common.commands.Add' | translate}}
+            </button>
+          </mat-header-cell>
+          <mat-cell [fxFlex]="20" *matCellDef="let investors; let i=index">
+            <div>
+
+              <a class="margin-10 pointer" matTooltip="Click her to for detail"
+                 (click)="select(investors.InvestorId,investors.InvestorNameEng)">
+                <mat-icon color="primary">visibility</mat-icon>
+                View
+              </a>
+
+
+              <button color="primary" mat-raised-button class="margin-10 pointer"
+                      matTooltip="Click her to add project"
+                      (click)="goToService(investors.InvestorId,investors.InvestorNameEng)">
+                <span style="font-weight: bolder;">Select </span>
+              </button>
+            </div>
+          </mat-cell>
+
+
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns">
+        </mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+      </mat-table>
+
+      <mat-paginator
+
+        #paginator
+        [pageSize]="4"
+        [pageSizeOptions]="[5, 10, 20]">
+      </mat-paginator>
+    </div>
+  </mat-card-content>
+</mat-card>
+<mat-card class="margin-2" *ngIf="!investorShow">
+  <div style="background-color: white" class="investor-name" fxLayout="row" fxLayoutAlign="start center"
+       fxLayoutGap="2em">
+
+    <div fxFlex="80">
+      <h5 style="color: cadetblue;font-weight: bolder;"> Investor Name : {{invName}}</h5>
+      <!--<h5 style="text-transform: capitalize;"> {{invName}}</h5>-->
+    </div>
+
+  </div>
+
+
+  <!--<mat-divider></mat-divider>-->
+  <mat-card-content>
+    <div fxFlex="100%">
+
+      <div class="spinner-container" *ngIf="loadingIndicator">
+        <mat-progress-bar mode="query"></mat-progress-bar>
+      </div>
+      <mat-table #table [dataSource]="dataSource">
+        <ng-container matColumnDef="ProjectName">
+          <mat-header-cell *matHeaderCellDef>Project Name</mat-header-cell>
+          <mat-cell *matCellDef="let projectList">
+            {{projectList?.ProjectName}}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="ProjectDescription">
+          <mat-header-cell *matHeaderCellDef>Project Description</mat-header-cell>
+          <mat-cell *matCellDef="let projectList">
+
+            {{(projectList.ProjectDescription!=null) ? (projectList.ProjectDescription |
+            filterPipe:10): ''}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="startDate">
+          <mat-header-cell *matHeaderCellDef> Start Date</mat-header-cell>
+          <mat-cell *matCellDef="let projectList">
+            {{projectList?.StartDate | date}}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="InvActivity">
+          <mat-header-cell *matHeaderCellDef> Investment Activity</mat-header-cell>
+          <mat-cell *matCellDef="let projectList">
+            {{projectList?.InvestmentActivity?.DescriptionEnglish }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="ProjectStage">
+          <mat-header-cell *matHeaderCellDef>Project Stage</mat-header-cell>
+          <mat-cell *matCellDef="let projectList">
+
+              <span style="color: #00bcd4;font-weight: bolder" *ngIf="projectList?.ProjectStage===1">
+                PreImplementation
+              </span>
+            <span style="color: green;font-weight: bolder;" *ngIf="projectList?.ProjectStage===2">
+               Implementation
+              </span>
+            <span style="color: green;font-weight: bolder;" *ngIf="projectList?.ProjectStage===3">
+               Operation
+              </span>
+
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="ProjectStatus">
+          <mat-header-cell fxFlex="10" *matHeaderCellDef>Project Status</mat-header-cell>
+          <mat-cell fxFlex="10" *matCellDef="let projectList">
+<span style="color: red;font-weight: bolder;"
+      *ngIf="projectList?.ProjectStatus===4">
+               Cancelled
+              </span>
+            <span style="color: #00bcd4;font-weight: bolder;"
+                  *ngIf="projectList?.ProjectStatus===5">
+               Injected
+              </span>
+            <span style="color: red;font-weight: bolder;"
+                  *ngIf="projectList?.ProjectStatus===6">
+               Closed
+              </span>
+            <span style="color: #00bcd4;font-weight: bolder;"
+                  *ngIf="projectList?.ProjectStatus===7">
+            </span>
+            <span style="color: #00bcd4;font-weight: bolder;"
+                  *ngIf="projectList?.ProjectStatus===7">
+               Transfer
+              </span>
+            <span style="color: red;font-weight: bolder;"
+                  *ngIf="projectList?.ProjectStatus===8">
+               Not Active
+              </span>
+            <span style="color: #0d804b;font-weight: bolder;"
+                  *ngIf="projectList?.ProjectStatus===9">
+              Active
+              </span>
+
+
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Action">
+
+          <mat-header-cell [fxFlex]="20" *matHeaderCellDef>Action
+
+          </mat-header-cell>
+
+          <mat-cell [fxFlex]="20" *matCellDef="let projectList; let i=index">
+            <div>
+
+              <a class="margin-10 pointer"
+                 color="accent"
+                 matTooltip="Click here for detail of the project"
+                 (click)="projectDetail(projectList?.ProjectId)">
+                <mat-icon color="primary">visibility</mat-icon>
+                View
+              </a>
+              <button *ngIf="canViewTasks || canManageAftercareData"
+                      mat-raised-button
+                      [disabled]="!projectList.IsActive"
+                      color="primary"
+                      matTooltip="Click Here to Continue"
+                      (click)="startApplication(projectList?.ProjectId,
+                      projectList?.ServiceApplicationId,
+              projectList.ServiceId,
+              projectList?.ProjectStatus,
+              projectList?.ProjectName)">
+                <!--<mat-icon color="primary" class="mat-18">done</mat-icon>-->
+
+                <span style="font-weight: bolder;">Continue </span>
+              </button>
+
+            </div>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumnsProject">
+        </mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumnsProject;">
+        </mat-row>
+      </mat-table>
+
+      <mat-paginator
+        #paginator
+        [pageSize]="4"
+        [pageSizeOptions]="[5, 10, 20]">
+      </mat-paginator>
+
+
+      <div style="padding: 15px; border-top: 1px solid #ccc">
+        <button style="margin-left: 30px"
+                mat-raised-button="" (click)="back()"
+                color="primary">
+          <mat-icon class="mat-18">arrow_back</mat-icon>
+          Back
+        </button>
+      </div>
+
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,154 @@
+<div class="page-content" style=" margin:auto;width:500px;">
+  <div class="mat-elevation-z8" style="margin: 30px;">
+    <mat-progress-bar *ngIf="loadingIndicator" mode="query"></mat-progress-bar>
+    <mat-toolbar color="primary">
+      <mat-toolbar-row>
+        <span style="margin-top:9px; margin-right: 5px"><mat-icon>person</mat-icon></span>
+        <span>Register</span>
+        <span class="toolbar-spacer"></span>
+        <div class="header-actions">
+          <!-- <button mat-icon-button><mat-icon>more_vertical</mat-icon></button> -->
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-card>
+      <div class="error-bar" style="width:100%; " *ngIf="errors.length > 0">
+        <ul>
+            <li *ngFor="let error of errors">
+                {{ error }}
+            </li>
+        </ul>
+      </div>
+      <mat-card-content>
+        <form #form="ngForm" [formGroup]="userProfileForm" novalidate (ngSubmit)="save()" fxLayout="column"
+              fxLayoutGap="1em" autocomplete="off">
+
+          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1em">
+            <mat-form-field fxFlex>
+              <mat-label>{{'users.editor.FullName' | translate}}</mat-label>
+              <input matInput formControlName="fullName" required/>
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1em">
+            <div fxFlex.gt-sm="0 1 calc(50% - 0.5em)">
+              <mat-checkbox formControlName="isExistingCustomer" (click)="ExistingCustomerChecked($event)">
+                {{'users.editor.ExistingCustomer' | translate}}
+              </mat-checkbox>
+            </div>
+          </div>
+
+          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1em">
+            <mat-form-field fxFlex *ngIf="isExisting">
+              <mat-label name="lblTIN">{{'users.editor.TIN' | translate}}</mat-label>
+              <input matInput formControlName="tin" NaturalNumberOnlyDir/>
+              <mat-error
+                *ngIf="(tin.hasError('required') || tin.hasError('minLength') || tin.hasError('maxLength'))
+                 && tin.touched ">
+                {{'users.editor.TINRequired' | translate}}
+                <!--<small class="error" *ngIf="!tin.hasError('isTinUnique')">-->
+
+                <!--</small>-->
+
+              </mat-error>
+              <mat-error class="error"
+                         *ngIf="!tin.hasError('required') && tin.hasError('isTinUnique')">
+                This Tin not registered
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1em">
+            <mat-form-field fxFlex>
+              <mat-label>{{'users.editor.Email' | translate}}</mat-label>
+              <input matInput formControlName="email" required/>
+              <mat-error *ngIf="email.hasError('required')">
+                {{'users.editor.EmailRequired' | translate}}
+              </mat-error>
+              <mat-error *ngIf="!email.hasError('required') && email.hasError('email')">
+                {{'users.editor.InvalidEmail' | translate}}
+              </mat-error>
+              <mat-error class="error"
+                         *ngIf="!email.hasError('required') && email.hasError('isEmailUnique')">
+                This email has been registered already
+              </mat-error>
+
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1em">
+            <mat-form-field fxFlex>
+              <mat-label>{{'users.editor.PhoneNumber' | translate}}</mat-label>
+              <input matInput NaturalNumberOnlyDir formControlName="phoneNumber" required autocomplete="off"/>
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1em">
+            <mat-form-field>
+              <mat-label>{{'users.editor.UserName' | translate}}</mat-label>
+              <input matInput formControlName="userName" autocomplete="off" required/>
+              <mat-error *ngIf="userName.hasError('required')">
+                {{'users.editor.UserNameRequired' | translate}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div formGroupName="password" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1em">
+
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1em">
+              <mat-form-field>
+                <mat-label>{{'users.editor.NewPassword' | translate}}</mat-label>
+                <input matInput type="password" formControlName="newPassword" autocomplete="off" required/>
+                <mat-error *ngIf="newPassword.hasError('required')">
+                  {{'users.editor.NewPasswordRequired' | translate}}
+                </mat-error>
+                <mat-error *ngIf="!newPassword.hasError('required') && newPassword.hasError('pattern')">
+                  {{'users.editor.NewPasswordRules' | translate}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1em">
+
+              <mat-form-field fxFlex>
+                <mat-label>{{'users.editor.ConfirmPassword' | translate}}</mat-label>
+                <input matInput type="password" formControlName="confirmPassword" required/>
+                <mat-error *ngIf="confirmPassword.hasError('required')">
+                  {{'users.editor.ConfirmationPasswordRequired' | translate}}
+                </mat-error>
+                <mat-error *ngIf="!confirmPassword.hasError('required') && confirmPassword.hasError('notEqual')">
+                  {{'users.editor.PasswordMismatch' | translate}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1em">
+                <!--<re-captcha formControlName="recaptcha" required></re-captcha>-->
+                <!-- <div *ngIf="recaptcha.errors.required">You must check the security image</div> -->
+            </div>
+          <!-- https://github.com/angular/material2/issues/8798 -->
+          <div>&nbsp;</div>
+        </form>
+      </mat-card-content>
+
+      <!-- <div class="alert-info" role="alert">
+        <div class="f-lft">
+          <mat-icon class="mat-18" color="primary">info</mat-icon>
+          <div class="txt-j"> By continuing using the system you certify that you have
+            read
+            the above service request instruction and accept the applicable
+            <p class="bld">
+              <a target="_blank" ui-sref="page({url:'privacy-policy'})" translate="" href="/page/privacy-policy">Terms
+                and Conditions</a>
+            </p>
+            <mat-checkbox>Accept!</mat-checkbox>
+
+          </div>
+        </div>
+      </div> -->
+
+      <div style="text-align: center">
+        <button mat-raised-button color="primary" (click)="save()" [disabled]="userProfileForm.invalid">Register
+        </button>
+      </div>
+      <!--{{userProfileForm.value | json}}-->
+    </mat-card>
+  </div>
+</div>

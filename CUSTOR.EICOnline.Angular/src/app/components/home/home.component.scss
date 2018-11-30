@@ -1,0 +1,249 @@
+#home-header {
+    height: 100px;
+    width: 1000px;
+    margin-top:0px;
+    background-color:#009688; //#00bcd4
+    color: white;
+    margin: auto;
+}
+.title {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 30px;
+    background-color: #00bcd4;
+    color: white;
+    width: 100%;
+    text-align: center;
+}
+    #login {
+        width: 100%;
+        overflow: hidden;
+        background-size: cover;
+
+        #login-intro {
+            padding: 128px;
+
+            .logo {
+                width: 128px;
+                margin-bottom: 32px;
+            }
+
+            .description {
+                padding-top: 16px;
+                font-size: 14px;
+                max-width: 600px;
+                color: rgba(255, 255, 255, 0.54);
+            }
+        }
+
+        #login-form-wrapper {
+            overflow: auto;
+            width: 400px;
+            min-width: 400px;
+            max-width: 400px;
+            background: #FFFFFF;
+
+            #login-form {
+                padding: 28px 28px 28px 28px;
+
+                .logo {
+                    width: 128px;
+                    height: 128px;
+                    line-height: 128px;
+                    font-size: 86px;
+                    font-weight: 500;
+                    text-align: center;
+                    margin: 32px auto;
+                    color: #FFFFFF;
+                    border-radius: 2px;
+                    // background: mat-color($accent);
+                }
+
+                .title {
+                    font-size: 21px;
+                }
+
+                .description {
+                    padding-top: 8px;
+                }
+
+                form {
+                    width: 100%;
+                    padding-top: 32px;
+
+                    mat-form-field {
+                        width: 100%;
+                    }
+
+                    mat-checkbox {
+                        margin: 0;
+                    }
+
+                    .remember-forgot-password {
+                        font-size: 13px;
+                        margin-top: 8px;
+
+                        .remember-me {
+                            margin-bottom: 16px
+                        }
+
+                        .forgot-password {
+                            font-size: 13px;
+                            font-weight: 500;
+                            margin-bottom: 16px
+                        }
+                    }
+
+                    .submit-button {
+                        width: 100%;
+                        margin: 16px auto;
+                        display: block;
+                    }
+                }
+
+                .separator {
+                    font-size: 15px;
+                    font-weight: 600;
+                    margin: 24px auto;
+                    position: relative;
+                    overflow: hidden;
+                    width: 100px;
+                    text-align: center;
+                    color: rgba(0, 0, 0, 0.54);
+
+                    .text {
+                        display: inline-flex;
+                        position: relative;
+                        padding: 0 8px;
+                        z-index: 9999;
+
+                        &:before, &:after {
+                            content: '';
+                            display: block;
+                            width: 30px;
+                            position: absolute;
+                            top: 10px;
+                            border-top: 1px solid rgba(0, 0, 0, 0.12);
+                        }
+
+                        &:before {
+                            right: 100%;
+                        }
+
+                        &:after {
+                            left: 100%;
+                        }
+                    }
+                }
+
+                button {
+                        mat-icon {
+                            color: #FFFFFF;
+                            margin: 0 8px 0 0;
+                        }
+                    }
+                }
+
+                .register {
+                    margin: 32px auto 24px auto;
+                    width: 250px;
+                    font-weight: 500;
+
+                    .text {
+                        margin-right: 8px;
+                    }
+                }
+            }
+        }
+
+        // .main_div{
+        //     overflow-x: hidden;
+        //     overflow-y: hidden;
+        //     padding-left: 5px;
+        //     padding-right: 5px;
+        //   }
+        // .map_div{
+        //     padding-top: 10px;
+        // }
+
+        agm-map {
+            height: 280px;
+            margin: 0px;
+          }
+        .map_div{
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+          }
+        .lgn_btn
+          {
+            width: 100%;
+            max-width: 150px;
+            height: auto;
+            cursor: pointer;
+          }
+
+        .address{
+          font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+            font-size: 14px;
+            font-style: normal;
+            font-variant: normal;
+          font-weight: 500;
+          color: #393B3E;
+        }
+        .address_card_content{
+          padding-top: 0px;
+          padding-bottom: 10px;
+          height: 250px;
+        }
+
+//    Info Bar
+.info-nag{
+    display: inline-block;
+    font-size: 14px;
+    text-align: left;
+    background-color:whitesmoke;
+    // color: white;
+    height: 70px;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.2);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    margin: auto;
+    width: 1000px;
+    margin-top: 40px;
+    // background-image: url('./service-list/header-bg.png');
+  }
+
+  .info-nag:hover{
+      cursor: pointer;
+      -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.4);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.3);
+  }
+  .info-nag > .info-split{
+    background: #337ab7;
+    width: 10px;
+    float: left;
+    color: #fff!important;
+    height: 100%;
+    text-align: center;
+  }
+  .info-nag > .info-split.info-info{
+    background: #5bc0de!important;
+  }
+  .info-nag > .info-text{
+    line-height: 22px;
+    padding-top: 17px;
+    padding-left: 45px;
+    padding-right: 20px;
+    color: #337ab7;
+  }
+
+  mat-divider {
+    margin-bottom: 10px;
+    border-top-color: #00bcd4;
+  }
+  h2 {
+    margin-bottom: 0px;
+    font-size:medium;
+    color: #00bcd4;
+    margin-top: 10px;
+  }

@@ -1,0 +1,86 @@
+/* div {
+  display: flex;
+} */
+.page-content {
+  //width: 900px;
+  //margin: 0 auto;
+  margin-bottom: 30px;
+  // margin-right:40px;
+  // margin-top: 10px;
+  // margin-left:20px;
+  background-color: white;
+}
+
+mat-card {
+  max-width: 100%;
+  margin: 10px auto;
+  text-align: center;
+}
+
+mat-checkbox {
+  max-width: 500px;
+  // margin: 2em auto;
+  text-align: left;
+  margin-top: -40px;
+  font-size: small;
+  vertical-align: bottom;
+}
+
+mat-label {
+  font-size: smaller;
+}
+
+mat-form-field {
+  max-width: 130px;
+  margin-right: 10px;
+  font-size: small;
+}
+
+mat-divider {
+  margin-bottom: 10px;
+  border-top-color: #00bcd4;
+}
+
+h4 {
+  margin-bottom: 0px;
+  font-size: medium;
+  color: #00bcd4;
+  margin-top: 10px;
+}
+
+.row {
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.customer-radio-group {
+  display: inherit;
+  flex-direction: row;
+}
+
+.customer-radio-button {
+  margin: 5px;
+}
+
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.inputfile + label {
+  font-size: 12px;
+  color: steelblue;
+  background-color: white;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+  // background-color:steelblue;
+  color: goldenrod;
+}

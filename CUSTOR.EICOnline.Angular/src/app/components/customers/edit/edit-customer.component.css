@@ -1,0 +1,32 @@
+/* div {
+  display: flex;
+} */
+
+mat-card {
+  max-width: 500px;
+  margin: 10px auto;
+  text-align: center;
+}
+mat-checkbox {
+  max-width: 500px;
+  margin: 2em auto;
+  text-align: left;
+}
+mat-form-field  {
+  max-width: 110px;
+  margin-right: 10px;
+}
+.row
+{
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.customer-radio-group {
+  display: inherit;
+  flex-direction: row;
+}
+
+.customer-radio-button {
+  margin: 5px;
+}

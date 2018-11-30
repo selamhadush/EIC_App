@@ -1,0 +1,232 @@
+<div style="height: inherit;overflow: auto;">
+  <form
+    style="background-color: white;border: 1px solid #cccccc;padding: 8px;border-radius: 6px;"
+    class="margin-2 border"
+    [formGroup]="searchForm"
+    novalidate #costF>
+    <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="4em">
+
+      <mat-form-field fxFlex="10">
+        <mat-label>TIN :</mat-label>
+        <input matInput="">
+
+        <!--<mat-error align="start" *ngIf="formErrors.FormOfOwnership">{{ formErrors.FormOfOwnership }}-->
+        <!--</mat-error>-->
+      </mat-form-field>
+      <mat-form-field fxFlex="10">
+        <mat-label>Service</mat-label>
+        <mat-select formControlName="ServiceId">
+          <mat-option *ngFor="let service of serviceList;" [value]="service?.ServiceId">
+            {{service?.DisplayNameEnglish}}
+          </mat-option>
+        </mat-select>
+        <!--<mat-error align="start" *ngIf="formErrors.FormOfOwnership">{{ formErrors.FormOfOwnership }}-->
+        <!--</mat-error>-->
+      </mat-form-field>
+
+      <mat-form-field fxFlex="10">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option *ngFor="let status of applicationStatus" [value]="status.Id">
+            {{status.DescriptionEnglish}}
+          </mat-option>
+        </mat-select>
+        <!--<mat-error align="start" *ngIf="formErrors.FormOfOwnership">{{ formErrors.FormOfOwnership }}-->
+        <!--</mat-error>-->
+      </mat-form-field>
+
+      <mat-form-field fxFlex="10">
+        <input formControlName="SpecDate"
+               placeholder="Sepecific Date"
+               matInput
+               [matDatepicker]="sDate">
+        <mat-datepicker-toggle matSuffix [for]="sDate"></mat-datepicker-toggle>
+        <mat-datepicker #sDate></mat-datepicker>
+        <!--<mat-error align="start" *ngIf="formErrors.terminationDate">{{ formErrors.terminationDate }}</mat-error>-->
+      </mat-form-field>
+
+      <mat-form-field fxFlex="10">
+        <input formControlName="FromDate"
+               placeholder="From Date"
+               matInput
+               [matDatepicker]="fDate">
+        <mat-datepicker-toggle matSuffix [for]="fDate"></mat-datepicker-toggle>
+        <mat-datepicker #fDate></mat-datepicker>
+        <!--<mat-error align="start" *ngIf="formErrors.terminationDate">{{ formErrors.terminationDate }}</mat-error>-->
+
+      </mat-form-field>
+
+      <mat-form-field fxFlex="10">
+        <input formControlName="ToDate"
+               placeholder="To Date"
+               matInput
+               [matDatepicker]="tDate">
+        <mat-datepicker-toggle matSuffix [for]="tDate"></mat-datepicker-toggle>
+        <mat-datepicker #tDate></mat-datepicker>
+        <!--<mat-error align="start" *ngIf="formErrors.terminationDate">{{ formErrors.terminationDate }}</mat-error>-->
+
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" (click)="search()">
+        <mat-icon class="mat-18">search</mat-icon>
+        <span>Search</span>
+      </button>
+    </div>
+
+  </form>
+
+  <mat-card class="margin-2">
+    <mat-card-content>
+
+      <div fxFlex="100%">
+
+        <div class="spinner-container" *ngIf="loading ">
+          <mat-progress-bar mode="query"></mat-progress-bar>
+        </div>
+        <mat-table #table [dataSource]="dataSource">
+
+          <ng-container matColumnDef="ServiceName">
+            <mat-header-cell *matHeaderCellDef>Service Name</mat-header-cell>
+            <mat-cell *matCellDef="let serviceApplicationList">
+              {{serviceApplicationList?.ServiceNameEnglish }}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="ProjectName">
+            <mat-header-cell *matHeaderCellDef>Project Name</mat-header-cell>
+            <mat-cell *matCellDef="let serviceApplicationList">
+              {{serviceApplicationList?.ProjectNameEnglish }}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="InvestorName">
+            <mat-header-cell *matHeaderCellDef>Investor Name</mat-header-cell>
+            <mat-cell *matCellDef="let serviceApplicationList">
+              {{serviceApplicationList?.InvestorNameEnglish }}
+            </mat-cell>
+          </ng-container>
+          <!--<ng-container matColumnDef="Tin">-->
+          <!--<mat-header-cell *matHeaderCellDef>Tin</mat-header-cell>-->
+          <!--<mat-cell *matCellDef="let serviceApplicationList"> {{serviceApplicationList?.Investor?.Tin |-->
+          <!--filterPipe: 10}}-->
+          <!--</mat-cell>-->
+          <!--</ng-container>-->
+
+
+          <ng-container matColumnDef="currentStatus">
+            <mat-header-cell *matHeaderCellDef>Current Status</mat-header-cell>
+            <mat-cell *matCellDef="let serviceApplicationList">
+                     <span class=" common-button-status drafted"
+                           *ngIf="serviceApplicationList?.CurrentStatusId===44450">
+             Drafted
+                      </span>
+              <span class=" common-button-status Submitted"
+                    *ngIf="serviceApplicationList?.CurrentStatusId===44446">
+             Submitted
+                      </span>
+              <span class=" common-button-status Approved"
+                    *ngIf="serviceApplicationList?.CurrentStatusId===44447">
+            Approved
+                      </span>
+              <span class="common-button-status Pending"
+                    *ngIf="serviceApplicationList?.CurrentStatusId===44448">
+              Pending
+                      </span>
+              <span class=" common-button-status Completed"
+                    *ngIf="serviceApplicationList?.CurrentStatusId===44449">
+           Completed
+                      </span>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="NextStep">
+            <mat-header-cell fxFlex="10" *matHeaderCellDef>Next Step</mat-header-cell>
+            <mat-cell fxFlex="10" *matCellDef="let serviceApplicationList;">
+              <a class="pointer" style="color: #00bcd4;" *ngIf="serviceApplicationList?.CurrentStatusId===44450"
+                 (click)="nextStep(serviceApplicationList?.ServiceWorkflow[0]?.NextStepId,
+            serviceApplicationList.ProjectId,
+            serviceApplicationList.ServiceApplicationId,
+            serviceApplicationList.ServiceId,
+            serviceApplicationList.ServiceNameEnglish,
+             serviceApplicationList?.ServiceWorkflow[0].ServiceWorkflowId,
+             serviceApplicationList.InvestorId,
+             serviceApplicationList.InvestorNameEnglish,
+               serviceApplicationList.ProjectNameEnglish)">
+                {{serviceApplicationList?.ServiceWorkflow[0]?.NextStepId | serviceStepPipe}}
+                <!--<mat-icon color="primary" class="mat-18">navigate_next</mat-icon>-->
+              </a>
+              <a class="pointer" style="color: #00bcd4;"
+                 *ngIf="serviceApplicationList?.CurrentStatusId!==44450 && serviceApplicationList?.CurrentStatusId!==44449"
+                 (click)="nextStep(18,
+            serviceApplicationList.ProjectId,
+            serviceApplicationList.ServiceApplicationId,
+            serviceApplicationList.ServiceId,
+            serviceApplicationList.ServiceNameEnglish,
+             serviceApplicationList?.ServiceWorkflow[0].ServiceWorkflowId,serviceApplicationList.InvestorId,
+             serviceApplicationList.InvestorNameEnglish,
+             serviceApplicationList.ProjectNameEnglish
+             )"> Next
+              </a>
+
+
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Action">
+            <mat-header-cell [fxFlex]="32" *matHeaderCellDef>Action</mat-header-cell>
+            <mat-cell [fxFlex]="32" *matCellDef="let serviceApplicationList; let i=index">
+              <div>
+                <span *ngIf="canViewTasks">
+                  <a class=" pointer a-link" color="accent"
+                     matTooltip="Click here for detail of the project"
+                     (click)="projectDetail(serviceApplicationList.ProjectId)">
+                    <span>view</span>
+                  </a>
+                  <a class=" pointer a-link" color="accent"
+                     matTooltip="Click here for detail of the project"
+                     (click)="projectApprove(serviceApplicationList.ServiceApplicationId,
+                     serviceApplicationList.ServiceId,
+                     serviceApplicationList.InvestorId,
+                     serviceApplicationList.ProjectId
+                     )">
+                    <!--<mat-icon color="primary" class="mat-18">settings</mat-icon>-->
+                    <span class="">Go</span>
+                  </a>
+                </span>
+                <span *ngIf="canManageTask">
+                   <a class=" pointer" color="accent" matTooltip="Click Here for Managment"
+                      (click)="assignUser(serviceApplicationList?.ServiceApplicationId)">
+
+                    <span mat-raised-button class="a-link" color=" primary">Manage</span>
+                  </a>
+                  <a *ngIf="serviceApplicationList.TodoTaskId!==null" class="pointer" color="accent"
+                     matTooltip="Click Here for detail">
+                    <span class="assigned">assigned</span>
+                  </a>
+
+                  <a *ngIf="serviceApplicationList.TodoTaskId===null" class="pointer" color="accent"
+                     matTooltip="Click Here for Approval"
+                     (click)="projectApprove(serviceApplicationList?.ServiceApplicationId,
+                     serviceApplicationList?.ServiceId)">
+                    <span class="no-assigned">
+                    not assigned
+                </span>
+                  </a>
+
+                </span>
+              </div>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns">
+          </mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;">
+          </mat-row>
+        </mat-table>
+        <mat-paginator
+          #paginator
+
+          [pageSize]="4"
+          [pageSizeOptions]="[4, 10, 20]"></mat-paginator>
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

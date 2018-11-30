@@ -1,0 +1,59 @@
+<mat-card class="margin-2 ">
+  <mat-card-header>
+    <button mat-icon-button class="mr-16" (click)="back()" color="primary">
+      <mat-icon>arrow_back</mat-icon>
+      <span>Back</span>
+    </button>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+
+  <mat-card-content>
+    <div fxLayout="row" fxLayoutAlign="start " fxLayoutGap="2em">
+      <div class="  block" fxFlex="60%">
+        <div class="hdr-brk sub-title">Confirmation</div>
+        <div style="padding: 20px">
+          <strong>Dear customer; Thank you for Applying. <br>
+
+            Your application will be review soon and we get back for any feed back:</strong>
+
+        </div>
+        <div class="border header-description">
+          Your application Please use the Ticket Number:
+
+          The Address of the Service Delivery Station for your physical visits is:
+          <div> What can you do next?</div>
+
+          Finish: Click Finish if you are done with your requests.
+          You will be redirected to My Applications screen,
+          which
+          will be useful in future to track your application status, receive notifications, reserve time slot for
+          visits, and
+          provide additional inputs when requested.
+        </div>
+
+        <div fxLayoutAlign=" center" class="footerButton block" fxFlex="">
+          <button (click)="back()" style="margin: 10px;" color="primary" mat-raised-button>
+            <mat-icon class="mat-18">done</mat-icon>
+            <span class="agree">New</span>
+          </button>
+          <button (click)="back()" style="margin: 10px;" color="warn" mat-raised-button>
+            <mat-icon class="mat-18">close</mat-icon>
+            <span class="agree">Finish</span>
+          </button>
+
+          <!--<button (click)="back()" style="margin: 10px;" color="warn" mat-raised-button>-->
+          <!--<mat-icon class="mat-18">x</mat-icon>-->
+          <!--<span>Close</span>-->
+          <!--</button>-->
+        </div>
+      </div>
+      <div class="appGuid block" fxFlex="40%">
+        <div class="hdr-brk sub-title">Application Service Detail</div>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions align="start center">
+    <div fxLayout="row" fxLayoutGap="2em">
+    </div>
+  </mat-card-actions>
+</mat-card>

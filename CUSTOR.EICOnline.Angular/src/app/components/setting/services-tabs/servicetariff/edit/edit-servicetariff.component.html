@@ -1,0 +1,45 @@
+<div class="containerX">
+  <mat-card>
+    <mat-progress-bar *ngIf="loadingIndicator" mode="query"></mat-progress-bar>
+    <mat-card-header>
+
+      <mat-card-title>
+      </mat-card-title>
+    </mat-card-header>
+    <br />
+    <mat-card-content>
+      <form #form="ngForm" [formGroup]="serviceTariffForm" novalidate (ngSubmit)="onSubmit()" fxLayout="column"
+            autocomplete="off">
+        <div fxLayout="column" fxLayout.lt-md="column" fxLayoutGap="2em" class="row">
+          <mat-form-field  fxLayoutGap="1em" style="width: 250px">
+            <mat-label style="font-family: Calibri">Service Type</mat-label>
+            <mat-select formControlName="cServiceType" [compareWith]="compareIds" required>
+              <option value="0">--Select--</option>
+              <mat-option *ngFor="let servicePrerequisites of serviceModel" [value]="servicePrerequisites.ServiceId">
+                <span>{{servicePrerequisites.NameEnglish}}</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <!--   [compareWith]="compareIds"    required-->
+          <mat-label style="font-family: Calibri">Tariff Type</mat-label>
+          <mat-selection-list formControlName="cTariffType">
+            <mat-list-option *ngFor="let tariffModels of tariffModel"
+                             [selected]="tariffModels?.selected"
+                             [value]="tariffModels?.TariffId"
+                             (click)="onTariffListControlChanged(tariffModels?.TariffId)">
+              <span>{{tariffModels?.NameEnglish}} -- {{tariffModels?.Fee}}</span>
+            </mat-list-option>
+          </mat-selection-list>
+        </div>
+        <div mat-dialog-actions>
+          <button  mat-raised-button type="submit" color="primary">
+            Save
+          </button>
+          <button mat-raised-button (click)="onBack()" color="warn" type="button">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,26 @@
+<table style="height: 320px;display: block;overflow: auto;" class="scrollbar table full-width">
+  <thead>
+  <th>No</th>
+  <th>Nationality</th>
+  <th>quantity</th>
+  <th>SharePercent</th>
+  <th>Description</th>
+
+  </thead>
+  <tbody style="overflow: auto;">
+  <tr class="planned">
+    <td></td>
+    <td>{{plannedShareList?.Nationality | countryPipe}}</td>
+    <td>{{plannedShareList?.Qty}}</td>
+    <td>{{plannedShareList?.SharePercent}}</td>
+    <td>{{plannedShareList?.Description}}</td>
+  </tr>
+  <tr *ngFor="let share of shareList;let i=index;">
+    <td>{{i+1}}</td>
+    <td>{{share.Nationality | countryPipe}}</td>
+    <td>{{share.Qty}}</td>
+    <td>{{share.SharePercent}}</td>
+    <td>{{share.Description}}</td>
+  </tr>
+  </tbody>
+</table>

@@ -1,0 +1,67 @@
+<mat-card class="margin-2">
+  <mat-card-header>
+    <button mat-icon-button class="mr-16" (click)="back()" color="primary">
+      <mat-icon>arrow_back</mat-icon>
+      <span>Back</span>
+    </button>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+
+  <mat-card-content>
+    <div fxLayout="row" fxLayoutAlign="start  " fxLayoutGap="2em">
+      <div class="  block" fxFlex="60%">
+        <div class="hdr-brk sub-title">{{title}}</div>
+        <div class="header-description ">
+          <strong>Service Pre-requisite </strong>
+        </div>
+        <div class=" border">
+          <ol type="none">
+            <li *ngFor="let item of checkLists;let i=index">
+              <!--<span style="margin-right: 20px;" matBadge="{{i+1}}"></span>-->
+              <span>{{item.DescriptionEnglish}}</span>
+            </li>
+          </ol>
+
+
+        </div>
+        <div fxLayoutAlign=" center" class="footerButton block" fxFlex="">
+          <button class="button-success" (click)="continue()" color="warn" style="margin: 20px;">Start</button>
+
+        </div>
+      </div>
+      <div class="appGuid block" fxFlex="40%">
+        <div class="hdr-brk sub-title">Application Form guide</div>
+        <ol>
+          <li>Please make sure that you have created an online account and customer profile that enables you to access
+            our portal.
+          </li>
+          <li>After logging in to the portal, please select the service you would like to request from the provided
+            list, and fill the Request Form properly in order to submit your service request application. Fields marked
+            with ‘astrics (<span style="font-size: 20px;" class="error">*</span>)’ sign are mandatory information that
+            should be provided.
+          </li>
+          <li>
+            Make sure that you have prepared scanned copies of the list of documnets listed here in order to uplaod them
+            later, when requested.
+          </li>
+          <li>If you wish to pause your application request process and continue later, your can do so by saving your
+            application as a Draft and Resume it later by cliking on "Draft Applications" menu item.
+          </li>
+          <li>
+            After you Submit your Service Request Application, you will receive a confirmation email indicating receipt
+            of your application by our staff that will handle the case.
+            The staff who will handle your case may contact you for further information regarding your
+            application.
+          </li>
+
+        </ol>
+      </div>
+    </div>
+
+  </mat-card-content>
+
+  <mat-card-actions align="start center">
+    <div fxLayout="row" fxLayoutGap="2em">
+    </div>
+  </mat-card-actions>
+</mat-card>

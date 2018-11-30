@@ -1,0 +1,266 @@
+<mat-card class="margin-2">
+  <form [formGroup]="projectCostForm" countryCity novalidate #costF>
+    <input type="number" formControlName="ProjectId" hidden>
+    <mat-card-subtitle class="sub-title">
+      Project cost
+      <mat-divider></mat-divider>
+    </mat-card-subtitle>
+    <!--<div class="block">{{projectCostForm.value | json}}</div>-->
+
+    <mat-card-content>
+
+      <div style="margin-bottom: 40px;" *ngIf="ServiceId=='1234'" fxLayout="row" fxLayoutAlign="start center"
+           fxLayoutGap="2em">
+        <div class="block" fxFlex="">
+          <mat-form-field>
+            <mat-label>Quarter</mat-label>
+            <mat-select formControlName="Quarter" [compareWith]="compareIds" required>
+              <mat-option *ngFor="let row of Quarter" [value]="row.Id">
+                <span>{{row.DescriptionEnglish}}</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+        <!--<div class="block" fxFlex="">-->
+        <!--<mat-form-field>-->
+        <!--<input formControlName="ExchangeRate"-->
+        <!--type="number"-->
+        <!--matInput placeholder="Exchange Rate  :">-->
+        <!--<mat-error align="start" *ngIf="formErrors.ExchangeRate" class="form__error">{{ formErrors.ExchangeRate }}-->
+        <!--</mat-error>-->
+        <!--</mat-form-field>-->
+        <!--</div>-->
+        <div class="block" fxFlex>
+          <mat-form-field>
+            <input placeholder="Registration Year* :"
+                   matInput
+                   formControlName="ReagistrationYear"
+                   [matDatepicker]="ReagistrationYear">
+            <mat-datepicker-toggle matSuffix [for]="ReagistrationYear"></mat-datepicker-toggle>
+            <mat-datepicker #ReagistrationYear></mat-datepicker>
+            <mat-error align="start" *ngIf="formErrors.ReagistrationYear" class="form__error">
+              {{ formErrors.ReagistrationYear }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <!--<div class="block" fxFlex="">-->
+        <!---->
+        <!--<mat-form-field>-->
+        <!--<input #OSF type="number" formControlName="CapitalRegistrationDatetime" matInput-->
+        <!--placeholder="Capital Registration Datetime * :">-->
+        <!---->
+        <!--</mat-form-field>-->
+        <!--</div>-->
+        <div class="block" fxFlex="">
+
+          <mat-form-field>
+            <mat-select [disabled]="true" formControlName="ProjectStatus" [compareWith]="compareIds" required>
+              <option value="0">--Select--</option>
+              <label>Project Status</label>
+              <mat-option *ngFor="let status of projectStatus" [value]="status.Id">
+                <span>{{status.DescriptionEnglish}}</span>
+              </mat-option>
+            </mat-select>
+
+          </mat-form-field>
+        </div>
+      </div>
+      <mat-card-subtitle class="sub-title" *ngIf="!(ServiceId=='1234' && (ServiceId=='1234' && editMode))">
+        Cost Break Down
+        <mat-divider></mat-divider>
+      </mat-card-subtitle>
+
+      <div *ngIf="!(ServiceId=='1234' && editMode)">
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+          <div class="block" fxFlex="">
+            <mat-form-field>
+              <input formControlName="LandCost" #LC matInput type="number" placeholder="Land Cost * :">
+              <mat-error align="start" *ngIf="formErrors.LandCost" class="form__error">{{ formErrors.LandCost }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex="">
+            <mat-form-field>
+              <input formControlName="BuildingCost" #BC matInput type="number" placeholder="Building Cost * :">
+              <mat-error align="start" *ngIf="formErrors.BuildingCost" class="form__error">{{ formErrors.BuildingCost }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex="">
+            <mat-form-field>
+              <input formControlName="MachineryCost" #MC matInput type="number" placeholder="Machinery Cost * :">
+              <mat-error align="start" *ngIf="formErrors.MachineryCost" class="form__error">
+                {{ formErrors.MachineryCost }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex="">
+            <mat-form-field>
+              <input matInput formControlName="TransportCost" type="number" #TC placeholder="TransportCost * :">
+              <mat-error align="start" *ngIf="formErrors.TransportCost" class="form__error">
+                {{ formErrors.TransportCost }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2em">
+          <div class="block" fxFlex="">
+            <mat-form-field>
+              <input formControlName="OfficeEquipmentCost" type="number" #OEC matInput
+                     placeholder="Office Equipment Cost * :">
+              <mat-error align="start" *ngIf="formErrors.OfficeEquipmentCost" class="form__error">{{
+                formErrors.OfficeEquipmentCost }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex="">
+            <mat-form-field>
+              <input formControlName="OtherCapitalCost" type="number" #OCC matInput
+                     placeholder="Other Capital Cost * :">
+              <mat-error align="start" *ngIf="formErrors.OtherCapitalCost" class="form__error">{{
+                formErrors.OtherCapitalCost }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex="">
+            <mat-form-field>
+              <input formControlName="InitialWorkingCapitalCost"
+                     type="number" matInput #IWCC placeholder="Initial Working Capital Cost * :">
+              <mat-error align="start" *ngIf="formErrors.InitialWorkingCapitalCost" class="form__error">{{
+                formErrors.InitialWorkingCapitalCost }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex="">
+            <mat-form-field>
+              <input
+
+                type="number"
+                #TotalCost
+                matInput formControlName="Total" placeholder="Total">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <mat-card-subtitle class="sub-title">
+          Source of Finance
+          <mat-divider></mat-divider>
+        </mat-card-subtitle>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+          <div class="block" fxFlex="">
+            <mat-form-field>
+              <input formControlName="EquityFinance"
+                     type="number"
+                     #EF
+                     matInput placeholder="Equity Finance">
+              <!--<mat-error align="start" *ngIf="formErrors.EquityFinance" class="form__error">-->
+              <!--{{ formErrors.EquityFinance }}-->
+              <!--</mat-error>-->
+
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex="">
+            <mat-form-field>
+              <input formControlName="LoanFinance"
+                     type="number"
+                     #LF
+                     matInput placeholder="Loan Finance * :">
+              <mat-error align="start" *ngIf="formErrors.LoanFinance" class="form__error">{{ formErrors.LoanFinance }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex="">
+            <mat-form-field>
+              <input #OSF type="number" formControlName="OtherSourceFinance" matInput
+                     placeholder="Other Source Finance * :">
+              <mat-error align="start" *ngIf="formErrors.OtherSourceFinance" class="form__error">
+                {{ formErrors.OtherSourceFinance }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex="">
+            <mat-form-field>
+              <input formControlName="OtherSourceDescription" matInput placeholder="Other Source Description  :">
+              <mat-error align="start" *ngIf="formErrors.OtherSourceDescription" class="form__error">
+                {{ formErrors.OtherSourceDescription }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="2em">
+          <mat-error
+            *ngIf="projectCostForm.hasError('sumIsNotEqual') && (projectCostForm.touched || projectCostForm.dirty)"
+            class="error">
+            The cost break down and sum of source of finance must be equal!
+          </mat-error>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+          <div fxLayout="column" class="block" fxFlex="25">
+
+            <div class="block">
+              <mat-form-field>
+
+                <mat-label>Currency Type</mat-label>
+                <mat-select [disabled]="true" formControlName="Unit" [compareWith]="compareIds" required>
+                  <option value="0">--Select--</option>
+                  <mat-option *ngFor="let currency of currencyTypes" [value]="currency.Id">
+                    <span>{{currency.DescriptionEnglish}}</span>
+                  </mat-option>
+                </mat-select>
+
+                <!--<mat-label>Unit :</mat-label>-->
+                <!--<input matInput formControlName="Unit" type="text" required placeholder="">-->
+                <mat-error align="start" *ngIf="formErrors.Unit" class="form__error">{{ formErrors.Unit }}
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+          </div>
+          <div class="block" fxFlex="75">
+            <mat-form-field class="full-width">
+              <mat-label>Remark :</mat-label>
+              <textarea matInput formControlName="Remark" rows="4"></textarea>
+              <mat-error align="start" *ngIf="formErrors?.Remark" class="form__error">
+                {{ formErrors.Remark }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+
+    </mat-card-content>
+
+    <mat-divider></mat-divider>
+
+    <div style="padding-top: 20px" align="center">
+
+      <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2em">
+
+        <div fxFlex="15">
+
+        </div>
+        <div style="text-align: center" fxFlex="67" fxFlexAlign="center">
+          <button [disabled]="!projectCostForm.valid" mat-raised-button="" color="primary" (click)="onSubmit()">
+            <mat-icon class="mat-18">done</mat-icon>
+            <span class="agree">{{editMode ? 'update' : 'Save'}}</span>
+          </button>
+
+        </div>
+        <div fxFlex="15">
+
+          <!--<button class="custom-button" (click)="next()" color="warn" type="button">-->
+          <!--Next-->
+          <!--</button>-->
+        </div>
+
+      </div>
+    </div>
+    <!--<app-show-errors [control]="projectCostForm"></app-show-errors>-->
+    <!--<pre>{{projectCostForm.value | json}}</pre>-->
+  </form>
+</mat-card>

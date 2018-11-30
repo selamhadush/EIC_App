@@ -1,0 +1,29 @@
+<mat-tab-group class="margin-2">
+  <mat-tab label="Bill Of Material">
+    <ng-template matTabContent="">
+      <mat-card *ngIf="!isInvestor" class="margin-2 simple-card">
+        <mat-card-header>
+          <mat-card-subtitle class="sub-title"></mat-card-subtitle>
+          <button class="margin-10 certificate-title" mat-raised-button=""
+                  (click)="addMessage()" color="primary">
+            Add Message
+          </button>
+        </mat-card-header>
+      </mat-card>
+      <app-bill-of-material></app-bill-of-material>
+    </ng-template>
+    <div>
+    </div>
+  </mat-tab>
+  <mat-tab *ngIf="!isInvestor" label="Letter">
+    <ng-template matTabContent>
+      <app-letter></app-letter>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Confirmation">
+    <ng-template matTabContent>
+      <app-service-confirmation></app-service-confirmation>
+    </ng-template>
+  </mat-tab>
+
+</mat-tab-group>

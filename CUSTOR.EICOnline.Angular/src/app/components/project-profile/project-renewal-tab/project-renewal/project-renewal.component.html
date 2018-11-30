@@ -1,0 +1,136 @@
+<form style="padding: 2px" (ngSubmit)="onSubmit()" [formGroup]="projectRenewalForm" novalidate>
+
+  <mat-card>
+    <mat-card-subtitle class="sub-title">
+      Project Renewal
+      <mat-divider></mat-divider>
+    </mat-card-subtitle>
+    <mat-card-content>
+      <div fxLayout="row wrap"
+           fxLayoutAlign="start center"
+           class="content"
+           fxLayout.lt-sm="column"
+           fxLayoutGap="2em">
+
+        <div class="block" fxFlex="" *ngIf="!isInvestor">
+          <mat-form-field class="full-width">
+            <mat-label>Project Name</mat-label>
+            <mat-select formControlName="ProjectId">
+              <mat-option *ngFor="let project of projectList" [value]="project.ProjectId">
+                {{project.ProjectName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="blocks" fxFlex>
+          <mat-form-field>
+            <input placeholder="Renewal Date * :"
+                   formControlName="RenewalDate"
+                   matInput
+                   [matDatepicker]="RenewalDate">
+            <mat-datepicker-toggle matSuffix [for]="RenewalDate"></mat-datepicker-toggle>
+            <mat-datepicker #RenewalDate>
+            </mat-datepicker>
+            <!--<mat-error align="start" *ngIf="formErrors.StartDate">{{ formErrors.StartDate }}</mat-error>-->
+          </mat-form-field>
+        </div>
+        <!--<div class="block" fxFlex>-->
+        <!--<mat-form-field>-->
+        <!--<input placeholder="Expected Start Date * :"-->
+        <!--matInput-->
+        <!--formControlName="ExpectedStartDate"-->
+        <!--[matDatepicker]="ExpectedStartDate">-->
+        <!--<mat-datepicker-toggle matSuffix [for]="ExpectedStartDate">-->
+        <!--</mat-datepicker-toggle>-->
+        <!--<mat-datepicker #ExpectedStartDate></mat-datepicker>-->
+        <!--&lt;!&ndash;<mat-error align="start" *ngIf="formErrors.terminationDate">{{ formErrors.terminationDate }}</mat-error>&ndash;&gt;-->
+        <!--</mat-form-field>-->
+        <!--</div>-->
+        <!--<div class="blocks" fxFlex>-->
+        <!--&lt;!&ndash;<mat-label>Start Date :</mat-label>&ndash;&gt;-->
+        <!--<mat-form-field>-->
+        <!--<input formControlName="ApprovedDate"-->
+        <!--matInput-->
+        <!--placeholder="Approved Date * :"-->
+        <!--[matDatepicker]="ApprovedDate">-->
+        <!--<mat-datepicker-toggle matSuffix [for]="ApprovedDate">-->
+        <!--</mat-datepicker-toggle>-->
+        <!--<mat-datepicker #ApprovedDate></mat-datepicker>-->
+        <!--&lt;!&ndash;<mat-error align="start" *ngIf="formErrors.operationDate">{{ formErrors.operationDate }}</mat-error>&ndash;&gt;-->
+        <!--</mat-form-field>-->
+        <!--</div>-->
+        <div class="blocks" fxFlex>
+          <mat-form-field>
+            <input placeholder="Renewed From * :"
+                   formControlName="RenewedFrom"
+                   matInput
+                   RenewedFrom
+                   [matDatepicker]="RenewedFrom">
+            <mat-datepicker-toggle matSuffix [for]="RenewedFrom"></mat-datepicker-toggle>
+            <mat-datepicker #RenewedFrom></mat-datepicker>
+            <!--<mat-error align="start" *ngIf="formErrors.StartDate">{{ formErrors.StartDate }}</mat-error>-->
+          </mat-form-field>
+        </div>
+        <div class="block" fxFlex>
+          <mat-form-field>
+            <input placeholder="Renewed To * :"
+                   matInput
+                   formControlName="RenewedTo"
+                   [matDatepicker]="RenewedTo">
+            <mat-datepicker-toggle matSuffix [for]="RenewedTo"></mat-datepicker-toggle>
+            <mat-datepicker #RenewedTo></mat-datepicker>
+            <!--<mat-error align="start" *ngIf="formErrors.terminationDate">{{ formErrors.terminationDate }}</mat-error>-->
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxLayoutAlign="start center" class="content"
+           fxLayout.lt-sm="column" fxLayoutGap="2em">
+
+        <!--<div class="blocks" fxFlex>-->
+        <!--<mat-form-field>-->
+        <!--<input placeholder="Renewed From * :"-->
+        <!--formControlName="RenewedFrom"-->
+        <!--matInput-->
+        <!--RenewedFrom-->
+        <!--[matDatepicker]="RenewedFrom">-->
+        <!--<mat-datepicker-toggle matSuffix [for]="RenewedFrom"></mat-datepicker-toggle>-->
+        <!--<mat-datepicker #RenewedFrom></mat-datepicker>-->
+        <!--&lt;!&ndash;<mat-error align="start" *ngIf="formErrors.StartDate">{{ formErrors.StartDate }}</mat-error>&ndash;&gt;-->
+        <!--</mat-form-field>-->
+        <!--</div>-->
+
+        <div class="block" fxFlex="50">
+          <mat-form-field class="full-width" floatPlaceholder="auto">
+            <input matInput
+                   placeholder="Remark"
+                   type="text">
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="center">
+        <div mat-dialog-actions fxLayoutGap="3em">
+          <button
+            [disabled]="!projectRenewalForm.valid"
+            type="submit"
+            mat-raised-button=""
+            color="primary">
+            <mat-icon class="mat-18">done</mat-icon>
+            <!--<span class="agree">Save</span>-->
+
+            {{editMode ? 'Approve' : 'Save'}}
+          </button>
+          <button *ngIf="isInvestor" mat-raised-button (click)="approve()" color="primary" type="button">
+            <mat-icon class="mat-18">done_all</mat-icon>
+            <span>Approve</span>
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</form>
+
+<div *ngIf="loading" class="loadme-circleBounce">
+  <div class="loadme-circleBounce1"></div>
+  <div class="loadme-circleBounce2"></div>
+</div>

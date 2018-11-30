@@ -1,0 +1,72 @@
+<div class="full-width" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5em">
+  <div fxFlex="20">
+
+    <mat-form-field>
+      <mat-label>Select user: *</mat-label>
+      <mat-select (selectionChange)="getUserDetail($event.value)">
+        <mat-option *ngFor="let user of userList" [value]="user.Id">
+          {{user.FullName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div fxFlex="70" style="float: right;">
+
+    <span class="summary"><span class="completed-summery">user</span>
+    task Summery of this Month
+    </span>
+    <!--<span class="completed-summery">date</span>-->
+    <span class="summary">completed:
+      <span color="primary" style="padding: 5px;" matBadge="{{completedTask}}"></span>
+    </span>
+    <span class="summary">pending:
+      <span matBadgePosition="center after" matBadgeColor="accent" style="padding: 5px;"
+            matBadge="{{pendingTask}}"></span>
+    </span>
+  </div>
+
+</div>
+<!--<mat-divider></mat-divider>-->
+<div style="margin-top: 10px;" class="full-width" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+
+  <table style="height: 220px;display: block;overflow: auto;" class="scrollbar table full-width">
+    <thead>
+    <th>No</th>
+    <th>Service Name</th>
+    <th>Assigned Date</th>
+    <th>Status</th>
+    <th>End Date</th>
+    <th>Assigned UserName</th>
+    </thead>
+    <tbody style="overflow: auto;">
+    <tr *ngFor="let todo of todoList;let i=index;">
+      <td>{{i+1}}</td>
+      <td>{{todo?.ServiceApplication[0]?.ServiceId | servicePipe}}</td>
+      <td>{{todo.AssignedDate | date}}</td>
+      <td>
+        <span class="error" *ngIf="todo.CurrentStatusId===0">incomplete</span>
+        <span class="alert-success" *ngIf="todo.CurrentStatusId!==0">complete</span>
+      </td>
+      <td>{{todo.EndDate | date}}</td>
+      <td>{{todo.CreatedUserName}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!--<mat-divider></mat-divider>-->
+<div class="full-width" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5em">
+  <div fxFlex="80">
+
+  </div>
+  <div fxFlex="15" style="float: right;">
+    <form [formGroup]="todoTaskForm" novalidate>
+      <button (click)="assignTask()" mat-raised-button="" color="primary" style="margin-top: 10px;padding: 0px 20px">
+        <mat-icon class="mat-18">done</mat-icon>
+        <span>Add</span>
+      </button>
+    </form>
+  </div>
+
+</div>
+

@@ -1,0 +1,203 @@
+<app-page-header title="customer-profile" icon="people"></app-page-header>
+
+<mat-card style="margin: 20px;" *ngIf="investorShow" class="dashboard-card">
+
+  <mat-card-content class="dashboard-card-content">
+
+    <mat-progress-bar *ngIf="loadingIndicator" mode="query"></mat-progress-bar>
+
+    <mat-table #table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="FirstNameEng">
+        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+        <mat-cell *matCellDef="let investors">
+          {{investors?.InvestorNameEng}}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="FatherNameEng">
+        <mat-header-cell *matHeaderCellDef>የኢንቨስተሩ ስም</mat-header-cell>
+        <mat-cell *matCellDef="let investors">
+          {{investors?.InvestorName}}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="RegistrationNumber">
+        <mat-header-cell *matHeaderCellDef>License No</mat-header-cell>
+        <mat-cell *matCellDef="let investors">
+          {{investors?.RegistrationNumber}}
+        </mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="RegistrationDate">
+        <mat-header-cell *matHeaderCellDef>Registration Date</mat-header-cell>
+        <mat-cell *matCellDef="let investors">
+          {{investors.RegistrationDate | date}}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Tin">
+        <mat-header-cell *matHeaderCellDef>Tin</mat-header-cell>
+        <mat-cell *matCellDef="let investors">
+          {{investors?.Tin}}
+        </mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef fxFlex="25%">
+          <button mat-button color="primary" (click)="editInvestor()">
+            <mat-icon class="mat-button-icon">add</mat-icon>
+            {{'common.commands.Add' | translate}}
+          </button>
+        </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef fxFlex="28%">
+        </mat-header-cell>
+        <mat-cell *matCellDef="let investor" fxFlex="28%">
+          <a class="margin-10 a-link pointer" matTooltip="Click her to for detail"
+             (click)="select(investor.InvestorId)">
+            <mat-icon color="primary">visibility</mat-icon>
+            <span>My Project</span>
+          </a>
+          <a class="a-link" (click)="editInvestor(investor)" type="button">
+            <mat-icon>edit</mat-icon>
+            <span>edit</span>
+          </a>
+          <a class="a-link" (click)="confirmDelete(investor)">
+            <mat-icon color="warn">delete</mat-icon>
+            <span>Delete</span>
+          </a>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns">
+      </mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="margin-2" *ngIf="!investorShow">
+  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+
+    <div fxFlex="80">
+      <!--<h5> Investor Name : {{invName}}</h5>-->
+      <!--<h5 style="text-transform: capitalize;"> {{invName}}</h5>-->
+    </div>
+    <div fxFlex="18">
+      <button class="margin-10 custom-button"
+              matTooltip="Click her to add project"
+              (click)="addProject()">
+
+        <span>Add manger</span>
+      </button>
+    </div>
+
+  </div>
+
+
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    <div fxFlex="100%">
+
+      <div class="spinner-container" *ngIf="loadingIndicator">
+        <mat-progress-bar mode="query"></mat-progress-bar>
+      </div>
+      <mat-table #table [dataSource]="dataSource2">
+        <ng-container matColumnDef="No">
+          <mat-header-cell [fxFlex]="6" *matHeaderCellDef>No</mat-header-cell>
+          <mat-cell [fxFlex]="6" *matCellDef="let projectList;let i=index;">
+            {{i+1}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="ProjectName">
+          <mat-header-cell *matHeaderCellDef>Project Name</mat-header-cell>
+          <mat-cell *matCellDef="let projectList">
+            {{projectList?.ProjectName}}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="ProjectDescription">
+          <mat-header-cell *matHeaderCellDef>Project Description</mat-header-cell>
+          <mat-cell *matCellDef="let projectList">
+
+            {{(projectList.ProjectDescription!=null) ? (projectList.ProjectDescription |
+            filterPipe:10): ''}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="startDate">
+          <mat-header-cell *matHeaderCellDef> Start Date</mat-header-cell>
+          <mat-cell *matCellDef="let projectList">
+            {{projectList?.StartDate | date}}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="InvestmentActivity">
+          <mat-header-cell *matHeaderCellDef> Investment Activity</mat-header-cell>
+          <mat-cell *matCellDef="let projectList">
+            {{projectList?.InvestmentActivity?.DescriptionEnglish}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+          <mat-cell *matCellDef="let projectList">
+            <a style="color: #00bcd4;" *ngIf="!projectList?.IsActive;">
+              Pre-Implementation
+              <!--<mat-icon color="primary" class="mat-18">navigate_next</mat-icon>-->
+            </a>
+
+
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Action">
+
+          <mat-header-cell [fxFlex]="30" *matHeaderCellDef>Action
+
+          </mat-header-cell>
+
+          <mat-cell [fxFlex]="30" *matCellDef="let projectList; let i=index">
+            <div>
+              <!--<a class="a-link  pointer" mat-min-fab matTooltip="Click here to edit the project"-->
+              <!--(click)="editProject(projectList?.ProjectId,-->
+              <!--projectList?.ServiceApplicationId,-->
+              <!--projectList.ServiceId)">-->
+              <!--<mat-icon color="primary" class="mat-18">edit</mat-icon>-->
+              <!--Edit-->
+              <!--</a>-->
+              <!--<a class=" a-link pointer" mat&#45;&#45;mini-fab color="warn"-->
+              <!--matTooltip="Click here to delete the project"-->
+              <!--(click)="deleteProject(projectList?.ProjectId)">-->
+              <!--<mat-icon color="warn">delete</mat-icon>-->
+              <!--Delete-->
+              <!--</a>-->
+              <a class=" a-link pointer" color="accent" matTooltip="Click here for detail of the project"
+                 (click)="projectDetail(projectList?.ProjectId)">
+                <mat-icon color="primary">visibility</mat-icon>
+                View
+              </a>
+
+            </div>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumnsProject">
+        </mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumnsProject;">
+        </mat-row>
+      </mat-table>
+
+      <mat-paginator
+
+        #paginator
+        [pageSize]="4"
+        [pageSizeOptions]="[5, 10, 20]">
+      </mat-paginator>
+      <mat-divider></mat-divider>
+      <mat-card-actions class="margin-10">
+        <button mat-raised-button="" (click)="back()" color="primary">
+          <mat-icon class="mat-18">arrow_back</mat-icon>
+          Back
+        </button>
+      </mat-card-actions>
+    </div>
+  </mat-card-content>
+</mat-card>

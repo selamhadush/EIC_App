@@ -1,0 +1,42 @@
+<table style="height: 320px;display: block;overflow: auto;" class="scrollbar table full-width">
+  <thead>
+  <th>No</th>
+  <th>Permanent Female</th>
+  <th>Permanent Male</th>
+  <th>Permanent Foreign Female</th>
+  <th>Permanent Foreign Male</th>
+  <th>Temporary Female</th>
+  <th>Temporary Male</th>
+  <th>Temporary Foreign Female</th>
+  <th>Temporary Foreign Male</th>
+  <th>Remark</th>
+
+  </thead>
+
+  <tbody style="overflow: auto;">
+  <tr class="planned">
+    <td></td>
+    <td>{{plannedEmploymentList?.PermanentFemale}}</td>
+    <td>{{plannedEmploymentList?.PermanentMale}}</td>
+    <td>{{plannedEmploymentList?.PermanentForeignFemale}}</td>
+    <td>{{plannedEmploymentList?.PermanentForeignMale}}</td>
+    <td>{{plannedEmploymentList?.TemporaryFemale}}</td>
+    <td>{{plannedEmploymentList?.TemporaryMale}}</td>
+    <td>{{plannedEmploymentList?.TemporaryForeignFemale}}</td>
+    <td>{{plannedEmploymentList?.TemporaryForeignMale}}</td>
+    <td>{{plannedEmploymentList?.Remark}}</td>
+  </tr>
+  <tr *ngFor="let employment of employmentList;let i=index;">
+    <td>{{i+1}}</td>
+    <td>{{employment.PermanentFemale}}</td>
+    <td>{{employment.PermanentMale}}</td>
+    <td>{{employment.PermanentForeignFemale}}</td>
+    <td>{{employment.PermanentForeignMale}}</td>
+    <td>{{employment.TemporaryFemale}}</td>
+    <td>{{employment.TemporaryMale}}</td>
+    <td>{{employment.TemporaryForeignFemale}}</td>
+    <td>{{employment.TemporaryForeignMale}}</td>
+    <td>{{employment.Remark}}</td>
+  </tr>
+  </tbody>
+</table>

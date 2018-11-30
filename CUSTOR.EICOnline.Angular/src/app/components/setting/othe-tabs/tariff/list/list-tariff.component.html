@@ -1,0 +1,85 @@
+<div style="width:800px; " class="margin-3">
+  <!--<mat-toolbar color="primary">-->
+  <!--<mat-toolbar-row>-->
+  <!--<span>Tariff Lookup</span>-->
+  <!--<span class="toolbar-spacer"></span>-->
+  <!--<div class="header-actions">-->
+  <!--<mat-form-field>-->
+  <!--<input matInput />-->
+  <!--</mat-form-field>-->
+  <!--<button mat-icon-button>-->
+  <!--<mat-icon>search</mat-icon>-->
+  <!--</button>-->
+  <!--<button mat-icon-button [routerLink]="['/tariffs/edit/', 0]">-->
+  <!--<mat-icon class="mat-button-icon">add</mat-icon>-->
+  <!--Add-->
+  <!--</button>-->
+  <!--&lt;!&ndash;<button mat-icon-button>-->
+  <!--<mat-icon>more_vertical</mat-icon>-->
+  <!--</button>&ndash;&gt;-->
+  <!--</div>-->
+  <!--</mat-toolbar-row>-->
+  <!--</mat-toolbar>-->
+  <div class="mat-elevation-z8">
+    <mat-progress-bar *ngIf="loadingIndicator" mode="query"></mat-progress-bar>
+    <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="AccountCode">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="100px">Account Code</mat-header-cell>
+        <mat-cell *matCellDef="let row" fxFlex="100px"> {{row.AccCode}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="140px">Name</mat-header-cell>
+        <mat-cell *matCellDef="let row" fxFlex="140px"> {{row.Name}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="NameEnglish">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="140px">Name English</mat-header-cell>
+        <mat-cell *matCellDef="let row" fxFlex="140px"> {{row.NameEnglish}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Fee">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="80px">Fee</mat-header-cell>
+        <mat-cell *matCellDef="let row" fxFlex="80px"> {{row.Fee}}</mat-cell>
+      </ng-container>
+      <!--<ng-container matColumnDef="TariffModeId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="180px">Tariff Mode</mat-header-cell>
+        <mat-cell *matCellDef="let row" fxFlex="180px"> {{row.TariffModeId}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="IncrementalFee">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="180px">Incremental Fee</mat-header-cell>
+        <mat-cell *matCellDef="let row" fxFlex="180px"> {{row.IncrementalFee}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Quantity">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="180px">Quantity</mat-header-cell>
+        <mat-cell *matCellDef="let row" fxFlex="180px"> {{row.Quantity}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="IsActive">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.IsActive}}</mat-cell>
+      </ng-container>-->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef fxFlex="100px">
+          <button mat-button color="primary" (click)="editTariff()">
+            <mat-icon class="mat-button-icon">add</mat-icon>
+            {{'common.commands.Add' | translate}}
+          </button>
+        </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef fxFlex="80px">
+        </mat-header-cell>
+        <mat-cell *matCellDef="let tariffs" fxFlex="80px">
+          <button mat-icon-button (click)="editTariff(tariffs)" type="button">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="confirmDelete(tariffs)" type="button">
+            <mat-icon color="warn">delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+</div>

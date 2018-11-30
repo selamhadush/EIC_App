@@ -1,0 +1,67 @@
+<div style="width:660px" class="margin-3">
+  <!--<mat-toolbar color="primary">-->
+  <!--<mat-toolbar-row>-->
+  <!--<span>Investment Activity Maintainace</span>-->
+  <!--&lt;!&ndash; <span class="toolbar-spacer"></span>&ndash;&gt;-->
+  <!--<div class="header-actions" style="width: 100%;">-->
+  <!--<mat-form-field>-->
+  <!--<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">-->
+  <!--</mat-form-field>-->
+
+  <!--<button mat-icon-button [routerLink]="['/invactivitys/edit/', 0]">-->
+  <!--<mat-icon class="mat-button-icon">add</mat-icon>-->
+  <!--Add-->
+  <!--</button>-->
+  <!--<button mat-icon-button>-->
+  <!--<mat-icon>more_vertical</mat-icon>-->
+  <!--</button>-->
+
+  <!--</div>-->
+  <!--</mat-toolbar-row>-->
+  <!--</mat-toolbar>-->
+  <div>
+    <mat-progress-bar *ngIf="loadingIndicator" mode="query"></mat-progress-bar>
+    <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="Id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="50px">Id</mat-header-cell>
+        <mat-cell *matCellDef="let row" fxFlex="50px"> {{row.InvActivityId}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Activity">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Activity</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.Activity.DescriptionEnglishAlias}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Description">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.DescriptionAlias}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="DescriptionEnglish">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Description English</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.DescriptionEnglishAlias}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef fxFlex="100px">
+        </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef fxFlex="100px">
+          <button mat-button color="primary" (click)="editActivity()">
+            <mat-icon class="mat-button-icon">add</mat-icon>
+            {{'common.commands.Add' | translate}}
+          </button>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let invactivitys" fxFlex="100px">
+          <button mat-icon-button (click)="editInvActivity(invactivitys)" type="button">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="confirmDelete(invactivitys)" type="button">
+            <mat-icon color="warn">delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+</div>

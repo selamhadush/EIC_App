@@ -1,0 +1,47 @@
+<div style="padding:10px 20px;" class="header-menu margin-10">
+  <!--<span class="sub-title">{{title}}</span>-->
+  <!--<mat-divider></mat-divider>-->
+</div>
+
+<mat-tab-group [selectedIndex]="renewalIndex">
+  <mat-tab label="Service List">
+    <ng-template matTabContent>
+      <app-service-info></app-service-info>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="View Document">
+    <ng-template matTabContent>
+      <mat-card class="margin-2 simple-card">
+        <mat-card-header>
+          <mat-card-subtitle class="sub-title"></mat-card-subtitle>
+          <button class="margin-10 certificate-title" mat-raised-button=""
+                  (click)="addMessage()" color="primary">
+            Add Message
+          </button>
+        </mat-card-header>
+      </mat-card>
+      <app-service-prerequisite></app-service-prerequisite>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Payment">
+    <ng-template matTabContent>
+      <app-payment></app-payment>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Certificate">
+    <ng-template matTabContent>
+      <app-certificate></app-certificate>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab label="Confirmation">
+    <ng-template matTabContent>
+      <app-service-confirmation></app-service-confirmation>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Letter">
+    <ng-template matTabContent>
+      <app-letter></app-letter>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>

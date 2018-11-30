@@ -1,0 +1,191 @@
+<mat-card class="margin-2" style="box-shadow: none;border: 1px solid #dddddd">
+
+  <form #form="ngForm" [formGroup]="incentiveRequestItemForm" novalidate>
+    <mat-card-content>
+      <!--<div fxLayout.xs="row wrap" fxLayoutAlign.xs="start center" fxLayoutGap="2em">-->
+      <span *ngIf="hasManyDetial" style="alignment: right">
+             <button class="custom-button" (click)="viewDetail()">
+                <mat-icon color="accent" class="mat-18">done</mat-icon>
+              View Detail
+             </button>
+              </span>
+      <!--</div>-->
+      <div fxLayout.xs="row wrap" fxLayoutAlign.xs="start center" fxLayoutGap="2em">
+        <div class="block" fxLayoutGap="2em">
+          <mat-form-field style="width: 150px">
+            <mat-label>{{'incentiverequest.CustomsBranch' | translate}}</mat-label>
+            <mat-select formControlName="CustomsSiteId" style="font-family: Calibri" type="text"
+                        [compareWith]="compareIds" required>
+              <option value="0">--Select--</option>
+              <mat-option *ngFor="let customs of CustomsLookups" [value]="customs.LookupId">
+                <span>{{customs.English}}</span>
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="CustomsSiteId.hasError('required')">
+              {{'common.validation.Required' | translate}}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field style="width: 150px">
+            <mat-label>{{'incentiverequest.IncentiveCategory' | translate}}</mat-label>
+            <mat-select formControlName="IncentiveCategoryId" style="font-family: Calibri" type="text"
+                        (selectionChange)="filterIncentiveCategory($event.value)"
+                        [compareWith]="compareIds" required>
+              <option value="0">--Select--</option>
+              <mat-option *ngFor="let IncentiveCate of IncentiveCategoryLookup" [value]="IncentiveCate.LookUpTypeId">
+                <span>{{IncentiveCate.Description}}</span>
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="IncentiveCategoryId.hasError('required')">
+              {{'common.validation.Required' | translate}}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field [fxFlex]="19">
+            <mat-label>{{'incentiverequest.Quantity' | translate}}</mat-label>
+            <input type="number" matInput required
+                   formControlName="Quantity">
+            <mat-error *ngIf="Quantity.hasError('required')">
+              {{'common.validation.Required' | translate}}
+            </mat-error>
+            <mat-error *ngIf="Quantity.hasError('maxlength')">
+              {{'common.validation.MaxLengthChar' | translate: {'max':'6'} }}
+            </mat-error>
+            <mat-error *ngIf="Quantity.hasError('pattern')">
+              {{'common.validation.NumberOnly' | translate}}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input placeholder="Request Date*" required
+                   formControlName="RequestDate"
+                   matInput
+                   [matDatepicker]="RequestDate">
+            <mat-datepicker-toggle matSuffix [for]="RequestDate"></mat-datepicker-toggle>
+            <mat-datepicker #RequestDate>
+            </mat-datepicker>
+            <mat-error align="start" *ngIf="formErrors.RequestDate">{{ formErrors.RequestDate }}</mat-error>
+          </mat-form-field>
+          <mat-form-field style="width: 200px">
+            <mat-label>{{'incentiverequest.CurrencyType' | translate}}</mat-label>
+            <mat-select formControlName="CurrencyType" [compareWith]="compareIds" required>
+              <option value="0">--Select--</option>
+              <mat-option *ngFor="let currency of currencyTypes" [value]="currency.Id">
+                <span>{{currency.DescriptionEnglish}}</span>
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="CurrencyType.hasError('required')">
+              {{'common.validation.Required' | translate}}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field [fxFlex]="21">
+            <mat-label>{{'incentiverequest.Amount' | translate}}</mat-label>
+            <input type="number" matInput required
+                   formControlName="Amount">
+            <mat-error *ngIf="Amount.hasError('required')">
+              {{'common.validation.Required' | translate}}
+            </mat-error>
+            <mat-error *ngIf="Amount.hasError('maxlength')">
+              {{'common.validation.MaxLengthChar' | translate: {'max':'10'} }}
+            </mat-error>
+            <mat-error *ngIf="Amount.hasError('pattern')">
+              {{'common.validation.NumberOnly' | translate}}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="ExchangeRate"
+                   type="text"
+                   matInput placeholder="Exchange Rate  :">
+            <!--<mat-error align="start" *ngIf="formErrors.ExchangeRate" class="form__error">{{ formErrors.ExchangeRate }}-->
+            <!--</mat-error>-->
+          </mat-form-field>
+          <mat-form-field style="width: 200px">
+            <mat-label>{{'incentiverequest.InvoiceNo' | translate}}</mat-label>
+            <input type="text" matInput
+                   formControlName="InvoiceNo">
+            <mat-error *ngIf="InvoiceNo.hasError('required')">
+              {{'common.validation.Required' | translate}}
+            </mat-error>
+            <mat-error *ngIf="InvoiceNo.hasError('maxlength')">
+              {{'common.validation.MaxLengthChar' | translate: {'max':'15'} }}
+            </mat-error>
+          </mat-form-field>
+          <span *ngIf="showPhase">
+          <mat-form-field>
+          <mat-label>{{'incentiverequest.Phase' | translate}}</mat-label>
+            <mat-select formControlName="Phase" style="font-family: Calibri" type="text"
+                        [compareWith]="compareIds">
+              <option value="0">--Select--</option>
+              <mat-option *ngFor="let Phase of PhaseLookups" [value]="Phase.LookupId">
+                <span>{{Phase.English}}</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+            </span>
+          <button class="custom-button" (click)="onSubmit()">
+            <mat-icon color="accent" class="mat-18">done</mat-icon>
+            {{editMode ? 'Save' : 'Add'}}
+          </button>
+
+        </div>
+      </div>
+    </mat-card-content>
+  </form>
+</mat-card>
+<!--*ngIf="IncentiveRequestItemModes.length>0"-->
+<mat-card class="margin-2 padding-0">
+  <mat-card-header>
+    <mat-card-subtitle class="sub-title">List of Incentive Request
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="spinner-container" *ngIf="loading ">
+      <mat-progress-bar mode="query"></mat-progress-bar>
+    </div>
+    <mat-table #table [dataSource]="dataSource">
+      <ng-container matColumnDef="IncentiveCategory">
+        <mat-header-cell *matHeaderCellDef fxFlex="35">Incentive Category</mat-header-cell>
+        <mat-cell *matCellDef="let IncentiveRequestItemModes" fxFlex="35">
+          {{IncentiveRequestItemModes.IncentiveCategoryId | lookupTypePipe : 1}}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Amount">
+        <mat-header-cell *matHeaderCellDef fxFlex="8"> Amount</mat-header-cell>
+        <mat-cell *matCellDef="let IncentiveRequestItemModes" fxFlex="8"> {{IncentiveRequestItemModes.Amount }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Quantity">
+        <mat-header-cell *matHeaderCellDef fxFlex="8">Quantity</mat-header-cell>
+        <mat-cell *matCellDef="let IncentiveRequestItemModes" fxFlex="8">{{IncentiveRequestItemModes.Quantity }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Action">
+        <mat-header-cell fxFlex="" *matHeaderCellDef>Action</mat-header-cell>
+        <mat-cell fxFlex="" *matCellDef="let IncentiveRequestItemModes;let i=index;">
+          <div>
+            <a class="pointer" mat-min-fab matTooltip="Click here to edit the incentive request"
+               (click)="onEditIncentiveItem(i)">
+              <mat-icon color="primary" class="mat-18">edit</mat-icon>
+              Edit
+            </a>
+            <a class="pointer" color="warn" matTooltip="Click here to delete the incentive request"
+               (click)="deleteIncentiveItem(i,IncentiveRequestItemModes.IncentiveRequestId)">
+              <mat-icon color="warn">delete</mat-icon>
+              Delete
+            </a>
+            <span *ngIf="!isInvestor">
+            <a class="pointer custom-button" matTooltip="Click here to add detail the incentive request"
+               (click)="addDetail(IncentiveRequestItemModes)">
+              Add Detail
+            </a>
+            </span>
+          </div>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns">
+      </mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+  </mat-card-content>
+</mat-card>
+
+

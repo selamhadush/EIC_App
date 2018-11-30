@@ -1,0 +1,105 @@
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0">
+  <div class="block" fxFlex="">
+    <app-page-header title="aftercare" icon="view_list"></app-page-header>
+
+  </div>
+  <div id="title1" class="block" fxFlex="50">
+    <span class="page-title">{{title}}</span>
+    <span class="slideBorder">/</span>
+    <span class="page-title">{{investorName}}</span>
+    <span class="slideBorder">/</span>
+    <span class="page-title">{{projectName}}</span>
+
+
+  </div>
+</div>
+<mat-card>
+  <mat-card-header>
+    <mat-card-subtitle>
+
+
+      <!--<span>Investor Name : Name /</span> <span>   Project Name: p name / </span>-->
+      <span class="sub-title">{{title}}</span>
+
+
+      <mat-divider></mat-divider>
+    </mat-card-subtitle>
+
+  </mat-card-header>
+  <mat-card-content>
+    <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="2em">
+
+      <div class="block" fxFlex="21%">
+        <table style="height: 320px;display: block;overflow: auto;" class="scrollbar table full-width">
+          <thead style="padding-bottom: 14px;">
+          <th>Select One <br>
+            <div style="color: #fafafa;">white</div>
+          </th>
+          </thead>
+
+          <tbody style="overflow: auto;">
+          <tr *ngFor="let item of serviceSteps">
+            <td *ngIf="item.NameEnglish!=='Project Profile' &&
+           item.NameEnglish!=='Documnet' &&
+           item.NameEnglish!=='Project Share' &&
+           item.NameEnglish!=='View'"
+                (click)="view(item.NameEnglish,item.ServiceStepId)">
+              <a class="pointer">
+                <mat-icon style="float: left;" color="primary" class="mat-18">add_box</mat-icon>
+                <span style="float: left;"> {{item.NameEnglish}}</span>
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <a class="pointer"
+                 (click)="view('projectStatus',12)">
+                <mat-icon style="float: left;" color="primary" class="mat-18">add_box</mat-icon>
+                <span style="float: left;"> Project Status</span>
+              </a>
+
+            </td>
+
+          </tr>
+
+          <tr>
+            <td>
+              <a class="pointer"
+                 (click)="view('ProjectAddress',12)">
+                <mat-icon style="float: left;" color="primary" class="mat-18">add_box</mat-icon>
+                <span style="float: left;"> Project Address</span>
+              </a>
+            </td>
+
+
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+      <div class="block" fxFlex="75%">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </mat-card-content>
+
+  <mat-card-footer>
+    <mat-divider></mat-divider>
+
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+      <div fxFlex="80">
+        <button class="custom-button margin-10" (click)="back()">
+          <mat-icon class="mat-18">arrow_back</mat-icon>
+          Back
+        </button>
+      </div>
+      <div fxFlex="15">
+        <button class="custom-button margin-10" (click)="gotStep()">
+          <mat-icon class="mat-18">add_circle_outline</mat-icon>
+          Add
+        </button>
+      </div>
+    </div>
+  </mat-card-footer>
+</mat-card>

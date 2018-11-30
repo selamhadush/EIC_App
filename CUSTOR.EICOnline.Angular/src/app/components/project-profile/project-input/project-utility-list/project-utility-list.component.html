@@ -1,0 +1,35 @@
+<table style="height: 320px;display: block;overflow: auto;" class="scrollbar table full-width">
+  <thead>
+  <th>No</th>
+  <th>Electric Power</th>
+  <th>Water</th>
+  <th>Other Utility</th>
+  <th>Land Industrial</th>
+  <th>Land Agricultural</th>
+  <th>Land Service</th>
+  <th>Remark</th>
+
+  </thead>
+  <tbody style="overflow: auto;">
+  <tr class="planned" >
+    <td></td>
+    <td>{{plannedUtilityList?.ElectricPower}}</td>
+    <td>{{plannedUtilityList?.Water}}</td>
+    <td>{{plannedUtilityList?.OtherUtility}}</td>
+    <td>{{plannedUtilityList?.LandIndustrial}}</td>
+    <td>{{plannedUtilityList?.LandAgricultural}}</td>
+    <td>{{plannedUtilityList?.LandService}}</td>
+    <td>{{plannedUtilityList?.Remark}}</td>
+  </tr>
+  <tr *ngFor="let utility of utilityList;let i=index;">
+    <td>{{i+1}}</td>
+    <td>{{utility.ElectricPower}}</td>
+    <td>{{utility.Water}}</td>
+    <td>{{utility.OtherUtility}}</td>
+    <td>{{utility.LandIndustrial}}</td>
+    <td>{{utility.LandAgricultural}}</td>
+    <td>{{utility.LandService}}</td>
+    <td>{{utility.Remark}}</td>
+  </tr>
+  </tbody>
+</table>

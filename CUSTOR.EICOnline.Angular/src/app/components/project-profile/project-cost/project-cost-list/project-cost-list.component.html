@@ -1,0 +1,71 @@
+<table style="height: 320px;display: block;overflow: auto;" class="scrollbar table full-width">
+  <thead>
+  <th>No</th>
+  <th>Land Cost</th>
+  <th>Building Cost</th>
+  <th>Machinery Cost</th>
+  <th>Transport Cost</th>
+  <th>Office Equipment Cost</th>
+  <th>Other Capital Cost</th>
+  <th>Initial WorkingCapital Cost</th>
+  <th>EquityFinance</th>
+  <th>Loan Finance</th>
+  <th>Other Source Finance</th>
+  <th>Other Source Description</th>
+  <th>Unit</th>
+  <th>Actual Cost In Foreign</th>
+  <th>Remark</th>
+  <th>Action</th>
+
+  </thead>
+  <tbody style="overflow: auto;">
+  <tr matTooltip="Planned cost" class="planned">
+    <td></td>
+    <td>{{plannedCost?.LandCost}}</td>
+    <td>{{plannedCost?.BuildingCost}}</td>
+    <td>{{plannedCost?.MachineryCost}}</td>
+    <td>{{plannedCost?.TransportCost}}</td>
+    <td>{{plannedCost?.OfficeEquipmentCost}}</td>
+    <td>{{plannedCost?.OtherCapitalCost}}</td>
+    <td>{{plannedCost?.InitialWorkingCapitalCost}}</td>
+    <td>{{plannedCost?.EquityFinance}}</td>
+    <td>{{plannedCost?.LoanFinance}}</td>
+    <td>{{plannedCost?.OtherSourceFinance}}</td>
+    <td>{{plannedCost?.OtherSourceDescription}}</td>
+    <td>{{plannedCost?.Unit}}</td>
+    <td>{{plannedCost?.ActualCostInForeign}}</td>
+    <td>{{plannedCost?.Remark}}</td>
+    <!--<td><a (click)="edit(plannedCost.ProjectCostId)">-->
+    <!--<mat-icon class="mat-18">edit</mat-icon>-->
+    <!--</a></td>-->
+  </tr>
+  <tr matTooltip="Actual Cost" *ngFor="let cost of costList;let i=index;">
+    <td>{{i+1}}</td>
+    <td>{{cost.LandCost}}</td>
+    <td>{{cost.BuildingCost}}</td>
+    <td>{{cost.MachineryCost}}</td>
+    <td>{{cost.TransportCost}}</td>
+    <td>{{cost.OfficeEquipmentCost}}</td>
+    <td>{{cost.OtherCapitalCost}}</td>
+    <td>{{cost.InitialWorkingCapitalCost}}</td>
+    <td>{{cost.EquityFinance}}</td>
+    <td>{{cost.LoanFinance}}</td>
+    <td>{{cost.OtherSourceFinance}}</td>
+    <td>{{cost.OtherSourceDescription}}</td>
+    <td>{{cost.Unit}}</td>
+    <td>{{cost.ActualCostInForeign}}</td>
+    <td>{{cost.Remark}}</td>
+    <td>
+      <a (click)="edit(cost.ProjectCostId)">
+        <mat-icon class="mat-18">edit</mat-icon>
+        <!--Compare-->
+      </a>
+      <!--<a (click)="edit(cost.ProjectCostId)">-->
+        <!--<mat-icon class="mat-18">edit</mat-icon>-->
+        <!--Compare-->
+      <!--</a>-->
+
+    </td>
+  </tr>
+  </tbody>
+</table>

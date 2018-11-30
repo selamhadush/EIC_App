@@ -1,0 +1,293 @@
+<form class="margin-2" (ngSubmit)="onSubmit()" [formGroup]="projectForm" novalidate>
+
+  <mat-card class="border">
+    <mat-card-subtitle class="sub-title">
+      Project Profile
+      <mat-divider></mat-divider>
+    </mat-card-subtitle>
+    <mat-card-content>
+      <div fxLayout="row wrap" fxLayoutAlign="start" class="content"
+           fxLayout.lt-sm="column" fxLayoutGap="2em">
+        <div class="blocks" fxFlex="">
+          <mat-form-field>
+            <mat-label for="Title">Project Title *:</mat-label>
+            <input matInput formControlName="ProjectName">
+            <mat-error align="start" *ngIf="formErrors.ProjectName">{{ formErrors.ProjectName }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="blocks" fxFlex>
+          <mat-form-field>
+            <input placeholder="Start Date * :"
+                   formControlName="StartDate"
+                   matInput
+                   [min]="initMinDate"
+                   [max]="maxDate"
+                   [matDatepicker]="startDate"
+                   (dateChange)="setMinDate($event.value)">
+            <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+            <mat-datepicker #startDate></mat-datepicker>
+            <mat-error align="start" *ngIf="formErrors.StartDate">{{ formErrors.StartDate }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="block" fxFlex>
+          <mat-form-field>
+            <input placeholder="Ending Date * :"
+                   matInput
+                   [min]="minDate"
+                   formControlName="EndingDate"
+                   [matDatepicker]="terminationDate">
+            <mat-datepicker-toggle matSuffix [for]="terminationDate"></mat-datepicker-toggle>
+            <mat-datepicker #terminationDate></mat-datepicker>
+            <!--<mat-error align="start" *ngIf="formErrors.terminationDate">{{ formErrors.terminationDate }}</mat-error>-->
+          </mat-form-field>
+        </div>
+        <div class="blocks" fxFlex>
+          <!--<mat-label>Start Date :</mat-label>-->
+          <mat-form-field>
+            <input formControlName="OperationDate"
+                   [min]="minDate"
+                   matInput
+                   placeholder="Operation Date * :"
+                   [matDatepicker]="operationDate"
+                   (dateChange)="setMaxDate($event.value)">
+            <mat-datepicker-toggle matSuffix [for]="operationDate"></mat-datepicker-toggle>
+            <mat-datepicker #operationDate></mat-datepicker>
+            <mat-error align="start" *ngIf="formErrors.operationDate">{{ formErrors.operationDate }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start center" class="content" fxLayout.lt-sm="column" fxLayoutGap="2em">
+
+
+        <div class="block" fxFlex="50%">
+          <mat-form-field class="full-width">
+            <mat-label>Environmental Impact *:</mat-label>
+            <textarea rows="2" matInput
+                      formControlName="EnvironmentalImpact">
+             </textarea>
+            <mat-error align="start" *ngIf="formErrors.EnvironmentalImpact">{{ formErrors.EnvironmentalImpact }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="block" fxFlex="">
+          <mat-form-field class="full-width">
+            <mat-label>Project Description :</mat-label>
+            <textarea rows="2" matInput formControlName="ProjectDescription"></textarea>
+            <mat-error align="start" *ngIf="formErrors.ProjectDescription">{{ formErrors.ProjectDescription }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <h4 class="sub-title">Project Address
+        <mat-divider></mat-divider>
+      </h4>
+      <!--<div fxLayout="row" fxLayoutAlign="start center" class="content" fxLayout.lt-sm="column">-->
+      <!---->
+      <!--<mat-divider></mat-divider>-->
+      <!--</div>-->
+
+      <div formGroupName="address">
+        <div fxLayout="row" fxLayoutAlign="start center" class="content" fxLayout.lt-sm="column" fxLayoutGap="2em">
+
+          <div class="block" fxFlex="">
+
+            <mat-form-field>
+              <mat-label>Region : *</mat-label>
+              <mat-select formControlName="RegionId"
+                          (selectionChange)="filterRegion($event.value)">
+                <mat-option value="0">--</mat-option>
+                <mat-option *ngFor="let region of regions" [value]="region.RegionId">
+                  {{region.Description}}
+                </mat-option>
+              </mat-select>
+              <mat-error align="start" *ngIf="formErrors.Region">{{ formErrors.Region }}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex="">
+            <mat-form-field>
+              <mat-label>Zone * :</mat-label>
+              <mat-select formControlName="ZoneId" (selectionChange)="filterZone($event.value)">
+                <mat-option value="0">--</mat-option>
+                <mat-option *ngFor="let zone of filteredZones" [value]="zone.ZoneId">
+                  {{zone.Description}}
+                </mat-option>
+              </mat-select>
+              <mat-error align="start" *ngIf="formErrors.Zone">{{ formErrors.Zone }}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex="">
+            <mat-form-field>
+              <mat-label>Woreda * :</mat-label>
+              <mat-select formControlName="WoredaId" (selectionChange)="getKebeleByWoredaId($event.value)">
+                <mat-option value="0">--</mat-option>
+
+                <mat-option *ngFor="let w of filteredWoredas" [value]="w.WoredaId">
+                  {{w.Description}}
+                </mat-option>
+              </mat-select>
+              <mat-error align="start" *ngIf="formErrors.Woreda">{{ formErrors.Woreda }}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex="">
+            <mat-form-field>
+              <mat-label>Kebele * :</mat-label>
+              <mat-select formControlName="KebeleId">
+                <mat-option value="0">--</mat-option>
+                <mat-option *ngFor="let k of filteredKebeles" [value]="k.KebeleId">
+                  {{k.Description}}
+                </mat-option>
+              </mat-select>
+              <mat-error align="start" *ngIf="formErrors.Kebele">{{ formErrors.Kebele }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start" class="content" fxLayout.lt-sm="column" fxLayoutGap="1em">
+
+          <div class="block" fxFlex="25">
+            <mat-form-field>
+              <mat-label>Specific Area Name * :</mat-label>
+              <input formControlName="SpecificAreaName" matInput type="text">
+              <mat-error align="start" *ngIf="formErrors.SpecificAreaName">{{ formErrors.SpecificAreaName }}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex="25" style="margin-top: 10px !important;padding-top: 20px !important;">
+            <mat-checkbox formControlName="IsIndustrialPark">
+              Is Industrial Park ?
+            </mat-checkbox>
+          </div>
+          <div class="block" fxFlex="25" *ngIf="getIsChecked()">
+            <mat-form-field>
+              <mat-label>Industrial Park :</mat-label>
+              <mat-select formControlName="IndustrialParkId">
+                <mat-option *ngFor="let site of allSiteList" [value]="site.SiteId">
+                  <span>   {{site.NameEnglish}}</span>
+                </mat-option>
+              </mat-select>
+              <mat-error align="start" *ngIf="formErrors.Kebele">{{ formErrors.Kebele }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start start" class="content" fxLayout.lt-sm="column" fxLayoutGap="1em">
+
+        <div class="block" fxFlex="25" style="margin-top: 10px !important;padding-top: 20px !important;">
+          <mat-checkbox formControlName="IsOromiaSpecialZone">
+            Is Oromia Special Zone ?
+          </mat-checkbox>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="border" style="margin-top: 20px;">
+
+    <!--<div>documentForm value: {{projectForm.value | json }}</div>-->
+
+    <mat-card-subtitle class="sub-title">Category
+      <mat-divider></mat-divider>
+    </mat-card-subtitle>
+    <div>
+      <div class="block" fxFlex="">
+        <mat-form-field class="full-width">
+          <mat-label>Sector</mat-label>
+          <mat-select formControlName="SectorId" (selectionChange)="filterSubSector($event.value)">
+            <mat-option value="0">--</mat-option>
+            <mat-option *ngFor="let sector of sectorList" [value]="sector.SectorId">
+              {{sector.DescriptionEnglish}}
+            </mat-option>
+          </mat-select>
+          <mat-error align="start" *ngIf="formErrors.Sector">{{ formErrors.Sector }}</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start" class="content" fxLayout.lt-sm="column" fxLayoutGap="2em">
+      <div class="block" fxFlex="">
+        <mat-form-field class="full-width">
+          <mat-label>SubSector * :</mat-label>
+
+          <mat-select formControlName="SubSectorId" (selectionChange)="filterActivity($event.value)">
+            <mat-option value="0">--</mat-option>
+            <mat-option *ngFor="let sub of filterSubSectorList" [value]="sub.SubSectorId">
+              {{sub.DescriptionEnglish}}
+            </mat-option>
+          </mat-select>
+          <!--<mat-error align="start" *ngIf="formErrors.Zone">{{ formErrors.Zone }}</mat-error>-->
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start" class="content" fxLayout.lt-sm="column" fxLayoutGap="2em">
+      <div class="block" fxFlex="">
+        <mat-form-field class="full-width">
+          <mat-label>Activity *:</mat-label>
+          <mat-select formControlName="ActivityId" (selectionChange)="filterInvestmentActivity($event.value)">
+            <mat-option value="0">--</mat-option>
+            <mat-option *ngFor="let activity of filterActivityLIst " [value]="activity.ActivityId">
+              {{activity.DescriptionEnglish}}
+            </mat-option>
+          </mat-select>
+          <mat-error></mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start" class="content" fxLayout.lt-sm="column" fxLayoutGap="2em">
+      <div class="block" fxFlex>
+        <mat-form-field class="full-width">
+          <mat-label>Investment activity *:</mat-label>
+          <mat-select formControlName="InvActivityId">
+            <mat-option value="0">--</mat-option>
+            <mat-option *ngFor="let inActivity of filterInvestmentActivityList" [value]="inActivity.InvActivityId">
+              {{inActivity.DescriptionEnglish}}
+            </mat-option>
+          </mat-select>
+          <mat-error></mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <mat-card-content>
+    </mat-card-content>
+  </mat-card>
+  <!--<mat-divider></mat-divider>-->
+  <mat-card class="border" style="     border-top: 0px;;margin-bottom: 40px; ">
+    <mat-card-content>
+      <div fxLayout="row" fxLayoutAlign="center">
+
+        <div fxFlex="15">
+
+          <!--<button class="custom-button" (click)="next()" color="warn" type="button">-->
+          <!--Back-->
+          <!--</button>-->
+        </div>
+        <div style="text-align: center" fxFlex="67" fxFlexAlign="center">
+          <button
+            [disabled]="!projectForm.valid"
+            mat-raised-button=""
+            type="submit"
+            color="primary">
+            <mat-icon class="mat-18">done</mat-icon>
+            <span class="agree">{{editMode ? 'update' : 'Save'}}</span>
+
+          </button>
+          <!--<button style="margin-left: 5px" mat-raised-button="" (click)="onClear()" color="warn" type="button">-->
+          <!--<mat-icon class="mat-18">clear_all</mat-icon>-->
+          <!--</button>-->
+
+        </div>
+        <!--<div fxFlex="15">-->
+
+        <!--<button [disabled]="!projectForm.valid" class="custom-button" (click)="next()" color="warn" type="button">-->
+        <!--Next-->
+        <!--</button>-->
+        <!--</div>-->
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+
+</form>
+
+<div *ngIf="loading" class="loadme-circleBounce">
+  <div class="loadme-circleBounce1"></div>
+  <div class="loadme-circleBounce2"></div>
+</div>

@@ -1,0 +1,54 @@
+<mat-card class="margin-2" style="box-shadow: none;border: 1px solid #dddddd">
+
+  <mat-card-header>
+    <mat-card-subtitle class="sub-title">Incentive Request History
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+  <mat-card-content>
+    <div class="spinner-container" *ngIf="loading ">
+      <mat-progress-bar mode="query"></mat-progress-bar>
+    </div>
+    <mat-table #table [dataSource]="dataSource">
+      <ng-container matColumnDef="CustomsSiteId">
+        <mat-header-cell *matHeaderCellDef fxFlex="25">Customs Branch</mat-header-cell>
+        <mat-cell *matCellDef="let IncentiveRequestItemModes" fxFlex="25">
+          {{IncentiveRequestItemModes.CustomsSiteId | customsBranchPipe : 1}}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="IncentiveCategory">
+        <mat-header-cell *matHeaderCellDef fxFlex="25">Incentive Category</mat-header-cell>
+        <mat-cell *matCellDef="let IncentiveRequestItemModes" fxFlex="25">
+          {{IncentiveRequestItemModes.IncentiveCategoryId | lookupTypePipe : 1}}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="RequestDate">
+        <mat-header-cell *matHeaderCellDef fxFlex="8"> RequestDate</mat-header-cell>
+        <mat-cell *matCellDef="let IncentiveRequestItemModes" fxFlex="8"> {{IncentiveRequestItemModes.RequestDate |  date:'MM/dd/yyyy'}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Amount">
+        <mat-header-cell *matHeaderCellDef fxFlex="8"> Amount</mat-header-cell>
+        <mat-cell *matCellDef="let IncentiveRequestItemModes" fxFlex="8"> {{IncentiveRequestItemModes.Amount }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Quantity">
+        <mat-header-cell *matHeaderCellDef fxFlex="8">Quantity</mat-header-cell>
+        <mat-cell *matCellDef="let IncentiveRequestItemModes" fxFlex="8">{{IncentiveRequestItemModes.Quantity }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="InvoiceNo">
+        <mat-header-cell *matHeaderCellDef fxFlex="8"> InvoiceNo</mat-header-cell>
+        <mat-cell *matCellDef="let IncentiveRequestItemModes" fxFlex="8"> {{IncentiveRequestItemModes.InvoiceNo }}
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns">
+      </mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,66 @@
+<app-page-header title="Mangers" icon="people"></app-page-header>
+
+<mat-card style="margin: 20px;" class="dashboard-card">
+
+  <mat-card-content class="dashboard-card-content">
+
+    <!-- <mat-progress-bar *ngIf="loadingIndicator" mode="query"></mat-progress-bar> -->
+    <mat-progress-bar mode="indeterminate" *ngIf="loadingIndicator"></mat-progress-bar>
+    <mat-table #table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="FirstNameEng">
+        <mat-header-cell *matHeaderCellDef>Full Name</mat-header-cell>
+        <mat-cell *matCellDef="let investors">
+
+          {{investors?.FirstNameEng}}
+          {{investors?.FatherNameEng}}
+          {{investors?.GrandNameEng}}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="FatherNameEng">
+        <mat-header-cell *matHeaderCellDef> ስም</mat-header-cell>
+        <mat-cell *matCellDef="let investors">
+          {{investors?.FirstName}}
+          {{investors?.FatherName}}
+          {{investors?.GrandName}}
+        </mat-cell>
+      </ng-container>
+      <!--<ng-container matColumnDef="Email">-->
+        <!--<mat-header-cell *matHeaderCellDef> Email</mat-header-cell>-->
+        <!--<mat-cell *matCellDef="let investors">-->
+          <!--{{investors?.Address?.Email}}-->
+
+        <!--</mat-cell>-->
+      <!--</ng-container>-->
+
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef fxFlex="25%">
+          <button mat-button color="primary" (click)="editInvestor()">
+            <mat-icon class="mat-button-icon">add</mat-icon>
+            {{'common.commands.Add' | translate}}
+          </button>
+        </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef fxFlex="28%">
+        </mat-header-cell>
+        <mat-cell mat-dialog-actions *matCellDef="let investor" fxFlex="38%">
+          <button mat-icon-button matTooltip = "Edit"  (click)="editInvestor(investor)">
+            <mat-icon color="primary">edit</mat-icon>
+            <!-- <span >Edit</span> -->
+          </button>
+          <button mat-icon-button matTooltip="Delete" (click)="confirmDelete(investor)">
+            <mat-icon color="warn">delete</mat-icon>
+            <!-- <span>Delete</span> -->
+          </button>
+          
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns">
+      </mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+  </mat-card-content>
+</mat-card>
+
+

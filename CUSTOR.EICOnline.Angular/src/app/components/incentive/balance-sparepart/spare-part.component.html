@@ -1,0 +1,123 @@
+<mat-card class="margin-2 padding-0">
+  <mat-card-header>
+    <mat-card-subtitle class="sub-title">Spare Part Balance
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="spinner-container" *ngIf="loading ">
+      <mat-progress-bar mode="query"></mat-progress-bar>
+    </div>
+    <mat-table #table [dataSource]="dataSource">
+
+      <!--<ng-container matColumnDef="Description">-->
+      <!--<mat-header-cell *matHeaderCellDef fxFlex="35">Incentive Item</mat-header-cell>-->
+      <!--<mat-cell *matCellDef="let IncentiveRequestItemModes" fxFlex="35">-->
+      <!--{{IncentiveRequestItemModes.Description }}-->
+      <!--</mat-cell>-->
+      <!--</ng-container>-->
+      <ng-container matColumnDef="TotalAmount">
+        <mat-header-cell *matHeaderCellDef fxFlex="8">Total Amount</mat-header-cell>
+        <mat-cell *matCellDef="let IncentiveRequestItemModes" fxFlex="8"> {{IncentiveRequestItemModes.TotalAmount }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Amount">
+        <mat-header-cell *matHeaderCellDef fxFlex="8">Amount</mat-header-cell>
+        <mat-cell *matCellDef="let IncentiveRequestItemModes" fxFlex="8">{{IncentiveRequestItemModes.Amount }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Balance">
+        <mat-header-cell *matHeaderCellDef fxFlex="8">Balance</mat-header-cell>
+        <mat-cell *matCellDef="let IncentiveRequestItemModes" fxFlex="8">{{IncentiveRequestItemModes.Balance }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Action">
+        <mat-header-cell fxFlex="" *matHeaderCellDef>Action</mat-header-cell>
+        <mat-cell fxFlex="" *matCellDef="let IncentiveRequestItemModes;let i=index;">
+          <div>
+            <a class="pointer" mat-min-fab matTooltip="Click here to view the incentive Spare part  Detail"
+               (click)="onEditIncentiveItem(i)">
+              <mat-icon color="primary" class="mat-18">view Detail</mat-icon>
+              View Detail
+            </a>
+          </div>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns">
+      </mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+  </mat-card-content>
+</mat-card>
+<span *ngIf="ShowDetail">
+<mat-card class="margin-2 padding-0">
+  <!--<div class="search-box" style="width: 500px">-->
+  <!--<mat-form-field>-->
+  <!--<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search requested item">-->
+  <!--</mat-form-field>-->
+  <!--</div>-->
+  <mat-card-content>
+    <div class="spinner-container" *ngIf="loading ">
+      <mat-progress-bar mode="query"></mat-progress-bar>
+    </div>
+
+    <mat-table #table [dataSource]="dataSource">
+      <ng-container matColumnDef="No">
+        <mat-header-cell [fxFlex]="6" *matHeaderCellDef>No</mat-header-cell>
+        <mat-cell [fxFlex]="6" *matCellDef="let itemList;let i=index;">
+          {{i+1}}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Description">
+        <mat-header-cell *matHeaderCellDef fxFlex="28">Incentive Item</mat-header-cell>
+        <mat-cell *matCellDef="let items" fxFlex="28"> {{items.Description }}
+        </mat-cell>
+      </ng-container>
+      <!--<ng-container matColumnDef="RequesteDate">-->
+        <!--<mat-header-cell *matHeaderCellDef fxFlex="28">Request Date</mat-header-cell>-->
+        <!--<mat-cell *matCellDef="let items" fxFlex="28"> {{items.RequestDate |  date:'MM/dd/yyyy'}}-->
+        <!--</mat-cell>-->
+      <!--</ng-container>-->
+      <ng-container matColumnDef="Quantity">
+        <mat-header-cell *matHeaderCellDef fxFlex="14">Quantity</mat-header-cell>
+        <mat-cell *matCellDef="let items" fxFlex="14">{{items.Quantity }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Amount">
+        <mat-header-cell *matHeaderCellDef fxFlex="14"> Amount</mat-header-cell>
+        <mat-cell *matCellDef="let items" fxFlex="14"> {{items.Amount }}
+        </mat-cell>
+      </ng-container>
+      <!-- <ng-container matColumnDef="Balance">
+        <mat-header-cell *matHeaderCellDef fxFlex="14"> Balance</mat-header-cell>
+        <mat-cell *matCellDef="let items" fxFlex="14"> {{items.Balance }}
+        </mat-cell>
+      </ng-container> -->
+      <!--<ng-container matColumnDef="Action">-->
+      <!--<mat-header-cell fxFlex="22" *matHeaderCellDef>Action</mat-header-cell>-->
+      <!--<mat-cell fxFlex="18" *matCellDef="let items;let i=index;">-->
+      <!--<div>-->
+      <!--<a class="pointer" mat-min-fab matTooltip="Click here to edit the incentive request"-->
+      <!--(click)="onEditIncentiveItem(i)">-->
+      <!--<mat-icon color="primary" class="mat-18">edit</mat-icon>-->
+      <!--Edit-->
+      <!--</a>-->
+      <!--<a class="pointer" mat&#45;&#45;mini-fab color="warn" matTooltip="Click here to delete the incentive item"-->
+      <!--(click)="deleteIncentiveItem(i,items.IncentiveRequestItemId)">-->
+      <!--&lt;!&ndash; <a class="pointer" mat&#45;&#45;mini-fab color="warn" matTooltip="Click here to delete the incentive item"-->
+      <!--(click)="deleteRecord(items.IncentiveRequestItemId)"> &ndash;&gt;-->
+      <!--<mat-icon color="warn">delete</mat-icon>-->
+      <!--Delete-->
+      <!--</a>-->
+      <!--</div>-->
+      <!--</mat-cell>-->
+      <!--</ng-container>-->
+      <mat-header-row *matHeaderRowDef="displayedColumnsDetail">
+      </mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumnsDetail;">
+      </mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5,10, 25, 100]"></mat-paginator>
+  </mat-card-content>
+</mat-card>
+</span>

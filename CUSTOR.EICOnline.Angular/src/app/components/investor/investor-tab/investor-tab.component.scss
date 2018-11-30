@@ -1,0 +1,87 @@
+
+.mat-horizontal-stepper-header-container {
+
+  background-color: whitesmoke !important;
+}
+
+.alert-success {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #3c763d;
+}
+
+.border {
+  //border: 1px solid rgb(250, 250, 250);
+  border: 1px solid #ccc;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+.appGuid > ol, li, .alert-info {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Noto Sans Ethiopic";
+  font-size: 13px;
+  line-height: 1.428571429;
+  color: #333;
+  padding: 10px;
+  text-align: justify !important;
+}
+
+.service > ol > li, span {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Noto Sans Ethiopic";
+  font-size: 13px;
+  line-height: 1.428571429;
+  color: #333;
+  padding: 10px;
+  text-align: justify !important;
+}
+
+.footerButton {
+  border-bottom-left-radius: 6px;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-bottom-right-radius: 6px;
+  background-color: rgb(250, 250, 250);
+}
+
+.agree {
+  color: white;
+  font-weight: bold;
+}
+
+.alert-info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #31708f;
+  margin: 20px;
+}
+
+.header-description {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Noto Sans Ethiopic";
+  font-size: 13px;
+  line-height: 32px;
+  color: #333;
+  padding: 10px;
+  text-align: justify !important;
+}
+
+.hdr-brk {
+  padding: 5px 0;
+  background: #fff;
+  border-bottom: 1px solid #ccc;
+  line-height: 1;
+}
+
+.hdr-brk, .hm-bg-cnt .hm-bg-slick .lbl {
+  font-size: 16px;
+}
+
+.bld {
+  font-weight: 700;
+}
+
+.hdr-brk {
+  padding: 5px 0;
+  background: #fff;
+  border-bottom: 1px solid #ccc;
+  line-height: 1;
+}

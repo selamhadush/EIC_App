@@ -1,0 +1,123 @@
+<app-page-header title="incentiveServiceList" icon=""></app-page-header>
+
+<!--<mat-card fxFlex="35">-->
+<!--<mat-card-header>-->
+<!--<mat-card-subtitle class="sub-title">-->
+
+<!--Select One-->
+<!--&lt;!&ndash;<span>Investor Name : Name /</span> <span>   Project Name: p name / </span>&ndash;&gt;-->
+<!--&lt;!&ndash;<span class="sub-title">{{title}}</span>&ndash;&gt;-->
+
+
+<!--<mat-divider></mat-divider>-->
+<!--</mat-card-subtitle>-->
+
+<!--</mat-card-header>-->
+<!--<mat-card-content>-->
+<!--<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">-->
+
+<!--<table style="height: 320px;display: block;overflow: auto;border: none;" class=" table">-->
+<!--&lt;!&ndash;<thead style="padding-bottom: 14px;">&ndash;&gt;-->
+<!--&lt;!&ndash;<th>Select One <br>&ndash;&gt;-->
+<!--&lt;!&ndash;<div style="color: #fafafa;">white</div>&ndash;&gt;-->
+<!--&lt;!&ndash;</th>&ndash;&gt;-->
+<!--&lt;!&ndash;</thead>&ndash;&gt;-->
+
+<!--<tbody style="overflow: auto;">-->
+<!--<tr *ngFor="let item of incentiveServiceList">-->
+<!--<td>-->
+<!--<a class="pointer" (click)="view(item.ServiceId)">-->
+<!--<mat-icon style="float: left;" color="primary" class="mat-18">add_box</mat-icon>-->
+<!--<span style="float: left;font-size: 15px;"> {{item.DisplayNameEnglish}}</span>-->
+<!--</a>-->
+
+<!--</td>-->
+<!--</tr>-->
+<!--</tbody>-->
+<!--</table>-->
+
+
+<!--</div>-->
+<!--</mat-card-content>-->
+
+<!--<mat-card-footer>-->
+<!--<mat-divider></mat-divider>-->
+
+<!--<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">-->
+<!--<div fxFlex="80">-->
+<!--<button class="custom-button margin-10" (click)="back()">-->
+<!--<mat-icon class="mat-18">arrow_back</mat-icon>-->
+<!--Back-->
+<!--</button>-->
+<!--</div>-->
+
+<!--</div>-->
+<!--</mat-card-footer>-->
+<!--</mat-card>-->
+<!--<app-page-header title="aftercare" icon="add"></app-page-header>-->
+
+<mat-card>
+  <!--<mat-card-header>-->
+    <!--<mat-card-subtitle>-->
+
+
+      <!--&lt;!&ndash;<span>Investor Name : Name /</span> <span>   Project Name: p name / </span>&ndash;&gt;-->
+      <!--&lt;!&ndash;<span class="sub-title">{{title}}</span>&ndash;&gt;-->
+
+
+      <!--<mat-divider></mat-divider>-->
+    <!--</mat-card-subtitle>-->
+
+  <!--</mat-card-header>-->
+  <mat-card-content>
+    <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="2em">
+
+      <div class="block" fxFlex="30%">
+
+        <table style="height: 320px;display: block;overflow: auto;" class="scrollbar table full-width">
+          <thead style="padding-bottom: 14px;">
+          <th>Select One <br>
+          <div style="color: #fafafa;">white</div>
+          </th>
+          </thead>
+
+          <tbody style="overflow: auto;">
+          <tr *ngFor="let item of incentiveServiceList">
+            <td>
+              <a class="pointer" (click)="view(item.ServiceId)">
+                <mat-icon style="float: left;" color="primary" class="mat-18">add_box</mat-icon>
+                <span style="float: left;font-size: 15px;"> {{item.DisplayNameEnglish}}</span>
+              </a>
+
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+      <div class="block" fxFlex="69%">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </mat-card-content>
+
+  <mat-card-footer>
+    <mat-divider></mat-divider>
+
+    <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="2em">
+      <div fxFlex="80">
+        <button class="custom-button margin-10" (click)="back()">
+          <mat-icon class="mat-18">arrow_back</mat-icon>
+          Back
+        </button>
+      </div>
+      <!--<div fxFlex="15">-->
+      <!--<button class="custom-button margin-10" (click)="gotStep()">-->
+      <!--<mat-icon class="mat-18">add_circle_outline</mat-icon>-->
+      <!--Add-->
+      <!--</button>-->
+      <!--</div>-->
+    </div>
+  </mat-card-footer>
+</mat-card>

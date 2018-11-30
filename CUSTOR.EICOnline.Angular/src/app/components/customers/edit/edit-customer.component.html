@@ -1,0 +1,181 @@
+<div class="containerX">
+
+<mat-card>
+ <mat-progress-bar *ngIf="loadingIndicator" mode="query"></mat-progress-bar>
+  <mat-card-header>
+
+    <mat-card-title>
+      <!-- <mat-icon class="mat-button-icon">person_add</mat-icon> Edit Customer -->
+    </mat-card-title>
+  </mat-card-header>
+  <br />
+  <br />
+
+  <mat-card-content>
+    <form #form="ngForm" [formGroup]="customerForm" novalidate (ngSubmit)="onSubmit()" fxLayout="column" autocomplete="off">
+      <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2em" class="row">
+          <div fxFlex.gt-sm="0 1 calc(50% - 0.5em)">
+            <mat-checkbox  formControlName="cIsCompany">
+                Is Company?
+            </mat-checkbox>
+        </div>
+      </div>
+      <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2em" class="row">
+        <mat-form-field  fxFlex>
+          <mat-label for="Title">Customer title:</mat-label>
+          <input matInput formControlName="cTitle" />
+          <mat-error *ngIf="customerTitle.hasError('Title')">
+            Please enter Title
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field  fxFlex>
+          <mat-label>Customer name:</mat-label>
+          <input matInput formControlName="cFirstName" required />
+          <mat-error *ngIf="firstName.hasError('required')">
+            Please enter Customer name
+          </mat-error>
+          <mat-error *ngIf="!firstName.hasError('required') && firstName.hasError('minlength')">
+            Name should be at least 2 characters long
+          </mat-error>
+          <mat-error *ngIf="!firstName.hasError('required') && !firstName.hasError('minlength')
+                  && firstName.hasError('pattern')">
+            Only alphabetic charcters are allowed!
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field  fxFlex>
+          <mat-label>Father's name:</mat-label>
+          <input matInput formControlName="cFatherName" />
+          <mat-error *ngIf="fatherName.hasError('required')">
+            Please enter Father's name
+          </mat-error>
+          <mat-error *ngIf="!fatherName.hasError('required') && fatherName.hasError('minlength')">
+            Father's name should be at least 2 characters long
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field  fxFlex>
+          <mat-label>Grand Father's name:</mat-label>
+          <input matInput formControlName="cGrandName" />
+          <mat-error *ngIf="grandName.hasError('required')">
+            Please enter Grand father's name
+          </mat-error>
+          <mat-error *ngIf="!grandName.hasError('required') && grandName.hasError('minlength')">
+            Grand father's name should be at least 2 characters long
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2em" class="row">
+        <mat-form-field  fxLayoutGap="4em">
+            <mat-label>Nationality</mat-label>
+            <mat-select formControlName="cNationality"  [compareWith]="compareIds">
+                <mat-option *ngFor="let country of countries" [value]="country.LookupId">
+                    <span >{{country.Description}}</span>
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="nationality.hasError('required')">
+                "Please select Nationality"
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Marital Status</mat-label>
+          <mat-select formControlName="cMaritalStatus"   required>
+              <mat-option *ngFor="let marStatus of maritalStatuses" [value]="marStatus.Id">
+                  <span >{{marStatus.Desc}}</span>
+              </mat-option>
+          </mat-select>
+          <mat-error *ngIf="maritalStatus.hasError('required')">
+              "Please select Marital Status"
+          </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label >Gender </mat-label>
+        <mat-select formControlName="cGender" required>
+          <mat-option  *ngFor="let gender of genders" [value]="gender.Id">
+            {{gender.Desc}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="gender.hasError('required')">
+          Please select Gender
+      </mat-error>
+      </mat-form-field>
+      <mat-form-field  fxFlex>
+          <mat-label>Birth date:</mat-label>
+          <input matInput formControlName="cBirthDate" />
+          <mat-error *ngIf="birthDate.hasError('required')">
+            Please enter Birth date
+          </mat-error>
+          <mat-error *ngIf="!birthDate.hasError('required') && birthDate.hasError('pattern')">
+            Please enter a valid date
+          </mat-error>
+      </mat-form-field>
+    </div>
+    <br>
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2em" class="row">
+         <mat-form-field  fxLayoutGap="4em">
+            <mat-label>Region</mat-label>
+            <mat-select formControlName="cRegion"  (selectionChange)="filterRegion($event.value)" [compareWith]="compareIds"    required>
+                <option value="0">--Select--</option>
+                <mat-option *ngFor="let region of regions" [value]="region.RegionId">
+                    <span >{{region.DescriptionEnglish}}</span>
+                </mat-option>
+            </mat-select>
+
+            <mat-error *ngIf="region.hasError('required')">
+                Please select Region
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field  fxLayoutGap="4em">
+            <mat-label>Zone</mat-label>
+            <mat-select formControlName="cZone"  (selectionChange)="filterZone($event.value)" [compareWith]="compareIds" required>
+                <option value="0">--Select--</option>
+                <mat-option *ngFor="let zone of filteredZones" [value]="zone.ZoneId">
+                    <span >{{zone.DescriptionEnglish}}</span>
+                </mat-option>
+            </mat-select>
+
+            <mat-error *ngIf="zone.hasError('required')">
+                Please select Zone
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field  fxLayoutGap="4em">
+          <mat-label>Wereda</mat-label>
+          <mat-select formControlName="cWoreda"  (selectionChange)="filterWoreda($event.value)" [compareWith]="compareIds" required>
+              <option value="0">--Select--</option>
+              <mat-option *ngFor="let w of filteredWoredas" [value]="w.WoredaId">
+                  <span >{{w.DescriptionEnglish}}</span>
+              </mat-option>
+          </mat-select>
+
+          <mat-error *ngIf="woreda.hasError('required')">
+              Please select Wereda
+          </mat-error>
+      </mat-form-field>
+      <mat-form-field  fxLayoutGap="4em">
+        <mat-label>Kebele</mat-label>
+        <mat-select formControlName="cKebele" required [compareWith]="compareIds">
+            <option value="0">--Select--</option>
+            <mat-option *ngFor="let keb of filteredKebeles" [value]="keb.KebeleId">
+                <span >{{keb.DescriptionEnglish}}</span>
+            </mat-option>
+        </mat-select>
+
+        <mat-error *ngIf="kebele.hasError('required')">
+            Please select Kebele
+        </mat-error>
+    </mat-form-field>
+    </div>
+    <br>
+    <div class="separator" style="margin-left:-25px; margin-right:-25px"> </div>
+
+    <div mat-dialog-actions>
+      <button [disabled]="form.invalid" mat-raised-button type="submit" color="primary">
+        Save
+      </button>
+      <button mat-raised-button (click)="onBack()" color="warn" type="button">
+        Cancel
+      </button>
+    </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+</div>

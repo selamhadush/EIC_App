@@ -1,0 +1,16 @@
+﻿<div style="width:600px; padding:50px; margin:auto; background-color:whitesmoke">
+
+  <p>
+    <strong>Confirmation</strong>
+    <hr></hr>
+  </p>
+  <p>               Your Account is Confirmed Successfully.</p>
+  <p>               You can now login and access our services.</p>
+  <p style="text-align:center; padding:5px">
+    <a href="{returnLink}">Home</a>
+  </p>
+  <p></p>
+  <div style="background-color:navy; color:lightgray; width:600px; padding:10px; margin-left:-10px">
+    <b>{orgName}</b>
+  </div>
+</div>

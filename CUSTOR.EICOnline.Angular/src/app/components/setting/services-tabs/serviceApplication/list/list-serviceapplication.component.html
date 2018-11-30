@@ -1,0 +1,62 @@
+<div style="width:600px; margin:auto">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>Service Step List</span>
+      <span class="toolbar-spacer"></span>
+      <div class="header-actions">
+        <button mat-icon-button>
+          <mat-icon>search</mat-icon>
+        </button>
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+        <button mat-icon-button [routerLink]="['/orders/edit/', 0]">
+          <mat-icon class="mat-button-icon">add</mat-icon>
+          Add
+        </button>
+        <button mat-icon-button>
+          <mat-icon>more_vertical</mat-icon>
+        </button>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <div class="mat-elevation-z8">
+    <mat-progress-bar *ngIf="loadingIndicator" mode="query"></mat-progress-bar>
+    <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="ServiceApplicationId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>ServiceApplicationId</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.ServiceApplicationId}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="ServiceName">
+        <mat-header-cell *matHeaderCellDef flex="250px">Service Name</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.Service.DisplayNameEnglish}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="InvestorName">
+        <mat-header-cell *matHeaderCellDef flex="250px">InvestorName</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.InvestorId}}
+        </mat-cell>
+        <!--<mat-cell *matCellDef="let row">{{row.Investor.firstNameEng-->
+        <!--+' '+row.Investor.fatherNameEng+' '+row.Investor.grandNameEng}}-->
+        <!--</mat-cell>-->
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef fxFlex="100px">
+        </mat-header-cell>
+        <mat-cell *matCellDef="let serviceapplication" fxFlex="100px">
+          <button mat-icon-button (click)="editServiceApplication(serviceapplication)" type="button">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <!--<button mat-icon-button (click)="confirmDelete(orders)" type="button">-->
+          <!--<mat-icon color="warn">delete</mat-icon>-->
+          <!--</button>-->
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+
+    <mat-paginator pageSize="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+</div>

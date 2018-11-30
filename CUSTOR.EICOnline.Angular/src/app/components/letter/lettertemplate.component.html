@@ -1,0 +1,102 @@
+<mat-card class="margin-2" style="box-shadow: none;border: 1px solid #dddddd" xmlns="http://www.w3.org/1999/html">
+
+  <form [formGroup]="letterTemplateForm" novalidate>
+    <mat-card-content>
+      <div fxLayout.xs="row wrap" fxLayoutAlign.xs="start center" fxLayoutGap="2em">
+        <div class="block" fxLayoutGap="2em">
+          <mat-form-field style="width: 150px">
+            <mat-label>Letter Type</mat-label>
+            <mat-select formControlName="LetterType" style="font-family: Calibri" type="text" [compareWith]="compareIds"
+                        required>
+              <option value="0">--Select--</option>
+              <mat-option *ngFor="let LetterType of Lookups" [value]="LetterType.LookupId">
+                <span>{{LetterType.English}}</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div fxFlex.gt-sm="0 1 calc(50% - 0.5em)">
+            <mat-checkbox formControlName="IsActive">
+              IsActive?
+            </mat-checkbox>
+          </div>
+
+
+        </div>
+      </div>
+      <div fxFlex="75" fxLayout.xs="row wrap" fxLayoutAlign.xs="start center" fxLayoutGap="2em">
+        <editor id="letterContent"
+                apiKey="4yzxfc219romk1dtk7h8c9q8zci4aj73ls684uxob669uvo4"
+                class="full-width"
+                formControlName="LetterContent"
+                [init]="{plugins: 'print',
+            height : 600,
+            theme: 'modern',
+toolbar_items_size: 'small'}">
+
+        </editor>
+      </div>
+      <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2em" class="row">
+
+        <div class="block" fxFlex="10%">
+          <button class="custom-button" (click)="onSubmit()">
+            <mat-icon color="accent" class="mat-18">done</mat-icon>
+            {{editMode ? 'Save' : 'Add'}}
+          </button>
+        </div>
+
+      </div>
+    </mat-card-content>
+
+  </form>
+</mat-card>
+<!--*ngIf="LetterTemplateModels.length>0"-->
+<mat-card class="margin-2 padding-0" style="width: 920px">
+  <mat-card-header>
+    <mat-card-subtitle class="sub-title">List of Letter Template
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="spinner-container" *ngIf="loading ">
+      <mat-progress-bar mode="query"></mat-progress-bar>
+    </div>
+    <mat-table #table [dataSource]="dataSource">
+      <ng-container matColumnDef="LetterType">
+        <mat-header-cell *matHeaderCellDef fxFlex="35">Letter Type</mat-header-cell>
+        <mat-cell *matCellDef="let LetterTemplateModels" fxFlex="35"> {{LetterTemplateModels.LetterType | lookupPipe :
+          1}}
+        </mat-cell>
+      </ng-container>
+      <!--<ng-container matColumnDef="Title" >-->
+      <!--<mat-header-cell *matHeaderCellDef fxFlex="20" >Title</mat-header-cell>-->
+      <!--<mat-cell *matCellDef="let LetterTemplateModels" fxFlex="20"> {{LetterTemplateModels.Title  }}</mat-cell>-->
+      <!--</ng-container>-->
+      <!--<ng-container matColumnDef="ToOrg" >-->
+      <!--<mat-header-cell *matHeaderCellDef fxFlex="8"> ToOrg</mat-header-cell>-->
+      <!--<mat-cell *matCellDef="let LetterTemplateModels" fxFlex="8"> {{LetterTemplateModels.ToOrg }}</mat-cell>-->
+      <!--</ng-container>-->
+      <ng-container matColumnDef="Action">
+        <mat-header-cell fxFlex="18" *matHeaderCellDef>Action</mat-header-cell>
+        <mat-cell fxFlex="18" *matCellDef="let LetterTemplateModels;let i=index;">
+          <div>
+            <a class="pointer" mat-min-fab matTooltip="Click here to edit the product"
+               (click)="onEditLetterTemplate(i)">
+              <mat-icon color="primary" class="mat-18">edit</mat-icon>
+              Edit
+            </a>
+            <a class="pointer" mat--mini-fab color="warn" matTooltip="Click here to delete the product"
+               (click)="deleteLetterTemplate(i,LetterTemplateModels.IncentiveRequestItemId)">
+              <mat-icon color="warn">delete</mat-icon>
+              Delete
+            </a>
+          </div>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns">
+      </mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+  </mat-card-content>
+</mat-card>
+
+

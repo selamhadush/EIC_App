@@ -1,0 +1,123 @@
+<div class="containerX">
+  <mat-card>
+    <mat-progress-bar *ngIf="loadingIndicator" mode="query"></mat-progress-bar>
+    <mat-card-header>
+      <mat-card-title>
+        <!-- <mat-icon class="mat-button-icon">person_add</mat-icon> Edit Customer -->
+      </mat-card-title>
+    </mat-card-header>
+    <br />
+    <mat-card-content>
+      <form #form="ngForm" [formGroup]="invActivityForm" novalidate (ngSubmit)="onSubmit()" fxLayout="column"
+            autocomplete="off">
+        <div fxLayout="column" fxLayout.lt-md="column" fxLayoutGap="2em" class="row">
+
+          <mat-form-field>
+            <mat-label>Sector:</mat-label>
+            <mat-select formControlName="cSector" [compareWith]="compareIds" (selectionChange)="filterSector($event.value)" required>
+              <option value="0">--Select--</option>
+              <mat-option *ngFor="let sector of sectorModels" [value]="sector.SectorId">
+                <span>{{sector.DescriptionEnglishAlias}}</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Sub Sector:</mat-label>
+            <mat-select formControlName="cSubSector" [compareWith]="compareIds" (selectionChange)="filterSubSector($event.value)" required>
+              <option value="0">--Select--</option>
+              <mat-option *ngFor="let subsector of fillterssubsectorModels" [value]="subsector.SubSectorId">
+                <span>{{subsector.DescriptionEnglishAlias}}</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Activity:</mat-label>
+            <mat-select formControlName="cActivity" [compareWith]="compareIds" required>
+              <option value="0">--Select--</option>
+              <mat-option *ngFor="let activity of filltersActivityModels" [value]="activity.ActivityId">
+                <span>{{activity.DescriptionEnglishAlias}}</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Description:</mat-label>
+            <input matInput formControlName="cDescription"  required maxlength="150" />
+            <mat-error *ngIf="Description.hasError('required')">
+              Please enter Description amharic
+            </mat-error>
+            <mat-error *ngIf="Description.hasError('pattern')">
+              Only amharic alphabetic charcters are allowed!
+            </mat-error>
+            <mat-error *ngIf="!Description.hasError('maxlength')">
+              Maximum charcters length is 150!
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Description Alias:</mat-label>
+            <input matInput formControlName="cDescriptionAlias"  required maxlength="20" />
+            <mat-error *ngIf="DescriptionAlias.hasError('required')">
+              Please enter Description Alias amharic
+            </mat-error>
+            <mat-error *ngIf="DescriptionAlias.hasError('pattern')">
+              Only amharic alphabetic charcters are allowed!
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label >Description English:</mat-label>
+            <input matInput formControlName="cDescriptionEnglish" required maxlength="200" />
+            <mat-error *ngIf="DescriptionEnglish.hasError('required')">
+              Please enter Description english
+            </mat-error>
+            <mat-error *ngIf="DescriptionEnglish.hasError('pattern')">
+              Only alphabetic charcters are allowed!
+            </mat-error>
+            <mat-error *ngIf="!DescriptionEnglish.hasError('maxlength')">
+              Maximum charcters length is 200!
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label >Description English Alias:</mat-label>
+            <input matInput formControlName="cDescriptionEnglishAlias" required maxlength="30" />
+            <mat-error *ngIf="DescriptionEnglishAlias.hasError('required')">
+              Please enter Description english
+            </mat-error>
+            <mat-error *ngIf="DescriptionEnglishAlias.hasError('pattern')">
+              Only alphabetic charcters are allowed!
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label >In Addis Oromia Areas:</mat-label>
+            <input matInput formControlName="cInAddisOromiaAreas" required maxlength="1" />
+            <mat-error *ngIf="InAddisOromiaAreas.hasError('required')">
+              Please enter InAddis Oromia Areas
+            </mat-error>
+            <mat-error *ngIf="InAddisOromiaAreas.hasError('pattern')">
+              Only numeric charcters are allowed!!
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label >In Other Areas:</mat-label>
+            <input matInput formControlName="cInOtherAreas" required maxlength="1" />
+            <mat-error *ngIf="InOtherAreas.hasError('required')">
+              Please enter In Other Areas
+            </mat-error>
+            <mat-error *ngIf="InOtherAreas.hasError('pattern')">
+              Only numeric charcters are allowed!!
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div mat-dialog-actions>
+          <button [disabled]="form.invalid" mat-raised-button type="submit" color="primary">
+            Save
+          </button>
+          <button mat-raised-button (click)="onBack()" color="warn" type="button">
+            Cancel
+          </button>
+        </div>
+
+        <div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

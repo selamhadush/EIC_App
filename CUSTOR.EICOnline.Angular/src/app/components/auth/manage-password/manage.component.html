@@ -1,0 +1,93 @@
+<div class="page-content" style=" margin:auto;width:500px;padding-top: 20px">
+  <div style="margin: 30px;">
+    <mat-toolbar color="primary">
+      <mat-toolbar-row>
+        <span style="margin-top:9px; margin-right: 5px"><mat-icon>lock</mat-icon></span>
+        <span>{{dialogTitle}}</span>
+        <span class="toolbar-spacer"></span>
+        <div class="header-actions">
+          <!-- <button mat-icon-button><mat-icon>more_vertical</mat-icon></button> -->
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-card>
+      <mat-card-header>
+        <!-- <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Title1</mat-card-title>
+        <mat-card-subtitle>Title 2</mat-card-subtitle> -->
+      </mat-card-header>
+
+      <mat-card-content>
+        <form #form="ngForm" [formGroup]="userProfileForm" novalidate (ngSubmit)="save()" fxLayout="column"
+              fxLayoutGap="1em" autocomplete="off">
+
+          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1em">
+            <mat-form-field fxFlex>
+              <mat-label>{{'users.editor.Email' | translate}}</mat-label>
+              <input matInput formControlName="email" required/>
+              <mat-error *ngIf="email.hasError('required')">
+                {{'users.editor.EmailRequired' | translate}}
+              </mat-error>
+              <mat-error *ngIf="!email.hasError('required') && email.hasError('email')">
+                {{'users.editor.InvalidEmail' | translate}}
+              </mat-error>             
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1em">
+            <mat-form-field fxFlex>
+              <mat-label>{{'users.editor.UserName' | translate}}</mat-label>
+              <input matInput formControlName="userName" autocomplete="off" required/>
+              <mat-error *ngIf="userName.hasError('required')">
+                {{'users.editor.UserNameRequired' | translate}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1em"> 
+            <mat-form-field fxFlex *ngIf="showOldPassword">
+              <mat-label>{{oldPasswordCaption}}</mat-label>
+              <input matInput type="password" formControlName="oldPassword" autocomplete="off" />
+              <mat-error *ngIf="oldPassword.hasError('required')">
+                Old Password is Required
+              </mat-error>
+            </mat-form-field>
+          </div> 
+          <div formGroupName="password" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1em">
+
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1em">
+              <mat-form-field>
+                <mat-label>{{'users.editor.NewPassword' | translate}}</mat-label>
+                <input matInput type="password" formControlName="newPassword" autocomplete="off" required/>
+                <mat-error *ngIf="newPassword.hasError('required')">
+                  {{'users.editor.NewPasswordRequired' | translate}}
+                </mat-error>
+                <mat-error *ngIf="!newPassword.hasError('required') && newPassword.hasError('pattern')">
+                  {{'users.editor.NewPasswordRules' | translate}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="1em">
+
+              <mat-form-field fxFlex>
+                <mat-label>{{'users.editor.ConfirmPassword' | translate}}</mat-label>
+                <input matInput type="password" formControlName="confirmPassword" required/>
+                <mat-error *ngIf="confirmPassword.hasError('required')">
+                  {{'users.editor.ConfirmationPasswordRequired' | translate}}
+                </mat-error>
+                <mat-error *ngIf="!confirmPassword.hasError('required') && confirmPassword.hasError('notEqual')">
+                  Test
+                  {{'users.editor.PasswordMismatch' | translate}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div>&nbsp;</div>
+        </form>
+      </mat-card-content>
+      <div style="text-align: center">
+        <button mat-raised-button color="primary" (click)="save()">{{actionCaption}}
+        </button>
+      </div>
+    </mat-card>
+  </div>
+</div>

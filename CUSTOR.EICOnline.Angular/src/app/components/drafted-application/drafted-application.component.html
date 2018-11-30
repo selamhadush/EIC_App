@@ -1,0 +1,118 @@
+<app-page-header title="draftedApplication" icon="drafts"></app-page-header>
+
+<mat-card class="dashboard-card box" style="overflow: auto;margin: 20px">
+
+  <mat-card-content class="dashboard-card-content">
+    <div fxFlex="100%">
+
+      <div class="spinner-container" *ngIf="loading ">
+        <mat-progress-bar mode="query"></mat-progress-bar>
+      </div>
+      <mat-table #table [dataSource]="dataSource">
+        <ng-container matColumnDef="No">
+          <mat-header-cell [fxFlex]="10" *matHeaderCellDef>No</mat-header-cell>
+          <mat-cell [fxFlex]="10" *matCellDef="let serviceApplicationList;let i=index;">
+            {{i+1}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="ServiceName">
+          <mat-header-cell *matHeaderCellDef>Service Name</mat-header-cell>
+          <mat-cell *matCellDef="let serviceApplicationList">
+            {{serviceApplicationList?.ServiceNameEnglish}}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="ProjectName">
+          <mat-header-cell *matHeaderCellDef>Project Name</mat-header-cell>
+          <mat-cell *matCellDef="let serviceApplicationList">
+            <!--{{(serviceApplicationList?.Project==='null')?'': serviceApplicationList?.Project?.ProjectName |-->
+            <!--filterPipe:10}}-->
+            {{serviceApplicationList?.ProjectNameEnglish}}
+          </mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="StartDate">
+          <mat-header-cell *matHeaderCellDef> Start Date</mat-header-cell>
+          <mat-cell *matCellDef="let serviceApplicationList">
+            {{serviceApplicationList?.StartDate | date}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="NextStep">
+          <mat-header-cell *matHeaderCellDef>Next Step</mat-header-cell>
+          <mat-cell *matCellDef="let serviceApplicationList">
+            <a style="color: #00bcd4;" *ngIf="!serviceApplicationList?.Project?.IsActive;else finished"
+               (click)="nextStep(serviceApplicationList.ServiceWorkflow[0].NextStepId, serviceApplicationList.ProjectId,serviceApplicationList.ServiceApplicationId)">
+              {{serviceApplicationList.ServiceWorkflow[0]?.NextStepId | serviceStepPipe}}
+              <!--<mat-icon color="primary" class="mat-18">navigate_next</mat-icon>-->
+            </a>
+            <ng-template #finished>
+              <span color="" style="width: 150px;">Completed</span>
+            </ng-template>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="currentStatus">
+          <mat-header-cell *matHeaderCellDef>Current Status</mat-header-cell>
+          <mat-cell *matCellDef="let serviceApplicationList">
+                     <span class=" common-button-status drafted"
+                           *ngIf="serviceApplicationList?.CurrentStatusId===44450">
+             Drafted
+                      </span>
+            <span class=" common-button-status Submitted"
+                  *ngIf="serviceApplicationList?.CurrentStatusId===44446">
+             Submitted
+                      </span>
+            <span class=" common-button-status Approved"
+                  *ngIf="serviceApplicationList?.CurrentStatusId===44447">
+            Approved
+                      </span>
+            <span class="common-button-status Pending"
+                  *ngIf="serviceApplicationList?.CurrentStatusId===44448">
+              Pending
+                      </span>
+            <span class=" common-button-status Completed"
+                  *ngIf="serviceApplicationList?.CurrentStatusId===44449">
+           Completed
+                      </span>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Action">
+          <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+          <mat-cell *matCellDef="let serviceApplicationList; let i=index">
+            <div>
+              <a class="margin-10 pointer" mat-min-fab matTooltip="Click here to edit the project"
+                 (click)="editProject(serviceApplicationList.ProjectId,serviceApplicationList.ServiceApplicationId,                serviceApplicationList.ServiceId )">
+                <mat-icon color="primary" class="mat-18">edit</mat-icon>
+              </a>
+              <a class="margin-10 pointer" mat--mini-fab color="warn"
+                 matTooltip="Click here to delete the project"
+                 (click)="deleteProject(serviceApplicationList.ProjectId)">
+                <mat-icon color="warn">delete</mat-icon>
+              </a>
+              <a class="margin-10 pointer" mat--mini-fab color="accent"
+                 matTooltip="Click here for detail of the project"
+                 (click)="projectDetail(serviceApplicationList.ProjectId)">
+                <mat-icon color="primary">visibility</mat-icon>
+              </a>
+
+            </div>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns">
+        </mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+      </mat-table>
+
+      <mat-paginator
+
+        #paginator
+        [pageSize]="6"
+        [pageSizeOptions]="[5, 10, 20]">
+      </mat-paginator>
+    </div>
+
+
+  </mat-card-content>
+</mat-card>

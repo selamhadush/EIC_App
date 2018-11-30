@@ -1,0 +1,91 @@
+<div [@fadeInOut] class="page-content mat-elevation-z8">
+  <mat-card>
+    <mat-progress-bar *ngIf="loadingIndicator" mode="query"></mat-progress-bar>
+    <mat-card-header>
+      <mat-card-title>
+        <!-- <mat-icon class="mat-button-icon">person_add</mat-icon> Edit Customer -->
+      </mat-card-title>
+    </mat-card-header>
+    <br/>
+    <mat-card-content>
+      <form #form="ngForm" [formGroup]="kebeleForm" novalidate (ngSubmit)="onSubmit()" fxLayout="column"
+            autocomplete="off">
+        <div fxLayout="column" fxLayout.lt-md="column" fxLayoutGap="2em" class="row">
+          <mat-form-field style="width: 150px">
+            <mat-label>{{'kebele.Region' | translate}}</mat-label>
+            <mat-select formControlName="cRegion" [compareWith]="compareIds"
+                        (selectionChange)="filterRegion($event.value)" required>
+              <option value="0">--Select--</option>
+              <mat-option *ngFor="let region of regionModels" [value]="region.RegionId">
+                <span>{{region.DescriptionEnglish}}</span>
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="Region.hasError('required')">
+              {{'common.validation.Required' | translate}}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field style="width: 150px">
+            <mat-label>{{'kebele.Zone' | translate}}</mat-label>
+            <mat-select formControlName="cZone" [compareWith]="compareIds" (selectionChange)="filterZone($event.value)"
+                        required>
+              <option value="0">--Select--</option>
+              <mat-option *ngFor="let zone of fillterszoneModels" [value]="zone.ZoneId">
+                <span>{{zone.DescriptionEnglish}}</span>
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="Zone.hasError('required')">
+              {{'common.validation.Required' | translate}}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field style="width: 150px">
+            <mat-label>{{'kebele.Woreda' | translate}}</mat-label>
+            <mat-select formControlName="cWoreda" [compareWith]="compareIds" required>
+              <option value="0">--Select--</option>
+              <mat-option *ngFor="let woreda of filltersWoredaModels" [value]="woreda.WoredaId">
+                <span>{{woreda.DescriptionEnglish}}</span>
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="Woreda.hasError('required')">
+              {{'common.validation.Required' | translate}}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field style="width: 150px">
+            <mat-label>{{'kebele.KebeleCode' | translate}}</mat-label>
+            <input matInput formControlName="cKebele" required maxlength="20" required/>
+            <mat-error *ngIf="Kebele.hasError('required')">
+              {{'common.validation.Required' | translate}}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field style="width: 150px">
+            <mat-label>{{'kebele.Description' | translate}}</mat-label>
+            <input matInput formControlName="cDescription" required maxlength="30"/>
+            <mat-error *ngIf="Description.hasError('required')">
+              {{'common.validation.Required' | translate}}
+            </mat-error>
+            <mat-error *ngIf="Description.hasError('maxlength')">
+              {{'common.validation.MaxLengthChar' | translate: {'max':'15'} }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field style="width: 150px">
+            <mat-label>{{'kebele.DescriptionEnglish' | translate}}</mat-label>
+            <input matInput formControlName="cDescriptionEnglish" required maxlength="15"/>
+            <mat-error *ngIf="DescriptionEnglish.hasError('required')">
+              {{'common.validation.Required' | translate}}
+            </mat-error>
+            <mat-error *ngIf="DescriptionEnglish.hasError('maxlength')">
+              {{'common.validation.MaxLengthChar' | translate: {'max':'15'} }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div mat-dialog-actions>
+          <button [disabled]="form.invalid" mat-raised-button type="submit" color="primary">
+            Save
+          </button>
+          <button mat-raised-button (click)="onBack()" color="warn" type="button">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

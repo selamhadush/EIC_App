@@ -1,0 +1,81 @@
+<div class="containerX">
+
+  <mat-card>
+    <mat-progress-bar *ngIf="loadingIndicator" mode="query"></mat-progress-bar>
+    <mat-card-header>
+
+      <mat-card-title>
+        <!-- <mat-icon class="mat-button-icon">person_add</mat-icon> Edit Customer -->
+      </mat-card-title>
+    </mat-card-header>
+    <br />
+    <br />
+
+    <mat-card-content>
+      <form #form="ngForm" [formGroup]="servicePrerequisiteForm" novalidate (ngSubmit)="onSubmit()" fxLayout="column" autocomplete="off">
+        <div fxLayout="column" fxLayout.lt-md="column" fxLayoutGap="0.5em">
+          <mat-form-field  fxLayoutGap="1em" style="width: 250px">
+            <mat-label style="font-family: Calibri" >Service Type</mat-label>
+            <mat-select formControlName="cServiceType"  [compareWith]="compareIds" style="width: 250px"  required>
+              <option value="0">--Select--</option>
+              <mat-option *ngFor="let service of servicesModel" [value]="service.ServiceId">
+                <span >{{service.DisplayNameEnglish}}</span>
+              </mat-option>
+            </mat-select>
+
+       <!--  <mat-error *ngIf="serviceprerequistie.hasError('required')">
+              "Please select ServiceType"
+            </mat-error>-->
+          </mat-form-field>
+          <mat-form-field  fxFlex>
+            <mat-label>Description Amharic:</mat-label>
+            <input matInput formControlName="cDescription" required />
+            <!--<mat-error *ngIf="!Description.hasError('required') && Description.hasError('minlength')">
+              Name should be at least 2 characters long
+            </mat-error>-->
+          </mat-form-field>
+         <div class="block" fxFlex="70%">
+           <mat-form-field style="width: 100%!important;">
+             <mat-label>Description English:</mat-label>
+             <input matInput formControlName="cDescriptionEnglish" style="width: 100%"  required /> </mat-form-field>
+         </div>
+           <!-- <mat-error *ngIf="DescriptionEnglish.hasError('required')">
+              Please enter Description English
+            </mat-error>
+            <mat-error *ngIf="!DescriptionEnglish.hasError('required') && DescriptionEnglish.hasError('minlength')">
+              Name should be at least 2 characters long
+            </mat-error>
+            <mat-error *ngIf="!DescriptionEnglish.hasError('required') && !DescriptionEnglish.hasError('minlength')
+                  && DescriptionEnglish.hasError('pattern')">
+              Only alphabetic charcters are allowed!
+            </mat-error>-->
+
+          <mat-form-field  style="width: 150px">
+            <mat-label>Business Type:</mat-label>
+            <mat-select formControlName="cBusinessType" [compareWith]="compareIds" required>
+              <mat-option *ngFor="let businessType of businessTypes" [value]="businessType.Id">
+                <span>{{businessType.DescriptionEnglish}}</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2em" class="row">
+            <div fxFlex.gt-sm="0 1 calc(50% - 0.5em)">
+              <mat-checkbox  formControlName="cIsActive">
+                IsActive?
+              </mat-checkbox>
+            </div>
+          </div>
+        </div>
+
+        <div mat-dialog-actions>
+          <button [disabled]="form.invalid" mat-raised-button type="submit" color="primary">
+            Save
+          </button>
+          <button mat-raised-button (click)="onBack()" color="warn" type="button">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

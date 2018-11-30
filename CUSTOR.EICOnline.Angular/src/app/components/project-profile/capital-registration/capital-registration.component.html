@@ -1,0 +1,204 @@
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0">
+  <div class="block" fxFlex="">
+    <app-page-header title="capitalRegistration" icon="view_list"></app-page-header>
+
+  </div>
+  <div id="title1" class="block" fxFlex="50">
+    <span class="page-title">{{title}}</span>
+    <span class="slideBorder">/</span>
+    <span class="page-title">{{investorName}}</span>
+    <span class="slideBorder">/</span>
+    <span class="page-title">{{projectName}}</span>
+
+
+  </div>
+</div>
+<mat-card>
+  <form [formGroup]="capitalRegistrationForm" novalidate>
+    <mat-card-header>
+      <mat-card-subtitle class="sub-title">
+        Project Capital Registration
+        <mat-divider></mat-divider>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+        <div class="block" fxFlex="">
+          <mat-form-field>
+            <mat-label>Transfer Amount in Foreign :</mat-label>
+            <input matInput type="number" formControlName="ActualCostInForeign">
+            <mat-error align="start" *ngIf="formErrors.ActualCostInForeign" class="form__error">
+              {{ formErrors.ActualCostInForeign }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="block" fxFlex="">
+          <mat-form-field>
+            <mat-label>Transfer Amount in Foreign :</mat-label>
+            <input matInput
+                   type="number"
+                   formControlName="ExchangeRate">
+            <mat-error align="start" *ngIf="formErrors.ExchangeRate" class="form__error">
+              {{ formErrors.ExchangeRate }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="block" fxFlex>
+          <mat-form-field>
+            <input placeholder="Deposited Date* :"
+                   matInput
+                   formControlName="CapitalRegistrationDate"
+                   [matDatepicker]="CapitalRegistrationDatetime">
+            <mat-datepicker-toggle matSuffix [for]="CapitalRegistrationDatetime"></mat-datepicker-toggle>
+            <mat-datepicker #CapitalRegistrationDatetime></mat-datepicker>
+            <mat-error align="start" *ngIf="formErrors.CapitalRegistrationDate" class="form__error">
+              {{ formErrors.CapitalRegistrationDate }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="block" fxFlex="">
+
+          <mat-form-field>
+            <input type="number"
+                   formControlName="AdviceReferenceNumber"
+                   matInput
+                   placeholder="Advice Reference Number * :">
+
+          </mat-form-field>
+        </div>
+
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+        <div class="block" fxFlex="">
+
+          <mat-form-field>
+            <mat-select [disabled]="true" formControlName="ProjectStatus" required>
+              <option value="0">--Select--</option>
+              <label>Project Status</label>
+              <mat-option *ngFor="let status of projectStatus" [value]="status.Id">
+                <span>{{status.DescriptionEnglish}}</span>
+              </mat-option>
+            </mat-select>
+
+          </mat-form-field>
+        </div>
+        <div class="block" fxFlex="75">
+          <mat-form-field class="full-width">
+            <mat-label>Remark :</mat-label>
+            <textarea matInput formControlName="Remark" rows="2"></textarea>
+            <mat-error align="start" *ngIf="formErrors?.Remark" class="form__error">
+              {{ formErrors.Remark }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+      </div>
+      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="2em">
+        <div class="block">
+          <button color="primary" [disabled]="!capitalRegistrationForm.valid" mat-raised-button="" (click)="onSubmit()">
+            <mat-icon color="accent" class="mat-18">done</mat-icon>
+            {{editMode ? 'Save' : 'Add'}}
+          </button>
+        </div>
+
+      </div>
+
+    </mat-card-content>
+  </form>
+</mat-card>
+
+
+<div class="table-header sub-title" *ngIf="capitalRegistrationList.length>0">
+  Capital Registration Histories
+  <mat-divider></mat-divider>
+</div>
+
+<mat-card class="margin-2 padding-0" *ngIf="capitalRegistrationList.length>0">
+
+  <mat-card-content>
+    <div class="spinner-container" *ngIf="loading">
+      <mat-progress-bar mode="query"></mat-progress-bar>
+    </div>
+    <mat-table #table [dataSource]="dataSource">
+      <ng-container style="width: 10px !important;" matColumnDef="No">
+        <mat-header-cell style="width: 10px !important;" *matHeaderCellDef>No</mat-header-cell>
+        <mat-cell style="width: 10px !important;" *matCellDef="let capitalRegistrationList;let i=index;">{{i+1}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="AdviceReferenceNumber">
+        <mat-header-cell *matHeaderCellDef>Advice Reference Number</mat-header-cell>
+        <mat-cell *matCellDef="let capitalRegistrationList"> {{capitalRegistrationList.AdviceReferenceNumber}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="ActualCostInForeign">
+        <mat-header-cell *matHeaderCellDef>Transfer Amount Foreign</mat-header-cell>
+        <mat-cell *matCellDef="let capitalRegistrationList"> {{capitalRegistrationList.ActualCostInForeign }}</mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="ExchangeRate">
+        <mat-header-cell *matHeaderCellDef>Exchange Rate</mat-header-cell>
+        <mat-cell *matCellDef="let capitalRegistrationList">{{capitalRegistrationList.ExchangeRate }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="CapitalRegistrationDate">
+        <mat-header-cell *matHeaderCellDef>Capital Registration Date</mat-header-cell>
+        <mat-cell *matCellDef="let capitalRegistrationList">
+          {{capitalRegistrationList.CapitalRegistrationDate | date}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Remark">
+        <mat-header-cell *matHeaderCellDef>Remark</mat-header-cell>
+        <mat-cell *matCellDef="let capitalRegistrationList">
+          {{capitalRegistrationList.Remark}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Action">
+        <mat-header-cell fxFlex="15" *matHeaderCellDef>Action</mat-header-cell>
+        <mat-cell fxFlex="15" *matCellDef="let capitalRegistrationList;let i=index;">
+          <div>
+            <a class="pointer" mat-min-fab matTooltip="Click here to edit the product"
+               (click)="onEditProduct(i)">
+              <mat-icon color="primary" class="mat-18">edit</mat-icon>
+              Edit
+            </a>
+            <a class="pointer" mat--mini-fab color="warn" matTooltip="Click here to delete the product"
+               (click)="deleteProduct(i,capitalRegistrationList.CapitalRegistrationId)">
+              <mat-icon color="warn">delete</mat-icon>
+              Delete
+            </a>
+          </div>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns">
+      </mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+  </mat-card-content>
+  <div align="center">
+    <div style="padding: 20px" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2em">
+
+      <div fxFlex="15">
+
+        <!--<button class="custom-button" (click)="next()" color="warn" type="button">-->
+        <!--Back-->
+        <!--</button>-->
+      </div>
+      <div style="text-align: center" fxFlex="67" fxFlexAlign="center">
+
+      </div>
+      <div fxFlex="15">
+
+        <!--<button class="custom-button" (click)="next()" color="warn" type="button">-->
+        <!--Next-->
+        <!--</button>-->
+      </div>
+
+    </div>
+  </div>
+</mat-card>

@@ -1,0 +1,85 @@
+<mat-card style="margin-top: 10px;padding-bottom: 30px" class="margin-2">
+  <mat-card-header>
+    <mat-card-subtitle class="sub-title">Project Status</mat-card-subtitle>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+
+  <mat-card-content style="padding-bottom: 35px;    padding-top: 43px;">
+    <form [formGroup]="projectStatusForm" (ngSubmit)="onSubmit()">
+      <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="2em">
+        <div class="block" fxFlex="">
+          <mat-form-field>
+            <mat-label>Project Stage *:</mat-label>
+            <mat-select formControlName="ProjectStage" required>
+              <option value="0">--Select--</option>
+              <mat-option *ngFor="let status of projectStage" [value]="status.Id">
+                <span>{{status.DescriptionEnglish}}</span>
+
+              </mat-option>
+            </mat-select>
+            <!--<input formControlName="ProjectStatus" matInput placeholder="Other Source Description  :">-->
+            <!--<mat-error align="start" *ngIf="formErrors.ProjectStatus" class="form__error">-->
+            <!--{{ formErrors.ProjectStatus }}-->
+            <!--</mat-error>-->
+          </mat-form-field>
+        </div>
+        <div class="block" fxFlex="">
+          <mat-form-field>
+            <mat-label>Project Status *:</mat-label>
+            <mat-select formControlName="ProjectStatus" required>
+              <option value="0">--Select--</option>
+              <mat-option *ngFor="let status of projectStatus" [value]="status.Id">
+                <span>{{status.DescriptionEnglish}}</span>
+
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="block" fxFlex="20">
+          <mat-form-field class="full-width">
+            <mat-label>Quarter</mat-label>
+            <mat-select formControlName="Quarter" required>
+              <mat-option *ngFor="let row of Quarter" [value]="row.Id">
+                <span>{{row.DescriptionEnglish}}</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+
+        <div class="block" fxFlex="20">
+          <mat-form-field class="full-width">
+            <input placeholder="Registration Year* :"
+                   matInput
+                   formControlName="RegistrationYear"
+                   [matDatepicker]="RegistrationYear">
+            <mat-datepicker-toggle matSuffix [for]="RegistrationYear"></mat-datepicker-toggle>
+            <mat-datepicker #RegistrationYear></mat-datepicker>
+            <!--<mat-error align="start" *ngIf="formErrors.RegistrationYear" class="form__error">-->
+            <!--{{ formErrors.RegistrationYear }}-->
+            <!--</mat-error>-->
+          </mat-form-field>
+        </div>
+
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="2em">
+        <div class="block" fxFlex="">
+          <button
+            [disabled]="!projectStatusForm.valid"
+            mat-raised-button=""
+            type="submit"
+            color="primary">
+            <mat-icon class="mat-18">done</mat-icon>
+            <span class="agree">Update</span>
+
+          </button>
+        </div>
+
+      </div>
+    </form>
+
+
+  </mat-card-content>
+
+
+</mat-card>

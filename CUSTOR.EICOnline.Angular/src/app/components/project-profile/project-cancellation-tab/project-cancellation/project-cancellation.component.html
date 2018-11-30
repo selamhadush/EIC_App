@@ -1,0 +1,83 @@
+<form style="padding: 2px" (ngSubmit)="onSubmit()" [formGroup]="projectCancellationForm" novalidate>
+
+  <mat-card>
+    <mat-card-subtitle class="sub-title">
+      Project Cancellation
+      <mat-divider></mat-divider>
+    </mat-card-subtitle>
+    <mat-card-content>
+
+      <div fxLayout="row wrap"
+           fxLayoutAlign="start center"
+           class="content"
+           fxLayout.lt-sm="column"
+           fxLayoutGap="2em">
+        <div class="block" fxFlex="" *ngIf="!isInvestor">
+          <mat-form-field class="full-width">
+            <mat-label>Project Name</mat-label>
+            <mat-select formControlName="ProjectId">
+              <mat-option *ngFor="let project of projectList" [value]="project.ProjectId">
+                {{project.ProjectName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="block" fxFlex="">
+          <mat-form-field>
+            <mat-label>Cancellation Reason</mat-label>
+            <mat-select formControlName="CancellationReason">
+              <mat-option *ngFor="let data of projectCancellationReasonList;let i=index" [value]="data.Id">
+                {{data.Desc}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="block" fxFlex>
+          <mat-form-field>
+            <input placeholder="Cancellation Date * :"
+                   matInput
+                   formControlName="CancellationDate"
+                   [matDatepicker]="CancellationDate">
+            <mat-datepicker-toggle matSuffix [for]="CancellationDate">
+            </mat-datepicker-toggle>
+            <mat-datepicker #CancellationDate></mat-datepicker>
+            <!--<mat-error align="start" *ngIf="formErrors.terminationDate">{{ formErrors.terminationDate }}</mat-error>-->
+          </mat-form-field>
+        </div>
+
+        <div class="blocks" fxFlex="80%">
+          <mat-form-field class="full-width">
+            <input matInput
+                   placeholder="Remark"
+                   formControlName="CancellationRemark">
+            <!--<mat-error align="start" *ngIf="formErrors.StartDate">{{ formErrors.StartDate }}</mat-error>-->
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="center">
+        <div mat-dialog-actions fxLayoutGap="3em">
+          <button *ngIf="!editMode"
+                  [disabled]="!projectCancellationForm.valid"
+                  mat-raised-button=""
+                  type="submit"
+                  color="primary">
+            <mat-icon class="mat-18">done</mat-icon>
+            <span class="agree">Save</span>
+            <!--{{editMode ? 'Update' : 'Save'}}-->
+          </button>
+          <button *ngIf="editMode" mat-raised-button (click)="approve()" color="primary" type="button">
+            <mat-icon class="mat-18">done</mat-icon>
+            <span>Approve</span>
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</form>
+
+<div *ngIf="loading" class="loadme-circleBounce">
+  <div class="loadme-circleBounce1"></div>
+  <div class="loadme-circleBounce2"></div>
+</div>

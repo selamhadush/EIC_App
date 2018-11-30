@@ -1,0 +1,67 @@
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0">
+  <div class="block" fxFlex="">
+    <app-page-header title="customerRegistration" icon="people"></app-page-header>
+
+  </div>
+  <div id="title1" class="block" fxFlex="50">
+    <span style="text-transform: capitalize;" class="page-title">User Name: {{userName}}</span>
+
+
+  </div>
+</div>
+<mat-tab-group>
+
+  <mat-tab label="Service Info">
+    <ng-template matTabContent>
+      <app-service-info></app-service-info>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab label="Investor">
+    <ng-template matTabContent>
+      <app-edit-investor></app-edit-investor>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Manger">
+    <ng-template matTabContent>
+      <app-associate-form></app-associate-form>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Company Clearance">
+    <ng-template matTabContent>
+      <app-company-clearance-form></app-company-clearance-form>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Document">
+    <ng-template matTabContent>
+      <mat-card *ngIf="!isInvestor" class="margin-2 simple-card">
+        <mat-card-header>
+          <mat-card-subtitle class="sub-title"></mat-card-subtitle>
+          <button class="margin-10 certificate-title" mat-raised-button=""
+                  (click)="addMessage()" color="primary">
+            Add Message
+          </button>
+        </mat-card-header>
+      </mat-card>
+      <app-service-prerequisite></app-service-prerequisite>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab *ngIf="!isInvestor" label="Payment">
+    <ng-template matTabContent>
+      <app-payment></app-payment>
+    </ng-template>
+  </mat-tab>
+  <mat-tab *ngIf="!isInvestor" label="Certificate">
+    <ng-template matTabContent>
+      <app-certificate></app-certificate>
+    </ng-template>
+  </mat-tab>
+  <mat-tab *ngIf="isInvestor" label="Confirmation">
+    <ng-template matTabContent>
+      <app-service-confirmation></app-service-confirmation>
+    </ng-template>
+  </mat-tab>
+
+</mat-tab-group>
+

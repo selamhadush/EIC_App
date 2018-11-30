@@ -1,0 +1,88 @@
+.nav-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.is-mobile .app-toolbar {
+  position: fixed;
+  z-index: 2;
+}
+
+.app-toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+h1.app-name {
+  margin-left: 8px;
+}
+
+h1.app-name > a {
+  color: inherit;
+  cursor: default;
+  text-decoration: inherit;
+}
+
+.app-sidenav-nav {
+  width: 260px;
+
+  .mat-nav-list {
+    padding-top: 0;
+  }
+
+  .mat-icon {
+    margin-left: 4px;
+    margin-right: 4px;
+  }
+
+  .mat-expansion-panel-header {
+    padding-left: 12px;
+  }
+
+  .mat-expansion-panel-header-title {
+    line-height: 24px;
+  }
+
+  .mat-expansion-panel-body {
+    padding: 0 !important;
+
+    .mat-list-item .mat-list-item-content {
+      padding-left: 0px !important;
+    }
+  }
+}
+
+.app-sidenav-container {
+  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+   causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+  flex: 1;
+}
+
+.is-mobile .app-sidenav-container {
+  /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
+   `<body>` to be our scrolling element for mobile layouts. */
+  flex: 1 0 auto;
+}
+
+.language-button {
+  min-width: 64px;
+  height: 64px;
+}
+
+.toolbar-separator {
+  height: 64px;
+  width: 1px;
+  background: rgba(0, 0, 0, .12);
+}
+
+.mat-column-No {
+  flex: 0 0 100px;
+}
+
+.mat-expansion-panel-body {
+  padding: 0px !important;
+}

@@ -1,0 +1,30 @@
+<div style="margin: 20px;" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+  <form [formGroup]="testGroup">
+    <div class="block">
+      <mat-form-field>
+        <input matInput formControlName="Id" placeholder="Id">
+      </mat-form-field>
+    </div>
+    <div class="block">
+      <mat-form-field>
+        <input matInput formControlName="Name" placeholder="enter Name">
+      </mat-form-field>
+    </div>
+    <div class="block">
+      <mat-form-field>
+        <input matInput formControlName="Age" placeholder="enter you Age">
+      </mat-form-field>
+    </div>
+    <button mat-raised-button="" color="primary" (click)="submit()">submit</button>
+    <button mat-raised-button="" color="primary" (click)="serch()">Search</button>
+  </form>
+</div>
+<div style="margin: 30px;" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+  <table>
+    <tr *ngFor="let data of testList">
+      <td>{{data.Id}}</td>
+      <td>{{data.Name}}</td>
+      <td>{{data.Age}}</td>
+    </tr>
+  </table>
+</div>

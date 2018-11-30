@@ -1,0 +1,181 @@
+<mat-card class="margin-2">
+  <mat-card-subtitle class="sub-title">
+    Project Input
+    <mat-divider></mat-divider>
+  </mat-card-subtitle>
+  <form [formGroup]="pIOform" novalidate>
+    <mat-card-content>
+
+      <div style="margin-bottom: 40px;" *ngIf="ServiceId=='1234'" fxLayout="row" fxLayoutAlign="start center"
+           fxLayoutGap="2em">
+        <div class="block" fxFlex="" style="margin-left: 20px">
+          <mat-form-field>
+            <mat-label>Quarter</mat-label>
+            <mat-select formControlName="Quarter" required>
+              <mat-option *ngFor="let row of Quarter" [value]="row.Id">
+                <span>{{row.DescriptionEnglish}}</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+        <div class="block" fxFlex>
+          <mat-form-field>
+            <input placeholder="Registration Year* :"
+                   matInput
+                   formControlName="RegistrationYear"
+                   [matDatepicker]="RegistrationYear">
+            <mat-datepicker-toggle matSuffix [for]="RegistrationYear"></mat-datepicker-toggle>
+            <mat-datepicker #RegistrationYear></mat-datepicker>
+            <!--<mat-error align="start" *ngIf="formErrors.RegistrationYear" class="form__error">-->
+            <!--{{ formErrors.RegistrationYear }}-->
+            <!--</mat-error>-->
+          </mat-form-field>
+        </div>
+        <!--<div class="block" fxFlex="">-->
+        <!---->
+        <!--<mat-form-field>-->
+        <!--<input #OSF type="number" formControlName="CapitalRegistrationDatetime" matInput-->
+        <!--placeholder="Capital Registration Datetime * :">-->
+        <!---->
+        <!--</mat-form-field>-->
+        <!--</div>-->
+        <div class="block" fxFlex="">
+
+          <mat-form-field>
+            <mat-select [disabled]="true" formControlName="ProjectStatus" required>
+              <option value="0">--Select--</option>
+              <label>Project Status</label>
+              <mat-option *ngFor="let status of projectStatus" [value]="status.Id">
+                <span>{{status.DescriptionEnglish}}</span>
+              </mat-option>
+            </mat-select>
+
+          </mat-form-field>
+        </div>
+      </div>
+      <mat-card-subtitle *ngIf="ServiceId=='1234'" class="sub-title">
+        Detail
+        <mat-divider></mat-divider>
+      </mat-card-subtitle>
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+        <div class="block" fxFlex="">
+          <mat-form-field>
+            <mat-label>Electric Power (kwh) :</mat-label>
+            <input type="number"
+                   matInput
+                   formControlName="ElectricPower">
+            <mat-error align="start" *ngIf="formErrors.ElectricPower">{{ formErrors.ElectricPower }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="block" fxFlex="">
+          <mat-form-field>
+            <mat-label>Water (m2) :</mat-label>
+            <input type="number"
+                   matInput
+                   formControlName="Water">
+            <mat-error align="start" *ngIf="formErrors.Water">{{ formErrors.Water }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="block" fxFlex="">
+          <mat-form-field>
+            <mat-label>Other Utility :</mat-label>
+            <input type="number"
+                   matInput
+                   formControlName="OtherUtility">
+            <mat-error align="start" *ngIf="formErrors.OtherUtility">{{ formErrors.OtherUtility }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="block" fxFlex="">
+          <mat-form-field>
+            <mat-label>Land Industrial (Sq.m) :</mat-label>
+            <input type="number"
+                   matInput
+                   formControlName="LandIndustrial">
+            <mat-error align="start" *ngIf="formErrors.LandIndustrial">{{ formErrors.LandIndustrial }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="2em">
+        <div class="block" fxFlex="25%">
+          <mat-form-field>
+            <mat-label>Land Agricultural (Sq.m) :</mat-label>
+            <input type="number"
+                   matInput
+                   formControlName="LandAgricultural">
+          </mat-form-field>
+          <mat-error align="start" *ngIf="formErrors.LandAgricultural">{{ formErrors.LandAgricultural }}</mat-error>
+        </div>
+        <div class="block" fxFlex="25%">
+          <mat-form-field>
+            <mat-label>Land Service (Sq.m) :</mat-label>
+            <input type="number" matInput formControlName="LandService">
+          </mat-form-field>
+          <mat-error align="start" *ngIf="formErrors.LandService">{{ formErrors.LandService }}</mat-error>
+        </div>
+        <div class="block" fxFlex="25%">
+          <mat-form-field>
+            <mat-label>Own Land (Sq.m) :</mat-label>
+            <input type="number" matInput formControlName="OwnLand">
+          </mat-form-field>
+        </div>
+        <div class="block" fxFlex="25%">
+          <mat-form-field>
+            <mat-label>Lease Land (Sq.m) :</mat-label>
+            <input type="number" matInput formControlName="LeaseLand">
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="2em">
+        <div class="block" fxFlex="25%">
+          <mat-form-field>
+            <mat-label>Rental Land (Sq.m) :</mat-label>
+            <input type="number" matInput formControlName="RentalLand">
+          </mat-form-field>
+        </div>
+
+        <div class="block" fxFlex="48%">
+          <mat-form-field class="full-width">
+            <mat-label>Remark :</mat-label>
+            <textarea type="number" matInput formControlName="Remark"></textarea>
+          </mat-form-field>
+          <mat-error align="start" *ngIf="formErrors.Remark">{{ formErrors.Remark }}</mat-error>
+        </div>
+      </div>
+
+
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <div style="padding-top: 20px" align="center">
+      <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2em">
+
+        <div fxFlex="15">
+
+          <!--<button class="custom-button" (click)="next()" color="warn" type="button">-->
+          <!--Back-->
+          <!--</button>-->
+        </div>
+        <div style="text-align: center" fxFlex="67" fxFlexAlign="center">
+          <button *ngIf="!editMode" [disabled]="!pIOform.valid" mat-raised-button="" color="primary"
+                  (click)="onSubmit()">
+            <mat-icon class="mat-18">done</mat-icon>
+            <span class="agree">Save</span>
+
+          </button>
+          <button *ngIf="editMode" [disabled]="!pIOform.valid" class="custom-button" (click)="onSubmit()">
+            <mat-icon class="mat-18">done</mat-icon>
+            <span>Update</span>
+          </button>
+        </div>
+        <div fxFlex="15">
+
+          <!--<button [disabled]="!pIOform.valid" class="custom-button" (click)="next()" color="warn" type="button">-->
+          <!--Next-->
+          <!--</button>-->
+        </div>
+
+      </div>
+    </div>
+  </form>
+</mat-card>
+

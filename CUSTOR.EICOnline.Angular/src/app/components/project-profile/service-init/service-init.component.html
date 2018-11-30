@@ -1,0 +1,33 @@
+<div style="float: right;" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+    <a (click)="close()" style="position: relative; top: -23px; right: -14px;" mat-mini-fab>
+        <mat-icon>cancel</mat-icon>
+    </a>
+</div>
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+    <span style="text-transform: capitalize;padding: 20px;" class="sub-title">
+        for applying this services read the following prerequisite in detail
+    </span>
+</div>
+<mat-divider style="margin-bottom: 20px;"></mat-divider>
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em" style="margin: 20px;">
+    <div class="block">
+        <mat-list dense>
+            <mat-list-item *ngFor="let item of servicePrerequisite;let i=index">
+                ( {{i+1}}) {{item.DescriptionEnglish}}
+            </mat-list-item>
+        </mat-list>
+    </div>
+</div>
+<div style="text-align: center;" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+    <div class="block" fxFlex="50%">
+        <button (click)="continue()" style="margin: 10px;" color="accent" mat-raised-button>
+            <mat-icon class="mat-18">done</mat-icon>
+            <span>I agree and continue</span>
+        </button>
+
+        <button (click)="close()" style="margin: 10px;" color="warn" mat-raised-button>
+            <mat-icon class="mat-18">x</mat-icon>
+            <span>Close</span>
+        </button>
+    </div>
+</div>

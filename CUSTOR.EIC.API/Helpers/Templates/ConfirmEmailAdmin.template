@@ -1,0 +1,17 @@
+﻿<div style="width:600px; padding:20px">
+
+  <p>Dear {user},</p>
+  <p>Thank you for registering to use our online services.</p>
+  <p>Your password is {userPassword}. Use this password only to login once. </p>
+  <p>You must change it immediately to your own new password</p>
+  <p>To complete your registration, please confirm your account by clicking the link below.</p>
+  <p style="text-align:center; padding:5px">
+    <a href="{confirmLink}">Confirm Your Account</a>
+  </p>
+
+  <p>Regards,</p>
+
+  <div style="background-color:navy; color:lightgray; width:600px; padding:10px; margin-left:-10px">
+    <b>{orgName}</b>
+  </div>
+</div>

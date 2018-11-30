@@ -1,0 +1,102 @@
+<div class="containerX">
+
+  <mat-card>
+    <mat-progress-bar *ngIf="loadingIndicator" mode="query"></mat-progress-bar>
+    <mat-card-header>
+
+      <mat-card-title>
+        <!-- <mat-icon class="mat-button-icon">person_add</mat-icon> Edit Customer -->
+      </mat-card-title>
+    </mat-card-header>
+    <br />
+    <br />
+
+    <mat-card-content>
+      <form #form="ngForm" [formGroup]="servicesForm" novalidate (ngSubmit)="onSubmit()" fxLayout="column"
+            autocomplete="off">
+        <div fxLayout="column" fxLayout.lt-md="column" fxLayoutGap="2em" class="row">
+          <mat-form-field>
+            <mat-label > Name:</mat-label>
+            <input matInput formControlName="cName"  required maxlength="50" minlength="3" />
+            <mat-error *ngIf="Name.hasError('required')">
+              Please enter service name amharic
+            </mat-error>
+            <mat-error *ngIf="Name.hasError('pattern')">
+              Only amharic alphabetic charcters are allowed!
+            </mat-error>
+            <mat-error *ngIf="!Name.hasError('minLength')">
+              Minimum charcters length is 3!
+            </mat-error>
+            <mat-error *ngIf="!Name.hasError('maxlength')">
+              Maximum charcters length is 50!
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label >Display Name:</mat-label>
+            <input matInput formControlName="cDisplayName"  required maxlength="50" minlength="3" />
+            <mat-error *ngIf="DisplayName.hasError('required')">
+              Please enter Dispaly name amharic
+            </mat-error>
+            <mat-error *ngIf="DisplayName.hasError('pattern')">
+              Only amharic alphabetic charcters are allowed!
+            </mat-error>
+            <mat-error *ngIf="!DisplayName.hasError('minLength')">
+              Minimum charcters length is 3!
+            </mat-error>
+            <mat-error *ngIf="!DisplayName.hasError('maxlength')">
+              Maximum charcters length is 50!
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label > Dispaly Name English:</mat-label>
+            <input matInput formControlName="cDisplayNameEnglish" required required maxlength="62" minlength="3" />
+            <mat-error *ngIf="DisplayNameEnglish.hasError('required')">
+              Please enter service name english
+            </mat-error>
+            <mat-error *ngIf="DisplayNameEnglish.hasError('pattern')">
+              Only alphabetic charcters are allowed!
+            </mat-error>
+            <mat-error *ngIf="!DisplayNameEnglish.hasError('minLength')">
+              Minimum charcters length is 3!
+            </mat-error>
+            <mat-error *ngIf="!DisplayNameEnglish.hasError('maxlength')">
+              Maximum charcters length is 60!
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label > Name English:</mat-label>
+            <input matInput formControlName="cNameEnglish" required required maxlength="62" minlength="3" />
+            <mat-error *ngIf="NameEnglish.hasError('required')">
+              Please enter service name english
+            </mat-error>
+            <mat-error *ngIf="NameEnglish.hasError('pattern')">
+              Only alphabetic charcters are allowed!
+            </mat-error>
+            <mat-error *ngIf="!NameEnglish.hasError('minLength')">
+              Minimum charcters length is 3!
+            </mat-error>
+            <mat-error *ngIf="!NameEnglish.hasError('maxlength')">
+              Maximum charcters length is 60!
+            </mat-error>
+          </mat-form-field>
+          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2em" class="row">
+            <div fxFlex.gt-sm="0 1 calc(50% - 0.5em)">
+              <mat-checkbox formControlName="cIsActive">
+                IsActive?
+              </mat-checkbox>
+            </div>
+          </div>
+        </div>
+
+        <div mat-dialog-actions>
+          <button [disabled]="form.invalid" mat-raised-button type="submit" color="primary">
+            Save
+          </button>
+          <button mat-raised-button (click)="onBack()" color="warn" type="button">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

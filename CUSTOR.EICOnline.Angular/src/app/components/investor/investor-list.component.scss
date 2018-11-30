@@ -1,0 +1,17 @@
+.toolbar-icon {
+    padding: 0 14px;
+  }
+  .toolbar-spacer {
+    flex: 1 1 auto;
+  }
+  .toollbar-color{
+    color:green ;
+  }
+
+mat-card {
+  transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1);
+  display: block;
+  position: relative;
+  padding: 0px !important;
+  border-radius: 2px;
+}

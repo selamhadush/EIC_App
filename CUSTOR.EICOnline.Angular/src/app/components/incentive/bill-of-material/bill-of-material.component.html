@@ -1,0 +1,225 @@
+<!--<app-page-header icon="dashboard" title="dashboard"></app-page-header>-->
+
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+  <div *ngIf="errors.length>0" class="alert-info" fxLayout=" row wrap" fxLayoutAlign="center">
+    <ol type="i">
+      <li class="mat-error" *ngFor="let error of errors;">{{error}}</li>
+    </ol>
+  </div>
+
+
+</div>
+<mat-card class="margin-2" style="background-color: #fafafa;">
+  <mat-card-content>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+      <form *ngIf="!itemList.length>0" formGroup="documentForm">
+        <!--<div class="block" fxFlex="" style="max-width: 10px;">-->
+
+        <div style="margin: 10px;padding: 15px">
+          <!--<mat-form-field>-->
+            <mat-label>Phase</mat-label>
+          <mat-label>{{'billofmaterrial.Phase' | translate}}</mat-label>
+          <mat-select formControlName="Phase" style="font-family: Calibri" type="text"
+                        (selectionChange)="getPhaseId($event.value)"
+                        [compareWith]="compareIds" required>
+              <option value="0">--Select--</option>
+              <mat-option *ngFor="let Phase of PhaseLookups" [value]="Phase.LookupId">
+                <span>{{Phase.English}}</span>
+              </mat-option>
+            </mat-select>
+          <!--</mat-form-field>-->
+          <a class="pointer"
+             (click)="file.click()">
+            <span class="custom-button" style="padding: 10px">Attach Item List</span>
+          </a>
+          <input #file hidden type="file" multiple (change)="upload(i,file.files)"/>
+        </div>
+        <!--</div>-->
+      </form>
+      <div class="block" fxFlex="">
+        <button *ngIf="itemList.length>0"
+                style="margin: 10px" (click)="UpdateServiceApplication()"
+                mat-raised-button="" class="mr-16"
+                color="primary">
+          <mat-icon color="primary">done</mat-icon>
+          <span>Submit Application</span>
+        </button>
+      </div>
+      <div class="block" fxFlex="">
+
+        <a href=""
+           *ngIf="!itemList.length>0"
+           style="margin-left: 10px"
+           mat-raised-button="" class="mr-16"
+           color="primary">
+          <mat-icon class="mat-18">file_download</mat-icon>
+          <span>Click Here To Download Sample  </span>
+        </a>
+      </div>
+
+
+    </div>
+  </mat-card-content>
+
+</mat-card>
+<mat-card class="margin-2" style="box-shadow: none;padding: 15px !important;border: 1px solid #dddddd"
+          *ngIf="addshow || editMode">
+
+  <form [formGroup]="billOfMaterialForm" novalidate>
+    <mat-card-content>
+
+      <div fxLayout.xs="row wrap"
+           fxLayoutAlign.xs="start center"
+           fxLayoutGap="2em">
+        <div class="block" fxLayoutGap="2em">
+          <mat-form-field [fxFlex]="20">
+            <mat-label>{{'billofmaterrial.Description' | translate}}</mat-label>
+            <input type="text" matInput
+                   formControlName="Description">
+          </mat-form-field>
+          <mat-form-field [fxFlex]="20">
+            <mat-label>{{'billofmaterrial.HsCode' | translate}}</mat-label>
+            <input type="text" matInput
+                   formControlName="HsCode">
+
+          </mat-form-field>
+          <mat-form-field [fxFlex]="20">
+            <mat-label>{{'billofmaterrial.Quantity' | translate}}</mat-label>
+            <input type="text" matInput
+                   formControlName="Quantity">
+          </mat-form-field>
+          <mat-form-field [fxFlex]="20">
+            <mat-label>{{'billofmaterrial.MesurmentUnit' | translate}}</mat-label>
+            <mat-select formControlName="MesurmentUnit" required>
+              <option value="0">--Select--</option>
+              <mat-option *ngFor="let unit of unitTypes" [value]="unit.DescriptionEnglish">
+                <span>{{unit.DescriptionEnglish}}</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field [fxFlex]="20">
+            <mat-label>{{'billofmaterrial.RejectionReason' | translate}}</mat-label>
+            <mat-select formControlName="RejectionReason" required>
+              <option value="0">--Select--</option>
+              <mat-option *ngFor="let RejectionReason of Lookups"
+                          [value]="RejectionReason.LookupId">
+                <span>{{RejectionReason.English}}</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="block" fxFlex="15%">
+          <button [disabled]="!billOfMaterialForm.valid" class="custom-button" (click)="onSubmit()">
+            <mat-icon color="accent" class="mat-18">done</mat-icon>
+            {{editMode ? 'Update' : 'Add'}}
+          </button>
+          <!--<a style="margin-left: 2px;" mat-raised-button class="pointer" (click)="onClear()" matTooltip="Clear Form">-->
+          <!--<mat-icon color="accent" class="mat-18">clear_all</mat-icon>-->
+          <!--Clear-->
+          <!--</a>-->
+        </div>
+      </div>
+    </mat-card-content>
+  </form>
+</mat-card>
+<mat-card class="margin-2">
+
+  <mat-card-content>
+
+
+    <div fxFlex="100%" *ngIf="itemList.length>0">
+
+      <div class="spinner-container" *ngIf="loading">
+        <mat-progress-bar mode="query"></mat-progress-bar>
+      </div>
+      <mat-table #table [dataSource]="dataSource">
+        <ng-container matColumnDef="No">
+          <mat-header-cell [fxFlex]="6" *matHeaderCellDef>No</mat-header-cell>
+          <mat-cell [fxFlex]="6" *matCellDef="let itemList;let i=index;">
+            {{i+1}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Description">
+          <mat-header-cell fxFlex="30" *matHeaderCellDef>Description</mat-header-cell>
+          <mat-cell fxFlex="30" *matCellDef="let itemList">
+            {{itemList?.Description}}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="HsCode">
+          <mat-header-cell *matHeaderCellDef>HsCode</mat-header-cell>
+          <mat-cell *matCellDef="let itemList">
+            {{itemList?.HsCode }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Quantity">
+          <mat-header-cell *matHeaderCellDef>Quantity</mat-header-cell>
+          <mat-cell *matCellDef="let itemList"> {{itemList?.Quantity }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="MesurmentUnit">
+          <mat-header-cell *matHeaderCellDef>Measurment Unit</mat-header-cell>
+          <mat-cell *matCellDef="let itemList"> {{itemList?.MesurmentUnit |
+            filterPipe: 10}}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="RejectionReason">
+          <mat-header-cell *matHeaderCellDef>Rejection Reason</mat-header-cell>
+          <mat-cell *matCellDef="let itemList"> {{itemList?.RejectionReason | lookupReasonPipe : 1}}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="approval">
+          <mat-header-cell *matHeaderCellDef>
+            <span *ngIf="isInvestor"> Is Approved</span>
+            <span *ngIf="!isInvestor">
+              <mat-checkbox></mat-checkbox>
+            Approve All</span>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let itemList">
+            <!--<mat-checkbox checked="false">approve</mat-checkbox>-->
+            <mat-checkbox [disabled]="isInvestor" [value]="itemList?.IncentiveBoMRequestItemId"
+                          [checked]="itemList.IsApproved"
+                          (change)="onMangerControlChanged($event,itemList)">
+            </mat-checkbox>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Action">
+          <mat-header-cell fxFlex="15" *matHeaderCellDef>Action
+            <button (click)="addItem()" style="margin-left: 12px;" color="primary" mat-raised-button=""
+                    type="button">add
+
+            </button>
+          </mat-header-cell>
+
+          <mat-cell fxFlex="15" *matCellDef="let itemList;let i=index;">
+            <div>
+              <a class="pointer" mat-min-fab matTooltip="Click here to edit the product"
+                 (click)="onEdit(i)">
+                <mat-icon color="primary" class="mat-18">edit</mat-icon>
+                Edit
+              </a>
+              <a class="pointer" mat--mini-fab color="warn" matTooltip="Click here to delete the product"
+                 (click)="delete(i,itemList.IncentiveBoMRequestItemId)">
+                <mat-icon color="warn">delete</mat-icon>
+                Delete
+              </a>
+            </div>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns">
+        </mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+      </mat-table>
+
+      <mat-paginator
+
+        #paginator
+        [pageSize]="8"
+        [pageSizeOptions]="[8, 10, 20]">
+      </mat-paginator>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,66 @@
+<div style="width:600px; margin:auto">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>Customer List</span>
+
+      <span class="toolbar-spacer"></span>
+      <div class="header-actions">
+        <mat-form-field>
+          <input matInput />
+        </mat-form-field>
+        <button mat-icon-button>
+          <mat-icon>search</mat-icon>
+        </button>
+        <button mat-icon-button [routerLink]="['/customers/edit/', 0]">
+          <mat-icon class="mat-button-icon">person_add</mat-icon>
+          Add
+        </button>
+        <button mat-icon-button>
+          <mat-icon>more_vertical</mat-icon>
+        </button>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div class="mat-elevation-z8">
+    <mat-progress-bar *ngIf="loadingIndicator" mode="query"></mat-progress-bar>
+    <mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Title</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.Title }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="firstName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> First Name</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.FirstName}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="fatherName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Father Name</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.FatherName}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="grandName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Grand Father</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.GrandName}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef fxFlex="140px">
+        </mat-header-cell>
+        <mat-cell *matCellDef="let customer" fxFlex="140px">
+          <button mat-icon-button (click)="editCustomer(customer)" type="button">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="confirmDelete(customer)" type="button">
+            <mat-icon color="warn">delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+</div>

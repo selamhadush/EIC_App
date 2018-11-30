@@ -1,0 +1,73 @@
+<div [@fadeInOut] class="page-content mat-elevation-z8">
+  <mat-card>
+    <mat-progress-bar *ngIf="loadingIndicator" mode="query"></mat-progress-bar>
+    <mat-card-header>
+      <mat-card-title>
+        <!-- <mat-icon class="mat-button-icon">person_add</mat-icon> Edit Customer -->
+      </mat-card-title>
+    </mat-card-header>
+    <br />
+    <mat-card-content>
+      <form #form="ngForm" [formGroup]="zoneForm" novalidate (ngSubmit)="onSubmit()" fxLayout="column"
+            autocomplete="off">
+        <div fxLayout="column" fxLayout.lt-md="column" fxLayoutGap="2em" class="row">
+          <mat-form-field  style="width: 150px">
+            <mat-label>{{'zone.Region' | translate}}</mat-label>
+            <mat-select formControlName="cRegion" [compareWith]="compareIds" required>
+              <mat-option *ngFor="let region of regionModels" [value]="region.RegionId">
+                <span>{{region.DescriptionEnglish}}</span>
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="RegionId.hasError('required')">
+              {{'common.validation.Required' | translate}}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field  style="width: 150px">
+            <mat-label>{{'zone.Code' | translate}}</mat-label>
+            <input matInput formControlName="cId"  required maxlength="15" />
+            <mat-error *ngIf="Id.hasError('required')">
+              {{'common.validation.Required' | translate}}
+            </mat-error>
+            <mat-error *ngIf="Id.hasError('maxlength')">
+              {{'common.validation.MaxLengthChar' | translate: {'max':'15'} }}
+            </mat-error>
+            <mat-error *ngIf="Id.hasError('pattern')">
+              {{'common.validation.NumberOnly' | translate}}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>{{'zone.Description' | translate}}</mat-label>
+            <input matInput formControlName="cDescription"  required maxlength="20" />
+            <mat-error *ngIf="Description.hasError('required')">
+              {{'common.validation.Required' | translate}}
+            </mat-error>
+            <mat-error *ngIf="Description.hasError('maxlength')">
+              {{'common.validation.MaxLengthChar' | translate: {'max':'15'} }}
+            </mat-error>
+            <mat-error *ngIf="Id.hasError('pattern')">
+              {{'common.validation.NumberOnly' | translate}}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>{{'zone.DescriptionEnglish' | translate}}</mat-label>
+            <input matInput formControlName="cDescriptionEnglish" required maxlength="30" />
+            <mat-error *ngIf="DescriptionEnglish.hasError('required')">
+              {{'common.validation.Required' | translate}}
+            </mat-error>
+            <mat-error *ngIf="DescriptionEnglish.hasError('maxlength')">
+              {{'common.validation.MaxLengthChar' | translate: {'max':'15'} }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div mat-dialog-actions>
+          <button [disabled]="form.invalid" mat-raised-button type="submit" color="primary">
+            Save
+          </button>
+          <button mat-raised-button (click)="onBack()" color="warn" type="button">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

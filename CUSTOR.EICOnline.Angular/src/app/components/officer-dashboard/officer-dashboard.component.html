@@ -1,0 +1,151 @@
+<app-page-header title="dashboard" icon="dashboard"></app-page-header>
+<div class="grid-container">
+  <!--<h1 class="mat-h1">Dashboard</h1>-->
+  <mat-grid-list cols="2" rowHeight="400px">
+    <mat-grid-tile [colspan]="2" [rowspan]="1" *ngIf="canViewTasks">
+      <mat-card class="dashboard-card-top"
+                style="background-color: #FAFAFA;height:400px!important;overflow: auto!important;">
+
+        <mat-card-content class="dashboard-card-content">
+          <app-project-list></app-project-list>
+
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title class="sub-title">
+            All Service Application With Status
+            <mat-divider>
+
+            </mat-divider>
+
+            <ngx-charts-bar-vertical-stacked
+              [view]="view"
+              [scheme]="colorScheme"
+              [results]="multi"
+              [gradient]="gradient"
+              [xAxis]="showXAxis"
+              [yAxis]="showYAxis"
+              [legend]="showLegend"
+              [showGridLines]="showGridLines"
+              [showXAxisLabel]="showXAxisLabel"
+              [showYAxisLabel]="showYAxisLabel"
+              [xAxisLabel]="xAxisLabel"
+              [yAxisLabel]="yAxisLabel"
+              (select)="onSelect($event)">
+            </ngx-charts-bar-vertical-stacked>
+
+
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+
+
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title class="sub-title">
+            All Projects By Economic Sector And Project Stage
+            <mat-divider>
+
+            </mat-divider>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div id="serviceByYear">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+              <div class="block" fxFlex="">
+                <ngx-charts-pie-chart
+                  [view]="viewP1"
+                  [scheme]="colorSchemeP1"
+                  [results]="byEconomicSector"
+                  [legend]="showLegendP1"
+                  [explodeSlices]="explodeSlicesP1"
+                  [labels]="showLabelsP1"
+                  [doughnut]="doughnutP1"
+                  [gradient]="gradient"
+                  [tooltipDisabled]="false"
+
+                  (select)="onSelect($event)">
+                </ngx-charts-pie-chart>
+                <div style="float: left;text-align: left;">
+                  <div><span class="label primary">&nbsp;</span>
+                    <span class="legend-label-text"> Primary</span>
+                  </div>
+                  <div><span class="label secondary">&nbsp;</span>
+                    <span class="legend-label-text">secondary </span></div>
+                  <div><span class="label tertiary">&nbsp;</span>
+                    <span class="legend-label-text"> Tertiary </span></div>
+                </div>
+              </div>
+
+              <div id="projectStage" class="block" fxFlex="">
+                <ngx-charts-pie-chart
+                  [view]="viewP1"
+                  [scheme]="colorSchemeP2"
+                  [results]="projectStageSum"
+                  [legend]="showLegendP1"
+                  [explodeSlices]="explodeSlicesP1"
+                  [labels]="showLabelsP1"
+
+                  [doughnut]="doughnutP1"
+                  [gradient]="gradient"
+                  (select)="onSelect($event)">
+                </ngx-charts-pie-chart>
+                <div>
+                  <div style="text-align: left;">
+                    <span class="label preImplementation ">&nbsp;</span>
+                    <span class="legend-label-text">pre Implementation</span><br>
+                    <span class="label Implementation">&nbsp;</span> <span
+                    class="legend-label-text"> Implementation </span><br>
+                    <span class="label operation">&nbsp;</span>
+                    <span class="legend-label-text"> Operation </span></div>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+
+    <mat-grid-tile [colspan]="2" [rowspan]="1">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title class="sub-title">
+            All Projects By Sector And Project Stage
+            <mat-divider>
+
+            </mat-divider>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <ngx-charts-bar-vertical-stacked
+            [view]="projectView"
+            [scheme]="colorScheme1"
+            [results]="projects"
+            [gradient]="gradient"
+            [xAxis]="showXAxis"
+            [yAxis]="showYAxis"
+            [legend]="showLegend"
+            [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel"
+            [xAxisLabel]="xAxisLabelSector"
+            [yAxisLabel]="yAxisLabel"
+            (select)="onSelect($event)">
+          </ngx-charts-bar-vertical-stacked>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

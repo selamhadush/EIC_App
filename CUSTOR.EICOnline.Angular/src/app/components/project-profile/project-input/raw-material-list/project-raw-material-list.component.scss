@@ -1,0 +1,22 @@
+
+
+
+.table td{
+  padding: 4px 130px 4px 1.3rem;
+  font-size: 13px;
+  border-top: 1px solid #FAFAFA;
+
+}
+.table th {
+  padding: 4px 130px 4px 5px;
+  font-size: 13px;
+  border-top: 1px solid #FAFAFA;
+}
+
+table tbody tr:nth-child(2) td {
+
+  border: 1px solid #0d8055;
+  background-color: #0d8055;
+  color: white;
+  font-weight: bolder;
+}

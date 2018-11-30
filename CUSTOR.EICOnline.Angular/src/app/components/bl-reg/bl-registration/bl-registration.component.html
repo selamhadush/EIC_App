@@ -1,0 +1,131 @@
+<mat-card>
+  <form [formGroup]="cFrm" class="myclass">
+
+    <!--<div> <button title="List" mat-raised-button color="primary" (click)="loadCustomers()">Customer List</button></div>-->
+    <div class="col-md-12">
+      <mat-form-field fxFlex>
+        <mat-label>የድርጅት ስም </mat-label>
+        <input matInput placeholder="organization_name" formControlName="organization_name">
+      </mat-form-field>
+
+      <mat-form-field fxFlex>
+        <mat-label>የባለቤት ስም</mat-label>
+        <input matInput placeholder="Mowner_name" formControlName="Mowner_name">
+      </mat-form-field>
+
+      <mat-form-field fxFlex>
+        <mat-label>የድርጅት ስም/ የባለቤት ስም በክልል </mat-label>
+        <input matInput placeholder="owner_namebl" formControlName="owner_namebl">
+      </mat-form-field>
+    </div>
+
+    <mat-card>
+      <div>
+
+        <mat-form-field fxFlex>
+          <mat-label>ፈቃድ የተሰበት ቀን</mat-label>
+          <input matInput placeholder="Dateofissue" formControlName="Dateofissue">
+          <!--<input matInput placeholder="Month" formControlName="Date">-->
+          <!--<input matInput placeholder="Year" formControlName="Date">-->
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <mat-label>የንድ ፍቃድ ቁትር </mat-label>
+          <input matInput placeholder="licensenumber" formControlName="licensenumber">
+        </mat-form-field>
+
+
+        <mat-form-field fxFlex>
+          <mat-label>ያለበት ሁኔታ</mat-label>
+          <input matInput placeholder="status" formControlName="status">
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <mat-label>የተመዘገበ ካፒታል</mat-label>
+          <input matInput placeholder="capital" formControlName="capital">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+    <div>
+      <mat-checkbox >የቀድሞ ፍቃድ ነው ?</mat-checkbox>
+
+      <mat-form-field fxFlex>
+        <mat-label>የቀድሞ ፍቃድ ቁትር</mat-label>
+        <input matInput placeholder="licensenumber" formControlName="licensenumber">
+      </mat-form-field>
+
+      <mat-form-field fxFlex>
+        <mat-label>ቀድሞ ፍቃድ የተሰተበት ቀን</mat-label>
+        <input matInput placeholder="Dateofissue" formControlName="Dateofissue">
+        <!--<input matInput placeholder="Month" formControlName="Date">-->
+        <!--<input matInput placeholder="Year" formControlName="Date">-->
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field fxFlex>
+        <mat-label>ዘርፍ</mat-label>
+        <mat-select placeholder="MajorDivision" formControlName="MajorDivision" (selectionChange)="filterDivision($event.value)">
+          <mat-option value="0">-- Select --</mat-option>
+          <mat-option *ngFor="let MajorDivision  of MajorDivisions" [value]="MajorDivision.Id">
+            {{ MajorDivision.Description }}
+          </mat-option>
+        </mat-select>
+        <!--<mat-error *ngIf="formErrors.techno ">-->
+        <!--{{ formErrors.techno }}-->
+        <!--</mat-error>-->
+      </mat-form-field>
+
+      <mat-form-field fxFlex>
+        <mat-label>ዋና ክፍል</mat-label>
+        <mat-select placeholder="Division" formControlName="Division">
+          <mat-option value="0"> Select </mat-option>
+          <mat-option *ngFor="let Division of Lookup" [value]="Division.lookupId">
+            {{ Division.amharic }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field fxFlex>
+        <mat-label>ክፍል</mat-label>
+        <mat-select placeholder="MajorGroup" formControlName="MajorGroup">
+          <mat-option> Select </mat-option>
+          <mat-option *ngFor="let MajorGroup of Lookup" [value]="MajorGroup.lookupId">
+            {{ MajorGroup.amharic }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field fxFlex>
+        <mat-label>ንኡስ ክፍል</mat-label>
+        <mat-select placeholder="Select Group" formControlName="Group">
+          <mat-option> Select </mat-option>
+          <mat-option *ngFor="let Group  of Lookup" [value]="Group.lookupId">
+            {{ Group.amharic }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field fxFlex>
+        <mat-label>ፍቃድ መስ መደብ</mat-label>
+        <mat-select placeholder="Select SubGroup" formControlName="SubGroup">
+          <mat-option>-- unbound --</mat-option>
+          <mat-option *ngFor="let SubGroup  of Lookup" [value]="SubGroup.lookupId">
+            {{ SubGroup.amharic }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <!--<mat-form-field appearance="outline">-->
+    <!--<mat-label>Date</mat-label>-->
+    <!--<input matInput placeholder="Dta" formControlName="Date">-->
+    <!--</mat-form-field>-->
+
+    <!--</div>-->
+    <div>
+      <button type="submit" mat-raised-button color="primary" (click)="AddSec()">SUBMIT</button>
+    </div>
+  </form>
+</mat-card>

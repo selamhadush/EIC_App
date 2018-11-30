@@ -1,0 +1,55 @@
+<div class="containerX">
+
+  <mat-card>
+    <mat-progress-bar *ngIf="loadingIndicator" mode="query"></mat-progress-bar>
+    <mat-card-header>
+
+      <mat-card-title>
+        <!-- <mat-icon class="mat-button-icon">person_add</mat-icon> Edit Customer -->
+      </mat-card-title>
+    </mat-card-header>
+    <br />
+    <br />
+
+    <mat-card-content>
+      <form #form="ngForm" [formGroup]="serviceStepperForm" novalidate (ngSubmit)="onSubmit()" fxLayout="column"
+            autocomplete="off">
+        <div fxLayout="column" fxLayout.lt-md="column" fxLayoutGap="0.5em">
+          <mat-form-field  fxLayoutGap="1em" style="width: 250px">
+            <mat-label style="font-family: Calibri">Service Type</mat-label>
+            <mat-select formControlName="cServiceType" [compareWith]="compareIds" style="width: 250px" required>
+              <option value="0">--Select--</option>
+              <mat-option *ngFor="let servicePrerequisite of servicesModel" [value]="servicePrerequisite.ServiceId">
+                <span>{{servicePrerequisite.DisplayNameEnglish}}</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field  fxFlex>
+            <mat-label>Name Amharic:</mat-label>
+            <input matInput formControlName="cName" required />
+          </mat-form-field>
+          <mat-form-field fxLayoutGap="1em" style="width: 250px">
+            <mat-label>Name English:</mat-label>
+            <input matInput formControlName="cNameEnglish" style="width: 100%" required /></mat-form-field>
+
+          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="2em" class="row">
+            <div fxFlex.gt-sm="0 1 calc(50% - 0.5em)">
+              <mat-checkbox formControlName="cIsActive">
+                IsActive?
+              </mat-checkbox>
+            </div>
+          </div>
+        </div>
+
+        <div mat-dialog-actions>
+          <button [disabled]="form.invalid" mat-raised-button type="submit" color="primary">
+            Save
+          </button>
+          <button mat-raised-button (click)="onBack()" color="warn" type="button">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

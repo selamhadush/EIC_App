@@ -1,0 +1,23 @@
+.example-button-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.mat-column-No {
+    flex: 0 0 100px;
+}
+
+.footerButton {
+    border-bottom-left-radius: 6px;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-bottom-right-radius: 6px;
+    background-color: rgb(250, 250, 250);
+}
+
+.agree {
+    color: white;
+    font-weight: bold;
+}
+

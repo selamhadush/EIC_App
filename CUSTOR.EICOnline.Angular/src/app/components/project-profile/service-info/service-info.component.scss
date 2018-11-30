@@ -1,0 +1,117 @@
+.border {
+  //border: 1px solid rgb(250, 250, 250);
+  border: 1px solid #ccc;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+.appGuid > ol, li, .alert-info {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Noto Sans Ethiopic";
+  font-size: 13px;
+  line-height: 1.428571429;
+  color: #333;
+  padding: 4px;
+  text-align: justify !important;
+}
+
+.service > ol > li, span {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Noto Sans Ethiopic";
+  font-size: 12px;
+  line-height: 1.428571429;
+  color: #333;
+  padding: 2px;
+  text-align: justify !important;
+}
+
+.footerButton {
+  border-bottom-left-radius: 6px;
+  border: 1px solid #ccc;
+  text-align: right;
+  border-bottom-right-radius: 6px;
+  background-color: rgb(250, 250, 250);
+}
+
+.agree {
+  color: white;
+  font-weight: bold;
+}
+
+.alert-info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #31708f;
+  margin: 20px;
+}
+
+.header-description {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Noto Sans Ethiopic";
+  font-size: 12px;
+  line-height: 20px;
+  color: #333;
+  padding: 3px;
+  text-align: justify !important;
+  margin: 10px 10px;
+}
+
+.hdr-brk {
+  padding: 5px 0;
+  background: #fff;
+  border-bottom: 1px solid #ccc;
+  line-height: 1;
+}
+
+.hdr-brk, .hm-bg-cnt .hm-bg-slick .lbl {
+  font-size: 16px;
+}
+
+.bld {
+  font-weight: 700;
+}
+
+.hdr-brk {
+  padding: 5px 0;
+  background: #fff;
+  border-bottom: 1px solid #ccc;
+  line-height: 1;
+}
+
+table {
+  color: #333;
+  font-family: Helvetica, Arial, sans-serif;
+  border-collapse: collapse;
+  //border: 1px solid #c4cbcc;
+}
+
+tbody > tr > td:first-child {
+  color: #333 !important;
+  font-weight: bold;
+  font-family: Helvetica, Arial, sans-serif;
+  margin: 6px;
+}
+
+td, th {
+  height: 30px;
+  transition: all 0.3s; /* Simple transition for hover effect */
+}
+
+td {
+  text-align: left;
+}
+
+/* Cells in even rows (2,4,6...) are one color */
+tr:nth-child(even) td {
+  background: #FEFEFE;
+}
+
+/* Cells in odd rows (1,3,5...) are another (excludes header cells)  */
+tr:nth-child(odd) td {
+  background: #FEFEFE;
+}
+
+tr td:hover {
+  background: #d8e9f9;
+  color: #FFF;
+}
+
+
+

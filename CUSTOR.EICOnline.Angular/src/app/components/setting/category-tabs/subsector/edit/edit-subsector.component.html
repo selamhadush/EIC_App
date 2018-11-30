@@ -1,0 +1,80 @@
+<div class="containerX">
+  <mat-card>
+    <mat-progress-bar *ngIf="loadingIndicator" mode="query"></mat-progress-bar>
+    <mat-card-header>
+      <mat-card-title>
+        <!-- <mat-icon class="mat-button-icon">person_add</mat-icon> Edit Customer -->
+      </mat-card-title>
+    </mat-card-header>
+    <br />
+    <mat-card-content>
+      <form #form="ngForm" [formGroup]="subSectorsForm" novalidate (ngSubmit)="onSubmit()" fxLayout="column"
+            autocomplete="off">
+        <div fxLayout="column" fxLayout.lt-md="column" fxLayoutGap="2em" class="row">
+          <mat-form-field  style="width: 150px">
+            <mat-label>Sector:</mat-label>
+            <mat-select formControlName="cSector" [compareWith]="compareIds" required>
+              <mat-option *ngFor="let sector of sectorModels" [value]="sector.SectorId">
+                <span>{{sector.DescriptionEnglishAlias}}</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Description:</mat-label>
+            <input matInput formControlName="cDescription"  required maxlength="150" />
+            <mat-error *ngIf="Description.hasError('required')">
+              Please enter Description amharic
+            </mat-error>
+            <mat-error *ngIf="Description.hasError('pattern')">
+              Only amharic alphabetic charcters are allowed!
+            </mat-error>
+            <mat-error *ngIf="!Description.hasError('maxlength')">
+              Maximum charcters length is 150!
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Description Alias:</mat-label>
+            <input matInput formControlName="cDescriptionAlias"  required maxlength="20" />
+            <mat-error *ngIf="DescriptionAlias.hasError('required')">
+              Please enter Description Alias amharic
+            </mat-error>
+            <mat-error *ngIf="DescriptionAlias.hasError('pattern')">
+              Only amharic alphabetic charcters are allowed!
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label >Description English:</mat-label>
+            <input matInput formControlName="cDescriptionEnglish" required maxlength="200" />
+            <mat-error *ngIf="DescriptionEnglish.hasError('required')">
+              Please enter service name english
+            </mat-error>
+            <mat-error *ngIf="DescriptionEnglish.hasError('pattern')">
+              Only alphabetic charcters are allowed!
+            </mat-error>
+            <mat-error *ngIf="!DescriptionEnglish.hasError('maxlength')">
+              Maximum charcters length is 200!
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label >Description English Alias:</mat-label>
+            <input matInput formControlName="cDescriptionEnglishAlias" required maxlength="20" />
+            <mat-error *ngIf="DescriptionEnglishAlias.hasError('required')">
+              Please enter service name english
+            </mat-error>
+            <mat-error *ngIf="DescriptionEnglishAlias.hasError('pattern')">
+              Only alphabetic charcters are allowed!
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div mat-dialog-actions>
+          <button [disabled]="form.invalid" mat-raised-button type="submit" color="primary">
+            Save
+          </button>
+          <button mat-raised-button (click)="onBack()" color="warn" type="button">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

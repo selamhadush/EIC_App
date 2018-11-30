@@ -1,0 +1,15 @@
+﻿<div style="width:600px; padding:20px">
+
+  <p>Dear {user},</p>
+  <p>Your have requested to reset your password.</p>
+  <p>To complete the process, please confirm your request by clicking the link below.</p>
+  <p style="text-align:center; padding:5px">
+    <a href="{confirmLink}">Reset My Password</a>
+  </p>
+
+  <p>Regards,</p>
+
+  <div style="background-color:navy; color:lightgray; width:600px; padding:10px; margin-left:-10px">
+    <b>{orgName}</b>
+  </div>
+</div>

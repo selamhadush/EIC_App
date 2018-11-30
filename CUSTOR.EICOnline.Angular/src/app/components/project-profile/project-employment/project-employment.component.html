@@ -1,0 +1,389 @@
+<mat-card class="margin-2">
+  <mat-card-subtitle class="sub-title">
+    Project Employment
+    <mat-divider></mat-divider>
+  </mat-card-subtitle>
+  <form [formGroup]="employmetForm" novalidate>
+    <mat-card-content>
+      <div style="margin-bottom: 40px;" *ngIf="ServiceId=='1234'" fxLayout="row" fxLayoutAlign="start center"
+           fxLayoutGap="2em">
+        <div class="block" fxFlex="" style="margin-left: 20px">
+          <mat-form-field>
+            <mat-label>Quarter</mat-label>
+            <mat-select formControlName="Quarter" required>
+              <mat-option *ngFor="let row of Quarter" [value]="row.Id">
+                <span>{{row.DescriptionEnglish}}</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+        <div class="block" fxFlex>
+          <mat-form-field>
+            <input placeholder="Registration Year* :"
+                   matInput
+                   formControlName="RegistrationYear"
+                   [matDatepicker]="RegistrationYear">
+            <mat-datepicker-toggle matSuffix [for]="RegistrationYear"></mat-datepicker-toggle>
+            <mat-datepicker #RegistrationYear></mat-datepicker>
+            <mat-error align="start" *ngIf="formErrors.RegistrationYear" class="form__error">
+              {{ formErrors.RegistrationYear }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <!--<div class="block" fxFlex="">-->
+        <!---->
+        <!--<mat-form-field>-->
+        <!--<input #OSF type="number" formControlName="CapitalRegistrationDatetime" matInput-->
+        <!--placeholder="Capital Registration Datetime * :">-->
+        <!---->
+        <!--</mat-form-field>-->
+        <!--</div>-->
+        <div class="block" fxFlex="">
+
+          <mat-form-field>
+            <mat-select [disabled]="true" formControlName="ProjectStatus" required>
+              <option value="0">--Select--</option>
+              <label>Project Status</label>
+              <mat-option *ngFor="let status of projectStatus" [value]="status.Id">
+                <span>{{status.DescriptionEnglish}}</span>
+              </mat-option>
+            </mat-select>
+
+          </mat-form-field>
+        </div>
+      </div>
+
+      <mat-card-subtitle *ngIf="ServiceId=='1234'" class="sub-title">
+        Detail
+        <mat-divider></mat-divider>
+      </mat-card-subtitle>
+      <span>
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+
+        <div fxLayout="row wrap">
+          <span class="padding-10">Permanent</span>
+          <div class="block" fxFlex>
+            <mat-form-field>
+              <input name="PermanentFemale"
+                     matInput formControlName="PermanentFemale"
+                     type="number"
+                     #pf
+                     placeholder="Female * :">
+              <mat-error align="start" *ngIf="formErrors.PermanentFemale" class="form__error">{{
+                formErrors.PermanentFemale }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex>
+            <mat-form-field>
+              <input name="PermanentMale"
+                     matInput formControlName="PermanentMale"
+                     placeholder="Male * :"
+                     #pm
+                     type="number">
+              <mat-error align="start" *ngIf="formErrors.PermanentMale" class="form__error">{{
+                formErrors.PermanentMale
+                }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex="">
+            <mat-form-field>
+              <input formControlName="PermanentForeignFemale"
+                     type="number"
+                     matInput
+                     #pff
+                     placeholder="Foreign Female * :">
+
+              <mat-error align="start" *ngIf="formErrors.PermanentForeignFemale" class="form__error">
+                {{ formErrors.PermanentForeignFemale}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex="">
+            <mat-form-field>
+              <input formControlName="PermanentForeignMale"
+                     matInput
+                     type="number"
+                     #pfm
+                     placeholder="Foreign Male * :">
+              <mat-error align="start" *ngIf="formErrors.PermanentForeignMale" class="form__error">{{
+                formErrors.PermanentForeignMale}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex="">
+            <mat-form-field style="width: 50px!important;">
+              <input formControlName="TotalPermanent"
+                     value="{{pf.value*1+pff.value*1+pm.value*1+pfm.value*1}}"
+                     type="number"
+                     #totalPermanent
+                     matInput placeholder="Total">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="2em">
+
+        <div fxLayout="row wrap">
+          <div class="padding-10">Temporary</div>
+          <div class="block" fxFlex>
+            <mat-form-field>
+              <input name="TemporaryFemale"
+                     matInput
+                     #Tf
+                     formControlName="TemporaryFemale"
+                     placeholder="Female * :"
+                     type="number">
+              <mat-error align="start" *ngIf="formErrors.TemporaryFemale" class="form__error">{{
+                formErrors.TemporaryFemale }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex="">
+            <mat-form-field>
+              <input formControlName="TemporaryMale"
+                     #TM
+                     type="number"
+                     matInput placeholder="male * :">
+              <mat-error align="start" *ngIf="formErrors.TemporaryMale" class="form__error">{{
+                formErrors.TemporaryMale}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex="">
+            <mat-form-field>
+              <input formControlName="TemporaryForeignFemale"
+                     #TFF
+                     type="number"
+                     matInput placeholder="Foreign Female * :">
+              <mat-error align="start"
+                         *ngIf="formErrors.TemporaryForeignFemale"
+                         class="form__error">{{
+                formErrors.TemporaryForeignFemale}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex="">
+            <mat-form-field>
+              <input formControlName="TemporaryForeignMale"
+                     #TFM
+                     type="number"
+                     matInput placeholder="Foreign Male * :">
+              <mat-error align="start" *ngIf="formErrors.TemporaryForeignMale"
+                         class="form__error">{{
+                formErrors.TemporaryForeignMale}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex="">
+            <mat-form-field style="width: 50px!important;">
+              <input formControlName="TotalTempo"
+                     type="number"
+                     #TotalTempo
+                     value="{{Tf.value*1+TM.value*1+TFF.value*1+TFM.value*1}}"
+                     matInput placeholder="Total">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="2em">
+        <div class="block" fxFlexAlign="end">
+          <mat-form-field>
+            <mat-label>Total Employee</mat-label>
+            <input matInput
+                   value="{{TotalTempo.value*1+totalPermanent.value*1}}"
+                   formControlName="totalEmployee"
+                   type="number">
+          </mat-form-field>
+        </div>
+      </div>
+      </span>
+
+      <span *ngIf="ServiceId=='1023'">
+       <mat-card-subtitle>
+        Current
+        <mat-divider></mat-divider>
+        </mat-card-subtitle>
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2em">
+
+        <div fxLayout="row wrap">
+          <span class="padding-10">Permanent</span>
+          <div class="block" fxFlex>
+            <mat-form-field>
+              <input name="PermanentFemale"
+                     matInput formControlName="PermanentFemale"
+                     type="number"
+                     #pf
+                     placeholder="Female * :">
+              <mat-error align="start" *ngIf="formErrors.PermanentFemale" class="form__error">{{
+                formErrors.PermanentFemale }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex>
+            <mat-form-field>
+              <input name="PermanentMale"
+                     matInput formControlName="PermanentMale"
+                     placeholder="Male * :"
+                     #pm
+                     type="number">
+              <mat-error align="start" *ngIf="formErrors.PermanentMale" class="form__error">{{
+                formErrors.PermanentMale
+                }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex="">
+            <mat-form-field>
+              <input formControlName="PermanentForeignFemale"
+                     type="number"
+                     matInput
+                     #pff
+                     placeholder="Foreign Female * :">
+
+              <mat-error align="start" *ngIf="formErrors.PermanentForeignFemale" class="form__error">
+                {{ formErrors.PermanentForeignFemale}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex="">
+            <mat-form-field>
+              <input formControlName="PermanentForeignMale"
+                     matInput
+                     type="number"
+                     #pfm
+                     placeholder="Foreign Male * :">
+              <mat-error align="start" *ngIf="formErrors.PermanentForeignMale" class="form__error">{{
+                formErrors.PermanentForeignMale}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex="">
+            <mat-form-field style="width: 50px!important;">
+              <input formControlName="TotalPermanent"
+                     value="{{pf.value*1+pff.value*1+pm.value*1+pfm.value*1}}"
+                     type="number"
+                     #totalPermanent
+                     matInput placeholder="Total">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="2em">
+
+        <div fxLayout="row wrap">
+          <div class="padding-10">Temporary</div>
+          <div class="block" fxFlex>
+            <mat-form-field>
+              <input name="TemporaryFemale"
+                     matInput
+                     #Tf
+                     formControlName="TemporaryFemale"
+                     placeholder="Female * :"
+                     type="number">
+              <mat-error align="start" *ngIf="formErrors.TemporaryFemale" class="form__error">{{
+                formErrors.TemporaryFemale }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex="">
+            <mat-form-field>
+              <input formControlName="TemporaryMale"
+                     #TM
+                     type="number"
+                     matInput placeholder="male * :">
+              <mat-error align="start" *ngIf="formErrors.TemporaryMale" class="form__error">{{
+                formErrors.TemporaryMale}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex="">
+            <mat-form-field>
+              <input formControlName="TemporaryForeignFemale"
+                     #TFF
+                     type="number"
+                     matInput placeholder="Foreign Female * :">
+              <mat-error align="start"
+                         *ngIf="formErrors.TemporaryForeignFemale"
+                         class="form__error">{{
+                formErrors.TemporaryForeignFemale}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex="">
+            <mat-form-field>
+              <input formControlName="TemporaryForeignMale"
+                     #TFM
+                     type="number"
+                     matInput placeholder="Foreign Male * :">
+              <mat-error align="start" *ngIf="formErrors.TemporaryForeignMale"
+                         class="form__error">{{
+                formErrors.TemporaryForeignMale}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="block" fxFlex="">
+            <mat-form-field style="width: 50px!important;">
+              <input formControlName="TotalTempo"
+                     type="number"
+                     #TotalTempo
+                     value="{{Tf.value*1+TM.value*1+TFF.value*1+TFM.value*1}}"
+                     matInput placeholder="Total">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="2em">
+        <div class="block" fxFlexAlign="end">
+          <mat-form-field>
+            <mat-label>Total Employee</mat-label>
+            <input matInput
+                   value="{{TotalTempo.value*1+totalPermanent.value*1}}"
+                   formControlName="totalEmployee"
+                   type="number">
+          </mat-form-field>
+        </div>
+      </div>
+      </span>
+
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <div fxLayoutGap="3em" align="center">
+      <div style="padding: 20px" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2em">
+
+        <div fxFlex="15">
+
+          <!--<button class="custom-button" (click)="next()" color="warn" type="button">-->
+          <!--Back-->
+          <!--</button>-->
+        </div>
+        <div style="text-align: center" fxFlex="67" fxFlexAlign="center">
+          <button [disabled]="!employmetForm.valid"
+                  mat-raised-button=""
+                  color="primary"
+                  mat-button (click)="onSubmit()">
+            <mat-icon class="mat-18">done</mat-icon>
+            <span class="agree">{{editMode ? 'update' : 'Save'}}</span>
+          </button>
+          <!--<button style="margin-left: 10px" mat-raised-button="" color="warn" (click)="onClear()" type="button">-->
+          <!--<mat-icon class="mat-18">clear_all</mat-icon>-->
+          <!--</button>-->
+        </div>
+        <div fxFlex="15">
+
+          <!--<button class="custom-button" (click)="next()" color="warn" type="button">-->
+          <!--Next-->
+          <!--</button>-->
+        </div>
+
+      </div>
+
+    </div>
+
+  </form>
+</mat-card>
+<button class="custom-button" (click)="back()" color="warn" type="button">
+  back
+</button>
