@@ -13,7 +13,7 @@ import {DivisionModel} from '../../../model/BL/DivisionModel';
 export class BlRegistrationComponent implements OnInit {
   cFrm: FormGroup;
   MajorDivisions: MajorDivisionModel[] = [];
-
+  filterMajorDivisions: MajorDivisionModel[] = [];
   Divisions: DivisionModel[] = [];
   filterDivisions: DivisionModel[] = [];
   // lookupSub: Subscription;
@@ -48,7 +48,15 @@ export class BlRegistrationComponent implements OnInit {
     // const form = this.contactFrm;
     // this.getItemLookupByParent();
   }
-
+  filterMajorDivision(id: number)
+  {
+    if (!id) {
+      return;
+    }
+    this.filterMajorDivision = this.MajorDivisions.filter((item) => {return item.Parent === id;
+      }
+    );
+  }
   filterDivision(id: number)
   {
     if (!id) {

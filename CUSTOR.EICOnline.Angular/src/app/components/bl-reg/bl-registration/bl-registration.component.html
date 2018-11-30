@@ -65,7 +65,7 @@
     <div>
       <mat-form-field fxFlex>
         <mat-label>ዘርፍ</mat-label>
-        <mat-select placeholder="MajorDivision" formControlName="MajorDivision" (selectionChange)="filterDivision($event.value)">
+        <mat-select placeholder="MajorDivision" formControlName="MajorDivision" (selectionChange)="filterMajorDivision($event.value)">
           <mat-option value="0">-- Select --</mat-option>
           <mat-option *ngFor="let MajorDivision  of MajorDivisions" [value]="MajorDivision.Id">
             {{ MajorDivision.Description }}
@@ -78,10 +78,10 @@
 
       <mat-form-field fxFlex>
         <mat-label>ዋና ክፍል</mat-label>
-        <mat-select placeholder="Division" formControlName="Division">
+        <mat-select placeholder="Division" formControlName="Division" (selectionChange)="filterDivision($event.value)">
           <mat-option value="0"> Select </mat-option>
-          <mat-option *ngFor="let Division of Lookup" [value]="Division.lookupId">
-            {{ Division.amharic }}
+          <mat-option *ngFor="let Division of Divisions" [value]="Division.Id">
+            {{ Division.Description }}
           </mat-option>
         </mat-select>
       </mat-form-field>
